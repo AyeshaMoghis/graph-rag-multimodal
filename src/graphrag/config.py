@@ -53,6 +53,7 @@ class Settings(BaseSettings):
     llm_model: str = "llama-3.1-8b-instant"
     llm_temperature: float = 0.1
     llm_max_tokens: int = 1024
+    prompt_version: Literal["v1", "v2"] = "v2"
 
     # ── Ingest ───────────────────────────────────────────────────────────
     phash_threshold: int = 10

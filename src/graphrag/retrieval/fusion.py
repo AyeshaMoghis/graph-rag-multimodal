@@ -56,14 +56,20 @@ class PackedContext:
     text_chunks: list[Any]
     images: list[Any]
     conflicts: list[str] = field(default_factory=list)
+    kept_graph_paths: list[str] = field(default_factory=list)
 
     @property
     def chunk_ids(self) -> list[str]:
         return [_get(c, "chunk_id") for c in self.text_chunks]
 
+    @property
+    def image_ids(self) -> list[str]:
+        return [_get(i, "image_id") for i in self.images]
+
     def metadata(self) -> dict[str, Any]:
         return {
             "graph_paths_total": len(self.graph_paths),
+            "graph_paths_in_context": len(self.kept_graph_paths),
             "text_chunks_used": len(self.text_chunks),
             "images_used": len(self.images),
             "chunk_ids": self.chunk_ids,
@@ -90,6 +96,8 @@ def pack_context(
         words = graph_str.split()
         graph_str = " ".join(words[: int(graph_budget * 0.75)]) + " [truncated]"
 
+    # Paths that survived truncation intact; only these can be legitimately cited.
+    kept_paths = [p for p in graph_paths if p in graph_str]
     kept_chunks = truncate_to_budget(text_chunks, text_budget, key="text")
     kept_images = truncate_to_budget(images, image_budget, key="caption")
 
@@ -99,6 +107,7 @@ def pack_context(
         text_chunks=kept_chunks,
         images=kept_images,
         conflicts=naive_conflicts(kept_chunks, graph_nodes),
+        kept_graph_paths=kept_paths,
     )
 
 

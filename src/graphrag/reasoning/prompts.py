@@ -62,3 +62,66 @@ def render_reasoning_prompt(
     prompt = prompt.replace("{image_captions}", "\n".join(image_captions) or "(none)")
     prompt = prompt.replace("{conflict_note}", conflict_note)
     return prompt.replace("REPLACE_QUERY_HERE", query)
+
+
+# ── v2: every piece of context carries an id the model can cite ─────────────
+# v1 asked for source_chunks_used without ever showing chunk ids, so any chunk
+# citation it produced was invented. v2 labels each item and restricts
+# citations to those labels, which makes citations checkable.
+
+REASONING_PROMPT_V2 = """You are an expert assistant. Answer the question using ONLY the context below.
+
+GRAPH RELATIONSHIPS (structured knowledge):
+{graph_context}
+
+TEXT EXCERPTS (detailed content):
+{text_chunks}
+
+RELEVANT DIAGRAMS / IMAGES (described):
+{image_captions}
+
+{conflict_note}
+
+INSTRUCTIONS:
+- Use graph relationships to structure your answer and text excerpts for detail.
+- If sources conflict, state the conflict explicitly.
+- Be concise and grounded: do not add facts that are not in the context.
+- Cite only ids that appear in square brackets above. Never invent an id.
+  If you did not use any graph relationship, return an empty graph_paths_used list.
+
+Respond ONLY with a JSON object in this exact format (no markdown fences):
+{"answer": "...", "referenced_concepts": ["..."], "source_chunks_used": ["<text id>"], "graph_paths_used": ["<G id>"], "relevant_images": ["<image id>"], "confidence": "high|medium|low"}
+
+QUESTION: REPLACE_QUERY_HERE
+"""
+
+
+def graph_path_id(i: int) -> str:
+    return f"G{i + 1}"
+
+
+def render_reasoning_prompt_v2(
+    query: str,
+    graph_paths: list[str],
+    text_items: list[tuple[str, str, int, str]],
+    image_items: list[tuple[str, str]],
+    conflicts: list[str],
+) -> str:
+    """``text_items`` are (chunk_id, doc_id, page, text); ``image_items`` are (image_id, caption)."""
+    graph = (
+        "\n".join(f"[{graph_path_id(i)}] {p}" for i, p in enumerate(graph_paths))
+        or "(no graph paths found)"
+    )
+    texts = (
+        "\n---\n".join(
+            f"[{cid}] ({doc}, page {page})\n{text}" for cid, doc, page, text in text_items
+        )
+        or "(none)"
+    )
+    images = "\n".join(f"[{iid}] {cap}" for iid, cap in image_items) or "(none)"
+    conflict_note = ("POTENTIAL CONFLICTS DETECTED:\n" + "\n".join(conflicts)) if conflicts else ""
+    prompt = REASONING_PROMPT_V2.replace("{graph_context}", graph)
+    prompt = prompt.replace("{text_chunks}", texts)
+    prompt = prompt.replace("{image_captions}", images)
+    prompt = prompt.replace("{conflict_note}", conflict_note)
+    return prompt.replace("REPLACE_QUERY_HERE", query)

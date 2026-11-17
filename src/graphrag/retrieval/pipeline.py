@@ -28,6 +28,7 @@ from graphrag.index.vector_store import (
 from graphrag.log import get_logger
 from graphrag.reasoning.answer import generate_answer
 from graphrag.reasoning.llm import LLM
+from graphrag.reasoning.verify import evidence_confidence
 from graphrag.retrieval.fusion import BudgetConfig, PackedContext, pack_context
 from graphrag.retrieval.hybrid import FusedHit, HybridRetriever
 
@@ -208,6 +209,13 @@ class Pipeline:
             raise RuntimeError("GROQ_API_KEY is not set; answering needs an LLM")
         result = self.retrieve(query, **retrieve_kwargs)
         t0 = time.perf_counter()
-        answer = generate_answer(query, self.pack(result), self.llm)
+        context = self.pack(result)
+        answer = generate_answer(query, context, self.llm, self.settings.prompt_version)
         result.timings_ms["llm"] = (time.perf_counter() - t0) * 1000
+        evidence = evidence_confidence(
+            result.text_chunks,
+            len(context.kept_graph_paths) if self.graph_store is not None else None,
+        )
+        answer["confidence"] = evidence.level
+        answer["_evidence"] = {"score": evidence.score, **evidence.components}
         return answer, result

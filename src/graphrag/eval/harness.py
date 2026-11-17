@@ -77,7 +77,9 @@ def evaluate_item(pipeline: Pipeline, item: GoldenItem, mode: EvalMode) -> dict[
     else:
         answer, result = pipeline.answer(item.question, text_top_k=5, image_top_k=2, graph_hops=2)
         meta = answer.get("_fusion_metadata", {})
-        claimed_paths = answer.get("graph_paths_used") or []
+        citations = answer.get("_citations", {})
+        kept, dropped = citations.get("kept", {}), citations.get("dropped", {})
+        claimed_paths = kept.get("graph_paths_used", []) + dropped.get("graph_paths_used", [])
         row.update(
             answer=answer.get("answer", ""),
             keyword_recall=keyword_recall(str(answer.get("answer", "")), item.expected_concepts),
@@ -87,9 +89,16 @@ def evaluate_item(pipeline: Pipeline, item: GoldenItem, mode: EvalMode) -> dict[
             # Original definition: the model *claims* it used a graph path.
             graph_utilized=len(claimed_paths) > 0,
             graph_paths_count=len(claimed_paths),
+            # Claims that survived citation validation.
+            graph_utilized_validated=len(kept.get("graph_paths_used", [])) > 0,
             # What was actually in the prompt, for comparison.
-            graph_paths_in_context=meta.get("graph_paths_total", 0),
+            graph_paths_in_context=meta.get("graph_paths_in_context", 0),
             confidence=answer.get("confidence", "low"),
+            confidence_self_reported=answer.get("confidence_self_reported") or "missing",
+            evidence=answer.get("_evidence", {}),
+            citations_cited=citations.get("cited", 0),
+            citations_fabricated=citations.get("fabricated", 0),
+            citations_dropped=dropped,
             referenced_concepts=answer.get("referenced_concepts", []),
             retrieved_chunk_ids=[h.chunk_id for h in result.text_chunks],
             text_chunks_used=meta.get("text_chunks_used", 0),
@@ -170,7 +179,29 @@ def summarize(results: Sequence[dict[str, Any]], mode: EvalMode) -> dict[str, An
         summary["graph_paths_in_context_rate"] = mean(
             [{"v": float(r["graph_paths_in_context"] > 0)} for r in good], "v"
         )
+        summary["graph_utilization_validated"] = mean(
+            [{"v": float(r["graph_utilized_validated"])} for r in good], "v"
+        )
+        cited = sum(r["citations_cited"] for r in good)
+        fabricated = sum(r["citations_fabricated"] for r in good)
+        summary["citations_total"] = cited
+        summary["citations_fabricated"] = fabricated
+        summary["fabricated_citation_rate"] = round(fabricated / cited, 3) if cited else 0.0
+        summary["answers_with_fabrication_rate"] = mean(
+            [{"v": float(r["citations_fabricated"] > 0)} for r in good], "v"
+        )
         summary["confidence"] = dict(Counter(r["confidence"] for r in good))
+        summary["confidence_self_reported"] = dict(
+            Counter(r["confidence_self_reported"] for r in good)
+        )
+        summary["calibration"] = {
+            source: {
+                level: {"n": len(rows), "keyword_recall": mean(rows, "keyword_recall")}
+                for level in ("high", "medium", "low")
+                if (rows := [r for r in good if r[source] == level])
+            }
+            for source in ("confidence_self_reported", "confidence")
+        }
         for t, rows in by_type.items():
             summary["by_type"][t]["graph_self_reported"] = mean(
                 [{"v": float(r["graph_utilized"])} for r in rows], "v"

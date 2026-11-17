@@ -20,6 +20,7 @@ PRESETS: dict[str, dict[str, str]] = {
         "bm25_tokenizer": "legacy",
         "graph_mode": "legacy",
         "entity_extractor": "legacy",
+        "prompt_version": "v1",
     },
     # The fix: RRF over true chunk ids with normalised BM25 tokens.
     "fixed": {"fusion": "rrf", "bm25_tokenizer": "normalized"},
@@ -274,6 +275,17 @@ def eval_cmd(
     save_run(out, config, summary, results)
     out.with_suffix(".md").write_text(render_markdown(summary, config), encoding="utf-8")
     typer.echo(json.dumps(summary, indent=2))
+
+
+@app.command()
+def calibration(
+    results: Path = typer.Argument(..., help="An answer-mode results JSON from `graphrag eval`."),
+    out: Path = typer.Option(Path("docs/calibration.png"), help="Where to save the plot."),
+) -> None:
+    """Plot confidence bucket against keyword recall, for self-reported and evidence confidence."""
+    from graphrag.eval.calibration import plot_calibration
+
+    typer.echo(json.dumps(plot_calibration(results, out), indent=2))
 
 
 if __name__ == "__main__":

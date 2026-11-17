@@ -13,6 +13,7 @@ dependencies = [
     "gliner==0.2.30",
     "groq==1.7.0",
     "imagehash==4.3.2",
+    "matplotlib==3.11.2",
     "neo4j==6.4.1",
     "numpy==2.5.5",
     "pillow==13.0.0",
