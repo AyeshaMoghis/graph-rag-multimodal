@@ -1,7 +1,7 @@
 # Evaluation notes: Tasks 2.2 to 2.4
 
-Every number below comes from a saved results file in `results/`. Anything that
-has not been measured yet says so.
+Every metric below comes from a saved results file in `results/`. Spot checks
+that are qualitative are labelled as such. Anything not yet measured says so.
 
 ## 2.2 Confidence and citations
 
@@ -19,9 +19,15 @@ has not been measured yet says so.
 
 **Measured so far (retrieval only, no LLM)**
 
-On the 50 golden questions, evidence confidence splits 23 high / 27 medium /
-0 low from text evidence alone, against 49 / 0 / 1 for the original
-self-report. Whether it tracks answer quality needs the answer-level run.
+On the 50 golden questions, evidence confidence from text evidence alone
+(`evidence_confidence_text_only` in `results/retrieval_fixed_r1.json`) is
+compared with the original self-report of 49 high / 0 medium / 1 low. With the
+default RRF fusion it is 23 high / 27 medium / 0 low.
+
+Limitation: the margin component depends on the fusion score scale. The same
+questions score 48 high / 2 medium under weighted fusion and 50 low under the
+original broken fusion. Evidence confidence is only comparable within one
+fusion mode. Whether it tracks answer quality needs the answer-level run.
 
 **Not yet measured (needs a Groq key)**
 
@@ -71,15 +77,16 @@ How to read this honestly:
 ## 2.4 Scalability
 
 * **Image dedup** uses a BK-tree over Hamming distance. On 500 random 64-bit
-  hashes it returns exactly the linear scan's answers at radii 0, 5, 9 and 20.
-  On real ingest it keeps the same 14 of 136 images. For random 64-bit hashes
+  hashes it returns exactly the linear scan's answers at radii 0, 5, 9 and 20
+  (`tests/test_dedupe.py`). `graphrag ingest` on the original corpus still
+  keeps 14 of 136 images. For random 64-bit hashes
   at radius 9 its pruning is modest; no large speed-up is claimed.
 * **Entity linking** goes lexical (Neo4j full-text index) to semantic (cached
   node-name embeddings) to fuzzy only for misses, and node names are fetched
   once per process instead of on every query. Unit-tested against a fake
   driver; not yet run against a live graph.
 * **Query entities** come from GLiNER plus the quoted-span and acronym regexes.
-  Spot check: for "What is the difference between local trust and global trust
+  Qualitative spot check, not saved: for "What is the difference between local trust and global trust
   on Twitter?" GLiNER returns *local trust*, *global trust* and *Twitter*; for
   the MBTI question it returns only *social media*, and the acronym regex adds
   *MBTI*. Its effect on graph recall is not yet measured.

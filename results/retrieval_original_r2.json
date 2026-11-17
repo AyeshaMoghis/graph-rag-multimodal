@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-11-17T17:18:16+00:00",
+  "created_at": "2026-11-17T18:11:29+00:00",
   "python": "3.12.6",
   "config": {
     "preset": "original",
@@ -20,7 +20,7 @@
     "errors": 0,
     "primary_metric": "context_keyword_recall",
     "context_keyword_recall": 0.647,
-    "latency_ms_p50": 187.8,
+    "latency_ms_p50": 225.2,
     "by_type": {
       "factual": {
         "n": 31,
@@ -36,7 +36,10 @@
       }
     },
     "duplicate_slots_total": 25,
-    "both_signal_hits_total": 0
+    "both_signal_hits_total": 0,
+    "evidence_confidence_text_only": {
+      "low": 50
+    }
   },
   "results": [
     {
@@ -58,7 +61,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 12133.875500177965
+      "evidence_confidence": "low",
+      "latency_ms": 27891.293600201607
     },
     {
       "id": "q002",
@@ -80,7 +84,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 149.93040007539093
+      "evidence_confidence": "low",
+      "latency_ms": 198.8673999439925
     },
     {
       "id": "q003",
@@ -102,7 +107,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 144.89080011844635
+      "evidence_confidence": "low",
+      "latency_ms": 188.00170021131635
     },
     {
       "id": "q004",
@@ -124,7 +130,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 149.11719993688166
+      "evidence_confidence": "low",
+      "latency_ms": 185.86959992535412
     },
     {
       "id": "q005",
@@ -145,7 +152,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 170.27419991791248
+      "evidence_confidence": "low",
+      "latency_ms": 196.5742998290807
     },
     {
       "id": "q006",
@@ -167,7 +175,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 155.65369999967515
+      "evidence_confidence": "low",
+      "latency_ms": 192.3889999743551
     },
     {
       "id": "q007",
@@ -190,7 +199,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 153.97239988669753
+      "evidence_confidence": "low",
+      "latency_ms": 188.1508999504149
     },
     {
       "id": "q008",
@@ -211,7 +221,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 154.7252000309527
+      "evidence_confidence": "low",
+      "latency_ms": 190.96660008653998
     },
     {
       "id": "q009",
@@ -234,7 +245,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 176.5149999409914
+      "evidence_confidence": "low",
+      "latency_ms": 225.9646998718381
     },
     {
       "id": "q010",
@@ -257,7 +269,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 160.76879994943738
+      "evidence_confidence": "low",
+      "latency_ms": 197.62500002980232
     },
     {
       "id": "q011",
@@ -282,7 +295,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 164.15770002640784
+      "evidence_confidence": "low",
+      "latency_ms": 196.38759992085397
     },
     {
       "id": "q012",
@@ -306,7 +320,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 196.4177000336349
+      "evidence_confidence": "low",
+      "latency_ms": 224.9984999652952
     },
     {
       "id": "q013",
@@ -329,7 +344,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 202.1462998818606
+      "evidence_confidence": "low",
+      "latency_ms": 231.1986000277102
     },
     {
       "id": "q014",
@@ -353,7 +369,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 193.30189982429147
+      "evidence_confidence": "low",
+      "latency_ms": 224.010800011456
     },
     {
       "id": "q015",
@@ -376,7 +393,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 155.91299999505281
+      "evidence_confidence": "low",
+      "latency_ms": 197.41479982621968
     },
     {
       "id": "q016",
@@ -398,7 +416,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 192.53560015931726
+      "evidence_confidence": "low",
+      "latency_ms": 223.616800038144
     },
     {
       "id": "q017",
@@ -421,7 +440,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 165.59230000711977
+      "evidence_confidence": "low",
+      "latency_ms": 210.12420020997524
     },
     {
       "id": "q018",
@@ -446,7 +466,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 163.12189982272685
+      "evidence_confidence": "low",
+      "latency_ms": 197.98389985226095
     },
     {
       "id": "q019",
@@ -470,7 +491,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 197.9863999877125
+      "evidence_confidence": "low",
+      "latency_ms": 229.79400004260242
     },
     {
       "id": "q020",
@@ -493,7 +515,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 190.22130011580884
+      "evidence_confidence": "low",
+      "latency_ms": 235.45340006239712
     },
     {
       "id": "q021",
@@ -516,7 +539,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 199.69339994713664
+      "evidence_confidence": "low",
+      "latency_ms": 249.27100003696978
     },
     {
       "id": "q022",
@@ -540,7 +564,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 198.97849997505546
+      "evidence_confidence": "low",
+      "latency_ms": 226.9302001222968
     },
     {
       "id": "q023",
@@ -565,7 +590,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 244.14369999431074
+      "evidence_confidence": "low",
+      "latency_ms": 250.44680014252663
     },
     {
       "id": "q024",
@@ -588,7 +614,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 235.797300003469
+      "evidence_confidence": "low",
+      "latency_ms": 247.92629992589355
     },
     {
       "id": "q025",
@@ -615,7 +642,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 274.8882998712361
+      "evidence_confidence": "low",
+      "latency_ms": 312.2686999849975
     },
     {
       "id": "q026",
@@ -638,7 +666,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 168.85839984752238
+      "evidence_confidence": "low",
+      "latency_ms": 224.8905000742525
     },
     {
       "id": "q027",
@@ -660,7 +689,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 209.09369993023574
+      "evidence_confidence": "low",
+      "latency_ms": 263.3551999460906
     },
     {
       "id": "q028",
@@ -684,7 +714,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 186.83239980600774
+      "evidence_confidence": "low",
+      "latency_ms": 229.94950017891824
     },
     {
       "id": "q029",
@@ -707,7 +738,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 180.39170000702143
+      "evidence_confidence": "low",
+      "latency_ms": 214.20589997433126
     },
     {
       "id": "q030",
@@ -731,7 +763,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 171.08029988594353
+      "evidence_confidence": "low",
+      "latency_ms": 209.97980004176497
     },
     {
       "id": "q031",
@@ -754,7 +787,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 205.9222999960184
+      "evidence_confidence": "low",
+      "latency_ms": 228.5458999685943
     },
     {
       "id": "q032",
@@ -776,7 +810,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 238.23149991221726
+      "evidence_confidence": "low",
+      "latency_ms": 223.80500007420778
     },
     {
       "id": "q033",
@@ -799,7 +834,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 229.99870008789003
+      "evidence_confidence": "low",
+      "latency_ms": 251.44870020449162
     },
     {
       "id": "q034",
@@ -823,7 +859,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 158.83539989590645
+      "evidence_confidence": "low",
+      "latency_ms": 208.64630001597106
     },
     {
       "id": "q035",
@@ -847,7 +884,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 161.00409999489784
+      "evidence_confidence": "low",
+      "latency_ms": 203.33330007269979
     },
     {
       "id": "q036",
@@ -870,7 +908,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 200.90649998746812
+      "evidence_confidence": "low",
+      "latency_ms": 225.54380004294217
     },
     {
       "id": "q037",
@@ -893,7 +932,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 162.20240015536547
+      "evidence_confidence": "low",
+      "latency_ms": 206.20040013454854
     },
     {
       "id": "q038",
@@ -915,7 +955,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 146.02959994226694
+      "evidence_confidence": "low",
+      "latency_ms": 207.51610002480447
     },
     {
       "id": "q039",
@@ -940,7 +981,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 211.96339977905154
+      "evidence_confidence": "low",
+      "latency_ms": 286.11710015684366
     },
     {
       "id": "q040",
@@ -964,7 +1006,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 174.4033000431955
+      "evidence_confidence": "low",
+      "latency_ms": 240.06780004128814
     },
     {
       "id": "q041",
@@ -987,7 +1030,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 165.4213999863714
+      "evidence_confidence": "low",
+      "latency_ms": 226.7450001090765
     },
     {
       "id": "q042",
@@ -1011,7 +1055,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 228.45879988744855
+      "evidence_confidence": "low",
+      "latency_ms": 247.3334998358041
     },
     {
       "id": "q043",
@@ -1035,7 +1080,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 188.74410004355013
+      "evidence_confidence": "low",
+      "latency_ms": 225.3143999259919
     },
     {
       "id": "q044",
@@ -1058,7 +1104,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 171.7493999749422
+      "evidence_confidence": "low",
+      "latency_ms": 214.99600005336106
     },
     {
       "id": "q045",
@@ -1081,7 +1128,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 176.65529996156693
+      "evidence_confidence": "low",
+      "latency_ms": 228.8072998635471
     },
     {
       "id": "q046",
@@ -1104,7 +1152,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 204.0791001636535
+      "evidence_confidence": "low",
+      "latency_ms": 249.80120011605322
     },
     {
       "id": "q047",
@@ -1127,7 +1176,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 205.04519995301962
+      "evidence_confidence": "low",
+      "latency_ms": 246.95950001478195
     },
     {
       "id": "q048",
@@ -1150,7 +1200,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 200.8318998850882
+      "evidence_confidence": "low",
+      "latency_ms": 223.00929995253682
     },
     {
       "id": "q049",
@@ -1173,7 +1224,8 @@
       ],
       "duplicate_slots": 1,
       "both_signal_hits": 0,
-      "latency_ms": 240.993200102821
+      "evidence_confidence": "low",
+      "latency_ms": 285.0929999258369
     },
     {
       "id": "q050",
@@ -1204,7 +1256,8 @@
       ],
       "duplicate_slots": 0,
       "both_signal_hits": 0,
-      "latency_ms": 420.8670000080019
+      "evidence_confidence": "low",
+      "latency_ms": 441.4703000802547
     }
   ]
 }

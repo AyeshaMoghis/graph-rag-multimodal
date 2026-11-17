@@ -4,7 +4,7 @@
 - Fusion: `legacy`, BM25 tokenizer: `normalized`
 - Questions: 50 (0 errors)
 - **context_keyword_recall: 0.682**
-- p50 latency: 183.0 ms
+- p50 latency: 227.7 ms
 
 | Type | n | context_keyword_recall |
 |---|---|---|

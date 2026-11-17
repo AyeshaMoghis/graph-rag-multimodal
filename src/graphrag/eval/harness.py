@@ -24,6 +24,7 @@ from typing import Any, Literal
 
 from graphrag.eval.metrics import context_keyword_recall, keyword_recall
 from graphrag.log import get_logger
+from graphrag.reasoning.verify import evidence_confidence
 from graphrag.retrieval.pipeline import Pipeline
 
 log = get_logger(__name__)
@@ -73,6 +74,7 @@ def evaluate_item(pipeline: Pipeline, item: GoldenItem, mode: EvalMode) -> dict[
             retrieved_chunk_ids=ids,
             duplicate_slots=len(ids) - len(set(ids)),
             both_signal_hits=sum(1 for h in hits if len(h.retrieved_by) == 2),
+            evidence_confidence=evidence_confidence(hits, None).level,
         )
     else:
         answer, result = pipeline.answer(item.question, text_top_k=5, image_top_k=2, graph_hops=2)
@@ -209,6 +211,9 @@ def summarize(results: Sequence[dict[str, Any]], mode: EvalMode) -> dict[str, An
     else:
         summary["duplicate_slots_total"] = sum(r["duplicate_slots"] for r in good)
         summary["both_signal_hits_total"] = sum(r["both_signal_hits"] for r in good)
+        summary["evidence_confidence_text_only"] = dict(
+            Counter(r.get("evidence_confidence", "n/a") for r in good)
+        )
     return summary
 
 

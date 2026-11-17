@@ -4,7 +4,7 @@
 - Fusion: `rrf`, BM25 tokenizer: `normalized`
 - Questions: 50 (0 errors)
 - **context_keyword_recall: 0.732**
-- p50 latency: 200.9 ms
+- p50 latency: 223.7 ms
 
 | Type | n | context_keyword_recall |
 |---|---|---|
