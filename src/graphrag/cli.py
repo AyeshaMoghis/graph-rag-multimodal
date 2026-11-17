@@ -15,7 +15,12 @@ log = get_logger("graphrag.cli")
 
 PRESETS: dict[str, dict[str, str]] = {
     # Reproduces the original notebook's broken hybrid retrieval exactly.
-    "original": {"fusion": "legacy", "bm25_tokenizer": "legacy"},
+    "original": {
+        "fusion": "legacy",
+        "bm25_tokenizer": "legacy",
+        "graph_mode": "legacy",
+        "entity_extractor": "legacy",
+    },
     # The fix: RRF over true chunk ids with normalised BM25 tokens.
     "fixed": {"fusion": "rrf", "bm25_tokenizer": "normalized"},
 }

@@ -3,11 +3,20 @@
 from __future__ import annotations
 
 import time
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
 
 from graphrag.config import Settings
-from graphrag.graph.retrieve import GraphResult, GraphStore, extract_entities_simple, graph_retrieve
+from graphrag.graph.retrieve import (
+    EntityExtractor,
+    EntityLinker,
+    GlinerNER,
+    GraphResult,
+    GraphStore,
+    extract_entities_simple,
+    graph_retrieve,
+)
 from graphrag.index.embeddings import Embedder
 from graphrag.index.sparse import BM25Index
 from graphrag.index.vector_store import (
@@ -55,12 +64,24 @@ class Pipeline:
         image_searcher: DenseSearcher | None = None,
         graph_store: GraphStore | None = None,
         llm: LLM | None = None,
+        extract_entities: Callable[[str], list[str]] | None = None,
+        linker: EntityLinker | None = None,
     ) -> None:
         self.settings = settings
         self.hybrid = hybrid
         self.image_searcher = image_searcher
         self.graph_store = graph_store
         self.llm = llm
+        if extract_entities is None:
+            extract_entities = (
+                extract_entities_simple
+                if settings.entity_extractor == "legacy"
+                else EntityExtractor(
+                    GlinerNER(settings.ner_model, threshold=settings.ner_threshold)
+                )
+            )
+        self.extract_entities = extract_entities
+        self.linker = linker
 
     @classmethod
     def from_settings(
@@ -80,11 +101,20 @@ class Pipeline:
         image_searcher = DenseSearcher(store, IMAGE_COLLECTION, embedder)
 
         graph_store: GraphStore | None = None
+        linker: EntityLinker | None = None
         if use_graph and settings.graph_enabled:
             from graphrag.graph.retrieve import Neo4jGraphStore
             from graphrag.graph.schema import connect
 
             graph_store = Neo4jGraphStore(connect(settings))
+            linker = EntityLinker(
+                graph_store,
+                encoder=embedder,
+                lexical_threshold=settings.link_lexical_threshold,
+                embedding_threshold=settings.link_embedding_threshold,
+                fuzzy_threshold=settings.graph_fuzzy_threshold,
+                cache_dir=settings.embeddings_dir,
+            )
         elif use_graph:
             log.warning("graph_disabled", reason="NEO4J_* not configured")
 
@@ -98,7 +128,7 @@ class Pipeline:
                 settings.llm_temperature,
                 settings.llm_max_tokens,
             )
-        return cls(settings, hybrid, image_searcher, graph_store, llm)
+        return cls(settings, hybrid, image_searcher, graph_store, llm, linker=linker)
 
     def retrieve(
         self,
@@ -109,11 +139,12 @@ class Pipeline:
     ) -> RetrievalResult:
         s = self.settings
         timings: dict[str, float] = {}
-        entities = extract_entities_simple(query)
+        entities: list[str] = []
 
         t0 = time.perf_counter()
         graph = GraphResult()
         if self.graph_store is not None:
+            entities = self.extract_entities(query)
             graph = graph_retrieve(
                 entities,
                 self.graph_store,
@@ -121,6 +152,8 @@ class Pipeline:
                 top_n_entities=s.graph_top_n_entities,
                 fuzzy_threshold=s.graph_fuzzy_threshold,
                 path_limit=s.graph_path_limit,
+                mode=s.graph_mode,
+                linker=self.linker,
             )
         timings["graph"] = (time.perf_counter() - t0) * 1000
 

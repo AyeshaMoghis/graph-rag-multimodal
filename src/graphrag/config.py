@@ -16,6 +16,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 FusionMode = Literal["rrf", "weighted", "legacy"]
 TokenizerMode = Literal["normalized", "legacy"]
+GraphModeSetting = Literal["ranked", "legacy"]
+EntityExtractorMode = Literal["ner", "legacy"]
 
 
 class Settings(BaseSettings):
@@ -72,6 +74,12 @@ class Settings(BaseSettings):
     graph_top_n_entities: int = 5
     graph_fuzzy_threshold: int = 70
     graph_path_limit: int = 30
+    graph_mode: GraphModeSetting = "ranked"
+    entity_extractor: EntityExtractorMode = "ner"
+    ner_model: str = "urchade/gliner_small-v2.1"
+    ner_threshold: float = 0.4
+    link_lexical_threshold: int = 90
+    link_embedding_threshold: float = 0.80
 
     # ── Context packing ──────────────────────────────────────────────────
     context_budget_tokens: int = 6000

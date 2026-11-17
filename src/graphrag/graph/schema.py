@@ -24,6 +24,14 @@ CONSTRAINTS: tuple[str, ...] = (
     "CREATE CONSTRAINT IF NOT EXISTS FOR (ch:Chunk) REQUIRE ch.chunk_id IS UNIQUE",
 )
 
+# Full-text index over entity names, used for lexical entity linking.
+# Neo4j 5 syntax; db.index.fulltext.createNodeIndex was removed in Neo4j 5.
+FULLTEXT_INDEX = "entity_names"
+FULLTEXT_INDEX_DDL = (
+    f"CREATE FULLTEXT INDEX {FULLTEXT_INDEX} IF NOT EXISTS "
+    f"FOR (n:{'|'.join(sorted(NODE_TYPES))}) ON EACH [n.name]"
+)
+
 
 def validate_label(label: str) -> str:
     if label not in NODE_TYPES:
@@ -45,7 +53,7 @@ def validate_hops(hops: int) -> int:
 
 def apply_schema(driver: Any) -> None:
     with driver.session() as session:
-        for cypher in CONSTRAINTS:
+        for cypher in (*CONSTRAINTS, FULLTEXT_INDEX_DDL):
             session.run(cypher)
 
 
