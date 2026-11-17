@@ -73,6 +73,40 @@ module, and is pinned by `test_legacy_tokenizer_cannot_match_capitalised_terms`.
 
 ## What it cost in recall
 
-Not yet measured. This section will be filled from the saved results of
-`graphrag eval --preset original` and `graphrag eval --preset fixed` on the same
-corpus and golden set.
+Measured on the original corpus (six lecture PDFs, 143 chunks) and the
+50-question golden set, retrieving the top 5 text chunks with no LLM involved.
+The metric is *context keyword recall*: the fraction of each question's
+expected concepts that appear anywhere in the five retrieved chunks, averaged
+over questions. It isolates retrieval; the answer-level keyword recall reported
+in the notebook (0.588) additionally depends on the LLM and is measured
+separately.
+
+| Config | Context keyword recall | Factual (31) | Relational (15) | Multi-hop (4) | Duplicate slots | Hits with both signals |
+|---|---|---|---|---|---|---|
+| Original (broken keys, original tokenizer) | 0.647 | 0.663 | 0.689 | 0.372 | 25 | 0 |
+| Tokenizer fix only | 0.682 | 0.693 | 0.724 | 0.441 | 37 | 0 |
+| Key fix + RRF only | 0.690 | 0.720 | 0.702 | 0.408 | 0 | 192 |
+| Key fix + weighted fusion + tokenizer fix | 0.722 | 0.749 | 0.713 | 0.541 | 0 | 193 |
+| **Key fix + RRF + tokenizer fix (default)** | **0.732** | **0.750** | **0.747** | **0.541** | **0** | **224** |
+
+* "Duplicate slots" counts top-5 positions, summed over 50 questions, taken by
+  a chunk that already appeared earlier in the same top 5.
+* "Hits with both signals" counts top-5 chunks that both retrievers returned,
+  summed over 50 questions. It is zero in the original by construction.
+* The original and default configs were each run three times; retrieved chunk
+  ids were identical across
+  runs. The other rows were run once. Raw results: `results/retrieval_*.json`.
+
+Both bugs cost recall independently, and the fixes compound: +0.085 absolute
+(+13% relative) overall, with the largest gain on multi-hop questions
+(0.372 to 0.541), though that class has only four questions.
+
+## A third issue found while measuring: non-deterministic ties
+
+The lecture PDFs repeat whole slides across files, so several chunks are
+byte-identical and embed to identical vectors. HNSW returns exact ties in
+arbitrary order, and when three identical chunks straddled the dense top-15
+cut-off, which two survived changed between processes, which changed one
+question's fifth retrieved chunk. Dense search now over-fetches, sorts exact
+ties by chunk id, then truncates. `test_exact_ties_at_the_cutoff_resolve_by_chunk_id`
+pins this.

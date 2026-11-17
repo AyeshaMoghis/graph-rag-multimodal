@@ -66,19 +66,23 @@ class VectorStore:
 
     def query(self, name: str, embedding: NDArray[np.float32], n: int) -> list[ScoredHit]:
         collection = self._client.get_collection(name)
-        n = min(n, collection.count())
+        total = collection.count()
+        n = min(n, total)
         if n <= 0:
             return []
+        # Over-fetch so exact ties straddling the cut-off are resolved by id below,
+        # not by HNSW's arbitrary order (see the sort further down).
+        fetch = min(total, n + max(10, n))
         res = collection.query(
             query_embeddings=[embedding.tolist()],
-            n_results=n,
+            n_results=fetch,
             include=["documents", "metadatas", "distances"],
         )
         ids = res["ids"][0]
         docs = (res["documents"] or [[]])[0]
         metas = (res["metadatas"] or [[]])[0]
         dists = (res["distances"] or [[]])[0]
-        return [
+        hits = [
             ScoredHit(
                 chunk_id=cid,
                 text=doc or "",
@@ -87,6 +91,10 @@ class VectorStore:
             )
             for cid, doc, meta, dist in zip(ids, docs, metas, dists, strict=True)
         ]
+        # The corpus repeats identical slides across PDFs, which embed to identical
+        # vectors. HNSW returns exact ties in arbitrary order, so break them by id.
+        hits.sort(key=lambda h: (-round(h.score, 6), h.chunk_id))
+        return hits[:n]
 
 
 class DenseSearcher:
