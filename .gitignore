@@ -1,0 +1,43 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Notebooks
+*.ipynb_checkpoints
+.ipynb_checkpoints/
+
+# Generated artefacts
+output/
+chroma_db/
+*.npy
+results/raw/
+
+# Data: only the curated sample PDFs and the golden QA set are tracked
+data/*
+!data/sample/
+!data/golden_qa/
+data/sample/*
+!data/sample/*.pdf
+!data/sample/README.md
+corpus/
+pdfs/
+input/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
