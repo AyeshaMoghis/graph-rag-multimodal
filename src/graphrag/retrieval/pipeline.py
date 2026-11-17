@@ -28,7 +28,12 @@ from graphrag.index.vector_store import (
 from graphrag.log import get_logger
 from graphrag.reasoning.answer import generate_answer
 from graphrag.reasoning.llm import LLM
-from graphrag.reasoning.verify import evidence_confidence
+from graphrag.reasoning.verify import (
+    CrossEncoderNLI,
+    NLIScorer,
+    detect_conflicts,
+    evidence_confidence,
+)
 from graphrag.retrieval.fusion import BudgetConfig, PackedContext, pack_context
 from graphrag.retrieval.hybrid import FusedHit, HybridRetriever
 
@@ -67,6 +72,7 @@ class Pipeline:
         llm: LLM | None = None,
         extract_entities: Callable[[str], list[str]] | None = None,
         linker: EntityLinker | None = None,
+        nli: NLIScorer | None = None,
     ) -> None:
         self.settings = settings
         self.hybrid = hybrid
@@ -83,6 +89,7 @@ class Pipeline:
             )
         self.extract_entities = extract_entities
         self.linker = linker
+        self.nli: NLIScorer | None = nli
 
     @classmethod
     def from_settings(
@@ -191,7 +198,7 @@ class Pipeline:
 
     def pack(self, result: RetrievalResult) -> PackedContext:
         s = self.settings
-        return pack_context(
+        context = pack_context(
             result.graph.paths,
             result.graph.nodes,
             result.text_chunks,
@@ -203,6 +210,23 @@ class Pipeline:
                 s.image_budget_fraction,
             ),
         )
+        if s.conflict_mode == "nli":
+            if self.nli is None:
+                self.nli = CrossEncoderNLI(s.nli_model)
+            entities = sorted({*result.graph.nodes, *result.entities})
+            context.conflicts = [
+                c.describe()
+                for c in detect_conflicts(
+                    context.text_chunks,
+                    entities,
+                    self.nli,
+                    s.nli_threshold,
+                    s.nli_max_pairs,
+                    encoder=getattr(self.hybrid.dense, "embedder", None),
+                    min_similarity=s.nli_min_similarity,
+                )
+            ]
+        return context
 
     def answer(self, query: str, **retrieve_kwargs: Any) -> tuple[dict[str, Any], RetrievalResult]:
         if self.llm is None:

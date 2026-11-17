@@ -1,0 +1,436 @@
+{
+  "created_at": "2026-11-17T18:07:21+00:00",
+  "summary": {
+    "questions": 50,
+    "naive_conflicts": 0,
+    "naive_questions_flagged": 0,
+    "candidate_pairs": 156,
+    "nli_model": "cross-encoder/nli-deberta-v3-small",
+    "nli_threshold": 0.8,
+    "entity_source": "question entities (GLiNER + regex); graph nodes not used",
+    "sweep": [
+      {
+        "min_similarity": 0.0,
+        "corpus_conflicts": 8,
+        "corpus_questions_flagged": 6,
+        "planted": {
+          "contradiction_recall": 0.8,
+          "consistent_false_positive_rate": 0.0,
+          "n_contradiction": 10,
+          "n_consistent": 10
+        }
+      },
+      {
+        "min_similarity": 0.6,
+        "corpus_conflicts": 5,
+        "corpus_questions_flagged": 3,
+        "planted": {
+          "contradiction_recall": 0.8,
+          "consistent_false_positive_rate": 0.0,
+          "n_contradiction": 10,
+          "n_consistent": 10
+        }
+      },
+      {
+        "min_similarity": 0.7,
+        "corpus_conflicts": 1,
+        "corpus_questions_flagged": 1,
+        "planted": {
+          "contradiction_recall": 0.5,
+          "consistent_false_positive_rate": 0.0,
+          "n_contradiction": 10,
+          "n_consistent": 10
+        }
+      },
+      {
+        "min_similarity": 0.8,
+        "corpus_conflicts": 0,
+        "corpus_questions_flagged": 0,
+        "planted": {
+          "contradiction_recall": 0.4,
+          "consistent_false_positive_rate": 0.0,
+          "n_contradiction": 10,
+          "n_consistent": 10
+        }
+      }
+    ]
+  },
+  "entities": {
+    "q001": [
+      "politeness detection"
+    ],
+    "q002": [
+      "politeness detection"
+    ],
+    "q003": [
+      "hate speech"
+    ],
+    "q004": [],
+    "q005": [
+      "hate speech",
+      "social media",
+      "toxicity"
+    ],
+    "q006": [],
+    "q007": [
+      "Twitter",
+      "user credibility"
+    ],
+    "q008": [
+      "Twitter",
+      "profile credibility"
+    ],
+    "q009": [
+      "trust",
+      "user credibility"
+    ],
+    "q010": [
+      "Twitter",
+      "global trust",
+      "local trust"
+    ],
+    "q011": [
+      "user modeling"
+    ],
+    "q012": [
+      "OCEAN"
+    ],
+    "q013": [
+      "MBTI",
+      "Myers-Briggs Type Indicator"
+    ],
+    "q014": [
+      "MBTI",
+      "social media"
+    ],
+    "q015": [],
+    "q016": [
+      "social media data"
+    ],
+    "q017": [
+      "social roles"
+    ],
+    "q018": [],
+    "q019": [
+      "social roles"
+    ],
+    "q020": [
+      "social media data",
+      "user political orientation"
+    ],
+    "q021": [
+      "community formation",
+      "social media networks",
+      "trust",
+      "trust formation"
+    ],
+    "q022": [
+      "NLP",
+      "hate speech"
+    ],
+    "q023": [
+      "MBTI",
+      "user credibility"
+    ],
+    "q024": [
+      "behavioral credibility",
+      "social media"
+    ],
+    "q025": [
+      "social media platform"
+    ],
+    "q026": [
+      "cyberbullying",
+      "trolling"
+    ],
+    "q027": [
+      "cyberbullying"
+    ],
+    "q028": [
+      "ASB",
+      "anti-social behavior"
+    ],
+    "q029": [
+      "flaming",
+      "intent",
+      "trolling"
+    ],
+    "q030": [
+      "dark content",
+      "social media platforms"
+    ],
+    "q031": [
+      "ASB",
+      "anti-social behavior"
+    ],
+    "q032": [
+      "ASPD",
+      "Antisocial Personality Disorder"
+    ],
+    "q033": [
+      "Reddit",
+      "Twitter",
+      "polarization"
+    ],
+    "q034": [
+      "mental health",
+      "online polarization"
+    ],
+    "q035": [
+      "social media data",
+      "user mental health"
+    ],
+    "q036": [
+      "crisis-related tweets",
+      "disaster response",
+      "three dimensions"
+    ],
+    "q037": [
+      "disaster response"
+    ],
+    "q038": [],
+    "q039": [
+      "CIB",
+      "coordinated inauthentic behavior",
+      "disinformation",
+      "malinformation",
+      "misinformation"
+    ],
+    "q040": [
+      "factuality",
+      "fake news",
+      "harmful intent",
+      "propaganda",
+      "rumors"
+    ],
+    "q041": [
+      "Fake News"
+    ],
+    "q042": [],
+    "q043": [
+      "mental health impact",
+      "trolling behavior"
+    ],
+    "q044": [
+      "social media",
+      "voting intentions"
+    ],
+    "q045": [
+      "Twitter",
+      "data"
+    ],
+    "q046": [
+      "ASB",
+      "Irritability and Aggressiveness",
+      "Reckless Disregard for Safety",
+      "linguistic features"
+    ],
+    "q047": [
+      "ASB",
+      "Lack of Remorse",
+      "Non-Antisocial category",
+      "vocabulary"
+    ],
+    "q048": [],
+    "q049": [
+      "anti-social computing",
+      "cyberbullying",
+      "trolling"
+    ],
+    "q050": [
+      "content-level analysis",
+      "credibility assessment",
+      "final risk score",
+      "personality profiling",
+      "social media",
+      "user behavior signals",
+      "user modeling"
+    ]
+  },
+  "naive": {},
+  "sweep": [
+    {
+      "min_similarity": 0.0,
+      "corpus_conflicts": 8,
+      "corpus_questions_flagged": 6,
+      "planted": {
+        "contradiction_recall": 0.8,
+        "consistent_false_positive_rate": 0.0,
+        "n_contradiction": 10,
+        "n_consistent": 10
+      },
+      "flagged": {
+        "q010": [
+          {
+            "entity": "twitter",
+            "claim_a": "This is Local Trust in Social media such as Twitter.",
+            "source_a": "SC Unit 2-1.pdf_p017_c01",
+            "claim_b": "Twitter does not provide an explicit trust score.",
+            "source_b": "SC Unit 2-1.pdf_p017_c00",
+            "probability": 0.9796
+          }
+        ],
+        "q031": [
+          {
+            "entity": "asb",
+            "claim_a": "Social Computing Why people show ASB ?",
+            "source_a": "SC Unit 2-4.pdf_p018_c00",
+            "claim_b": "Anti Social Behavior ( ASB) A personality disorder is a long-lasting pattern of thinking and behaving that is very different from what society expects.",
+            "source_b": "SC Unit 2-4.pdf_p016_c00",
+            "probability": 0.979
+          }
+        ],
+        "q040": [
+          {
+            "entity": "fake news",
+            "claim_a": "Fake News : Disinformation (false breaking news) created with a malicious intent",
+            "source_a": "SC Unit 2-6.pdf_p010_c00",
+            "claim_b": "Adversarial Prompting can be useful strategy ( generate fake news dataset from True news dataset)",
+            "source_b": "SC Unit 2-6.pdf_p013_c01",
+            "probability": 0.9934
+          },
+          {
+            "entity": "fake news",
+            "claim_a": "Adversarial Prompting can be useful strategy ( generate fake news dataset from True news dataset)",
+            "source_a": "SC Unit 2-6.pdf_p013_c01",
+            "claim_b": "Untruth era in 2017: The term Fake News was coined by Collins Dictionary in 2017 only from the angle of fakeness",
+            "source_b": "SC Unit 2-6.pdf_p008_c00",
+            "probability": 0.968
+          }
+        ],
+        "q041": [
+          {
+            "entity": "fake news",
+            "claim_a": "Untruth era in 2017: The term Fake News was coined by Collins Dictionary in 2017 only from the angle of fakeness",
+            "source_a": "SC Unit 2-6.pdf_p008_c00",
+            "claim_b": "Adversarial Prompting can be useful strategy ( generate fake news dataset from True news dataset)",
+            "source_b": "SC Unit 2-6.pdf_p013_c01",
+            "probability": 0.968
+          },
+          {
+            "entity": "fake news",
+            "claim_a": "Untruth era in 2017: The term Fake News was coined by Collins Dictionary in 2017 only from the angle of fakeness",
+            "source_a": "SC Unit 2-6.pdf_p008_c00",
+            "claim_b": "It is observed that users with high credibility are less likely to spread disinformation i.e. fake news or rumour",
+            "source_b": "SC Unit 2-1.pdf_p014_c00",
+            "probability": 0.8587
+          }
+        ],
+        "q045": [
+          {
+            "entity": "twitter",
+            "claim_a": "Robinson et al. [2013] developed an earthquake detector from Twitter for Australia & New Zealand, with alerts sent to tsunami warning centers.",
+            "source_a": "SC Unit 2-6.pdf_p006_c00",
+            "claim_b": "Tjong Kim Sang and Bos [2012] predicted the 2011 Dutch Senate Elections using Twitter data, comparing outputs to actual results.",
+            "source_b": "SC Unit 2-5.pdf_p020_c00",
+            "probability": 0.9993
+          }
+        ],
+        "q047": [
+          {
+            "entity": "asb",
+            "claim_a": "Anti Social Behavior ( ASB) A personality disorder is a long-lasting pattern of thinking and behaving that is very different from what society expects.",
+            "source_a": "SC Unit 2-4.pdf_p016_c00",
+            "claim_b": "Social Computing Why people show ASB ?",
+            "source_b": "SC Unit 2-4.pdf_p018_c00",
+            "probability": 0.979
+          }
+        ]
+      }
+    },
+    {
+      "min_similarity": 0.6,
+      "corpus_conflicts": 5,
+      "corpus_questions_flagged": 3,
+      "planted": {
+        "contradiction_recall": 0.8,
+        "consistent_false_positive_rate": 0.0,
+        "n_contradiction": 10,
+        "n_consistent": 10
+      },
+      "flagged": {
+        "q010": [
+          {
+            "entity": "twitter",
+            "claim_a": "This is Local Trust in Social media such as Twitter.",
+            "source_a": "SC Unit 2-1.pdf_p017_c01",
+            "claim_b": "Twitter does not provide an explicit trust score.",
+            "source_b": "SC Unit 2-1.pdf_p017_c00",
+            "probability": 0.9796
+          }
+        ],
+        "q040": [
+          {
+            "entity": "fake news",
+            "claim_a": "Fake News : Disinformation (false breaking news) created with a malicious intent",
+            "source_a": "SC Unit 2-6.pdf_p010_c00",
+            "claim_b": "Adversarial Prompting can be useful strategy ( generate fake news dataset from True news dataset)",
+            "source_b": "SC Unit 2-6.pdf_p013_c01",
+            "probability": 0.9934
+          },
+          {
+            "entity": "fake news",
+            "claim_a": "Adversarial Prompting can be useful strategy ( generate fake news dataset from True news dataset)",
+            "source_a": "SC Unit 2-6.pdf_p013_c01",
+            "claim_b": "Untruth era in 2017: The term Fake News was coined by Collins Dictionary in 2017 only from the angle of fakeness",
+            "source_b": "SC Unit 2-6.pdf_p008_c00",
+            "probability": 0.968
+          }
+        ],
+        "q041": [
+          {
+            "entity": "fake news",
+            "claim_a": "Untruth era in 2017: The term Fake News was coined by Collins Dictionary in 2017 only from the angle of fakeness",
+            "source_a": "SC Unit 2-6.pdf_p008_c00",
+            "claim_b": "Adversarial Prompting can be useful strategy ( generate fake news dataset from True news dataset)",
+            "source_b": "SC Unit 2-6.pdf_p013_c01",
+            "probability": 0.968
+          },
+          {
+            "entity": "fake news",
+            "claim_a": "Untruth era in 2017: The term Fake News was coined by Collins Dictionary in 2017 only from the angle of fakeness",
+            "source_a": "SC Unit 2-6.pdf_p008_c00",
+            "claim_b": "It is observed that users with high credibility are less likely to spread disinformation i.e. fake news or rumour",
+            "source_b": "SC Unit 2-1.pdf_p014_c00",
+            "probability": 0.8587
+          }
+        ]
+      }
+    },
+    {
+      "min_similarity": 0.7,
+      "corpus_conflicts": 1,
+      "corpus_questions_flagged": 1,
+      "planted": {
+        "contradiction_recall": 0.5,
+        "consistent_false_positive_rate": 0.0,
+        "n_contradiction": 10,
+        "n_consistent": 10
+      },
+      "flagged": {
+        "q040": [
+          {
+            "entity": "fake news",
+            "claim_a": "Fake News : Disinformation (false breaking news) created with a malicious intent",
+            "source_a": "SC Unit 2-6.pdf_p010_c00",
+            "claim_b": "Adversarial Prompting can be useful strategy ( generate fake news dataset from True news dataset)",
+            "source_b": "SC Unit 2-6.pdf_p013_c01",
+            "probability": 0.9934
+          }
+        ]
+      }
+    },
+    {
+      "min_similarity": 0.8,
+      "corpus_conflicts": 0,
+      "corpus_questions_flagged": 0,
+      "planted": {
+        "contradiction_recall": 0.4,
+        "consistent_false_positive_rate": 0.0,
+        "n_contradiction": 10,
+        "n_consistent": 10
+      },
+      "flagged": {}
+    }
+  ]
+}

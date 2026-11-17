@@ -4,13 +4,16 @@
   that was actually in the prompt, and counts it as fabricated.
 * :func:`evidence_confidence` scores confidence from retrieval evidence instead
   of trusting the model's self-report.
+* :func:`detect_conflicts` flags contradictions between retrieved chunks with
+  an NLI model, replacing the notebook's substring check.
 """
 
 from __future__ import annotations
 
+import re
 from collections.abc import Sequence
 from dataclasses import asdict, dataclass, field
-from typing import Any, Literal
+from typing import Any, Literal, Protocol
 
 from graphrag.reasoning.prompts import graph_path_id
 from graphrag.retrieval.fusion import PackedContext
@@ -135,3 +138,149 @@ def evidence_confidence(
         "high" if score >= HIGH_THRESHOLD else "medium" if score >= MEDIUM_THRESHOLD else "low"
     )
     return EvidenceConfidence(score, level, components)
+
+
+# ── Contradiction detection (Task 2.3) ──────────────────────────────────────
+# The notebook flagged a conflict when a chunk contained the literal string
+# "not <node>" or "unlike <node>". That fires on ordinary contrastive phrasing
+# and misses real contradictions. Here, claims (sentences or bullets) from
+# different chunks that mention the same entity are scored by an NLI
+# cross-encoder, and pairs classified as contradiction above a threshold are
+# reported. Restricting to shared-entity pairs keeps the number of model calls
+# small.
+
+_BULLET_LINE = re.compile(r"^\s*[•*\-–→▪◦❑○■●]+\s*")  # noqa: RUF001 - real bullet glyphs
+_SENTENCE_END = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9\"'(])")
+
+
+def split_claims(text: str, min_words: int = 6, max_words: int = 60) -> list[str]:
+    """Split slide or page text into claims.
+
+    PDF text wraps lines mid-sentence, so lines are re-joined first; a new claim
+    starts only at a bullet glyph or a sentence end. Fragments shorter than
+    ``min_words`` (slide titles, headers) are dropped.
+    """
+    blocks: list[str] = []
+    for line in text.splitlines():
+        if _BULLET_LINE.match(line) or not blocks:
+            blocks.append(_BULLET_LINE.sub("", line))
+        else:
+            blocks[-1] += " " + line
+    claims = []
+    for block in blocks:
+        for part in _SENTENCE_END.split(" ".join(block.split())):
+            if min_words <= len(part.split()) <= max_words:
+                claims.append(part.strip())
+    return claims
+
+
+class NLIScorer(Protocol):
+    def contradiction_probs(self, pairs: Sequence[tuple[str, str]]) -> list[float]: ...
+
+
+class CrossEncoderNLI:
+    """``cross-encoder/nli-deberta-v3-small``; the label order is read from the model config."""
+
+    def __init__(self, model_name: str = "cross-encoder/nli-deberta-v3-small") -> None:
+        self.model_name = model_name
+        self._model: Any = None
+        self._idx = 0
+
+    def contradiction_probs(self, pairs: Sequence[tuple[str, str]]) -> list[float]:
+        if not pairs:
+            return []
+        if self._model is None:
+            from sentence_transformers import CrossEncoder
+
+            self._model = CrossEncoder(self.model_name)
+            labels = {int(k): v.lower() for k, v in self._model.config.id2label.items()}
+            self._idx = next(i for i, name in labels.items() if name.startswith("contradiction"))
+        probs = self._model.predict(list(pairs), apply_softmax=True, show_progress_bar=False)
+        return [float(row[self._idx]) for row in probs]
+
+
+@dataclass
+class Conflict:
+    entity: str
+    claim_a: str
+    source_a: str
+    claim_b: str
+    source_b: str
+    probability: float
+
+    def describe(self) -> str:
+        return (
+            f"Possible contradiction about '{self.entity}' between {self.source_a} "
+            f'("{self.claim_a}") and {self.source_b} ("{self.claim_b}").'
+        )
+
+
+def candidate_pairs(
+    chunks: Sequence[Any], entities: Sequence[str], max_pairs: int = 64
+) -> list[tuple[str, tuple[str, str], tuple[str, str]]]:
+    """(entity, (source, claim), (source, claim)) for claims from different chunks sharing an entity."""
+    claims = [
+        (str(getattr(c, "chunk_id", i)), claim)
+        for i, c in enumerate(chunks)
+        for claim in split_claims(str(getattr(c, "text", c)))
+    ]
+    out: list[tuple[str, tuple[str, str], tuple[str, str]]] = []
+    seen: set[tuple[str, str]] = set()
+    for entity in sorted({e.lower() for e in entities if len(e) > 2}):
+        mentioning = [(src, cl) for src, cl in claims if entity in cl.lower()]
+        for i, a in enumerate(mentioning):
+            for b in mentioning[i + 1 :]:
+                key = (min(a[1], b[1]), max(a[1], b[1]))
+                if a[0] == b[0] or a[1] == b[1] or key in seen:
+                    continue
+                seen.add(key)
+                out.append((entity, a, b))
+                if len(out) >= max_pairs:
+                    return out
+    return out
+
+
+def relatedness_filter(
+    pairs: list[tuple[str, tuple[str, str], tuple[str, str]]],
+    encoder: Any,
+    min_similarity: float,
+) -> list[tuple[str, tuple[str, str], tuple[str, str]]]:
+    """Keep pairs whose claims are about the same thing (cosine >= ``min_similarity``).
+
+    A contradiction is only meaningful between claims about the same
+    proposition; NLI scores for unrelated claims are noise.
+    """
+    if not pairs or encoder is None or min_similarity <= 0:
+        return pairs
+    texts = sorted({c for _, a, b in pairs for c in (a[1], b[1])})
+    index = {t: i for i, t in enumerate(texts)}
+    vecs = encoder.encode(texts)  # unit-normalised, so the dot product is cosine
+    return [
+        p for p in pairs if float(vecs[index[p[1][1]]] @ vecs[index[p[2][1]]]) >= min_similarity
+    ]
+
+
+def detect_conflicts(
+    chunks: Sequence[Any],
+    entities: Sequence[str],
+    nli: NLIScorer,
+    threshold: float = 0.8,
+    max_pairs: int = 64,
+    encoder: Any = None,
+    min_similarity: float = 0.0,
+) -> list[Conflict]:
+    pairs = relatedness_filter(
+        candidate_pairs(chunks, entities, max_pairs), encoder, min_similarity
+    )
+    # Score both directions and keep the minimum: a real contradiction holds either
+    # way round, while small NLI models often label unrelated statements
+    # "contradiction" in one direction only.
+    forward = nli.contradiction_probs([(a[1], b[1]) for _, a, b in pairs])
+    backward = nli.contradiction_probs([(b[1], a[1]) for _, a, b in pairs])
+    probs = [min(f, r) for f, r in zip(forward, backward, strict=True)]
+    found = [
+        Conflict(entity, a[1], a[0], b[1], b[0], round(p, 4))
+        for (entity, a, b), p in zip(pairs, probs, strict=True)
+        if p >= threshold
+    ]
+    return sorted(found, key=lambda c: -c.probability)

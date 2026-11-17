@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 import typer
 
@@ -21,6 +22,7 @@ PRESETS: dict[str, dict[str, str]] = {
         "graph_mode": "legacy",
         "entity_extractor": "legacy",
         "prompt_version": "v1",
+        "conflict_mode": "naive",
     },
     # The fix: RRF over true chunk ids with normalised BM25 tokens.
     "fixed": {"fusion": "rrf", "bm25_tokenizer": "normalized"},
@@ -286,6 +288,98 @@ def calibration(
     from graphrag.eval.calibration import plot_calibration
 
     typer.echo(json.dumps(plot_calibration(results, out), indent=2))
+
+
+@app.command()
+def conflicts(
+    out: Path = typer.Option(Path("results/conflicts.json"), help="Where to save the comparison."),
+    limit: int | None = typer.Option(None, help="Only the first N questions."),
+    gates: str = typer.Option("0.0,0.6,0.7,0.8", help="Relatedness gates (cosine) to report."),
+) -> None:
+    """Compare the old substring check with the NLI check, at several relatedness gates.
+
+    Corpus: both methods see the same top-5 retrieved chunks and the same entity
+    set, the entities extracted from each golden question. (The notebook used
+    graph node names; that needs Neo4j and is not used here.) Planted set:
+    recall on synthetic contradictions and false positives on paraphrases.
+    """
+    from datetime import datetime, timezone
+
+    from graphrag.eval.conflict_eval import evaluate_planted
+    from graphrag.eval.harness import load_golden
+    from graphrag.graph.retrieve import EntityExtractor, GlinerNER
+    from graphrag.index.embeddings import Embedder
+    from graphrag.reasoning.verify import CrossEncoderNLI, candidate_pairs, detect_conflicts
+    from graphrag.retrieval.fusion import naive_conflicts
+    from graphrag.retrieval.pipeline import Pipeline
+
+    s = _settings()
+    pipeline = Pipeline.from_settings(s, use_graph=False, use_llm=False)
+    extract = EntityExtractor(GlinerNER(s.ner_model, threshold=s.ner_threshold))
+    nli = CrossEncoderNLI(s.nli_model)
+    encoder = Embedder(s.embed_model, s.embed_batch_size)
+    gate_values = [float(g) for g in gates.split(",")]
+
+    questions = []
+    for item in load_golden(s.golden_qa_path)[:limit]:
+        hits = pipeline.hybrid.retrieve(item.question, top_k=s.text_top_k)
+        questions.append((item.id, hits, extract(item.question)))
+
+    naive = {qid: naive_conflicts(hits, ents) for qid, hits, ents in questions}
+    sweep: list[dict[str, Any]] = []
+    for gate in gate_values:
+        flagged = {
+            qid: [
+                c.__dict__
+                for c in detect_conflicts(
+                    hits, ents, nli, s.nli_threshold, s.nli_max_pairs, encoder, gate
+                )
+            ]
+            for qid, hits, ents in questions
+        }
+        sweep.append(
+            {
+                "min_similarity": gate,
+                "corpus_conflicts": sum(len(v) for v in flagged.values()),
+                "corpus_questions_flagged": sum(1 for v in flagged.values() if v),
+                "planted": evaluate_planted(
+                    Path("data/golden_qa/planted_conflicts.json"),
+                    nli,
+                    encoder,
+                    s.nli_threshold,
+                    gate,
+                ),
+                "flagged": {k: v for k, v in flagged.items() if v},
+            }
+        )
+    summary = {
+        "questions": len(questions),
+        "naive_conflicts": sum(len(v) for v in naive.values()),
+        "naive_questions_flagged": sum(1 for v in naive.values() if v),
+        "candidate_pairs": sum(
+            len(candidate_pairs(h, e, s.nli_max_pairs)) for _, h, e in questions
+        ),
+        "nli_model": s.nli_model,
+        "nli_threshold": s.nli_threshold,
+        "entity_source": "question entities (GLiNER + regex); graph nodes not used",
+        "sweep": [{k: v for k, v in row.items() if k != "flagged"} for row in sweep],
+    }
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(
+        json.dumps(
+            {
+                "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                "summary": summary,
+                "entities": {qid: ents for qid, _, ents in questions},
+                "naive": {k: v for k, v in naive.items() if v},
+                "sweep": sweep,
+            },
+            indent=2,
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    typer.echo(json.dumps(summary, indent=2))
 
 
 if __name__ == "__main__":

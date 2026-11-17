@@ -54,6 +54,13 @@ class Settings(BaseSettings):
     llm_temperature: float = 0.1
     llm_max_tokens: int = 1024
     prompt_version: Literal["v1", "v2"] = "v2"
+    conflict_mode: Literal["nli", "naive"] = "nli"
+    nli_model: str = "cross-encoder/nli-deberta-v3-small"
+    nli_threshold: float = 0.8
+    nli_max_pairs: int = 64
+    # Chosen on the synthetic planted set: the highest gate that kept recall at the
+    # ungated level (see results/conflicts.json and docs/EVALUATION_NOTES.md).
+    nli_min_similarity: float = 0.6
 
     # ── Ingest ───────────────────────────────────────────────────────────
     phash_threshold: int = 10
