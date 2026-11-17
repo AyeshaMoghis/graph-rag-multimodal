@@ -41,3 +41,7 @@ input/
 Thumbs.db
 .vscode/
 .idea/
+
+# Eval scratch files
+results/.log_*
+results/*.partial.json

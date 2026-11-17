@@ -1,0 +1,402 @@
+[
+  {
+    "id": "q001",
+    "question": "What is politeness detection?",
+    "ideal_answer": "Politeness detection involves identifying respectful and considerate language in user-generated text. It is useful for enhancing customer service bots, improving online community moderation, and analyzing tone in business communication.",
+    "expected_concepts": ["Politeness Detection", "User-Generated Text", "Language Civility"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q002",
+    "question": "What are the two main techniques used for politeness detection?",
+    "ideal_answer": "The two main techniques for politeness detection are: (1) Rule-based methods, such as checking for the presence of greetings and hedges (softeners), and (2) ML/NLP models trained on annotated datasets like the Stanford Politeness Corpus.",
+    "expected_concepts": ["Politeness Detection", "Rule-Based Methods", "Stanford Politeness Corpus", "NLP"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q003",
+    "question": "What is hate speech and why is detecting it important?",
+    "ideal_answer": "Hate speech includes abusive, discriminatory, or threatening language targeting specific groups based on characteristics like race, religion, or gender. Detecting it is critical for maintaining user safety on social platforms, ensuring legal compliance, and protecting vulnerable communities.",
+    "expected_concepts": ["Hate Speech Detection", "Discrimination", "Social Platforms", "User Safety"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q004",
+    "question": "What are the key challenges in hate speech detection?",
+    "ideal_answer": "The key challenges in hate speech detection include: (1) the use of code words, sarcasm, and slang that mask hateful intent, and (2) the ambiguity in distinguishing between free speech and actual hate speech.",
+    "expected_concepts": ["Hate Speech Detection", "Sarcasm", "Code Words", "Free Speech"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q005",
+    "question": "How does toxicity differ from hate speech in social media content moderation?",
+    "ideal_answer": "Toxicity is a broader concept than hate speech. While hate speech specifically targets groups based on protected characteristics, toxicity refers to any rude, disrespectful, or unreasonable comment that makes online environments unpleasant — including insults, threats, and harassment that may not target a specific group.",
+    "expected_concepts": ["Toxicity Detection", "Hate Speech Detection", "Content Moderation"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q006",
+    "question": "What are the three key components of argumentation mining?",
+    "ideal_answer": "The three key components of argumentation mining are: (1) Claim detection — identifying the main assertion, (2) Premise identification — finding the supporting evidence or reasoning, and (3) Stance classification — determining whether the argument is Pro or Con on an issue.",
+    "expected_concepts": ["Argumentation Mining", "Claim Detection", "Premise Identification", "Stance Classification"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q007",
+    "question": "What are the three types of user credibility on Twitter?",
+    "ideal_answer": "User credibility on Twitter is categorized into three types: (1) Profile Credibility — based on account information such as account age, bio length, and verification status; (2) Behavioural Credibility — derived from the user's Twitter timeline activity like retweet/tweet ratio and favourites count; and (3) Social Credibility — based on social connections such as number of followers and friends.",
+    "expected_concepts": ["User Credibility", "Profile Credibility", "Behavioural Credibility", "Social Credibility", "Twitter"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q008",
+    "question": "What factors are used to measure profile credibility on Twitter?",
+    "ideal_answer": "Profile credibility on Twitter is measured using account information such as the account age, the length of the bio description and screen name, the number of characters in the Twitter handle, the verification status of the account, the user's willingness to share geospatial information, and the degree of match between the user's real name and username.",
+    "expected_concepts": ["Profile Credibility", "Twitter", "User Credibility"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q009",
+    "question": "How is user credibility defined and how does it differ from trust in the context of social media graphs?",
+    "ideal_answer": "Credibility refers to the confidence that other social media users have in a particular user based on their past behaviour. It is considered a node property — an attribute of a single user. Trust, on the other hand, is an edge property — it exists between two users and represents the relationship formed when credibility leads to a connection. Credibility can lead to trust, and trust results in the formation of relationship edges in the social network.",
+    "expected_concepts": ["User Credibility", "Trust", "Node Property", "Edge Property", "Social Media Graph"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q010",
+    "question": "What is the difference between local trust and global trust on Twitter?",
+    "ideal_answer": "Local trust on Twitter is derived from the local behaviour of a user node, specifically the tweet-retweet ratio, which reflects how much original content the user creates versus amplifies. Global trust is based on broader network-level information, such as the number of followers a user has. Trust can be formulated as an attribute vector combining both local and global trust components.",
+    "expected_concepts": ["Local Trust", "Global Trust", "Twitter", "Trust", "Retweet Ratio"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q011",
+    "question": "What are the five types of user modeling explored in social computing?",
+    "ideal_answer": "The five types of user modeling explored in social computing are: (a) Personality modeling, (b) User Health Profile modeling, (c) Gender and Ethnicity modeling, (d) Location modeling, and (e) Political Orientation modeling. Each uses signals from social media behavior to infer user attributes.",
+    "expected_concepts": ["User Modeling", "Personality", "Health Profile", "Gender", "Ethnicity", "Location", "Political Orientation"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q012",
+    "question": "What is the Big Five (OCEAN) personality model and how is it applied in social media analysis?",
+    "ideal_answer": "The Big Five personality model, also known as OCEAN, consists of five traits: Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism. In social media analysis, models use text mining, NLP, and machine learning to infer these traits from user behavior such as likes, posts, and language use. Applications include targeted advertising, content recommendation, and mental health detection.",
+    "expected_concepts": ["Big Five", "OCEAN", "Personality Modeling", "NLP", "Text Mining", "Social Media"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q013",
+    "question": "What are the four dichotomous scales of the Myers-Briggs Type Indicator (MBTI)?",
+    "ideal_answer": "The Myers-Briggs Type Indicator (MBTI) consists of four dichotomous scales: (1) Introvert/Extrovert (I/E) — how people direct their energy; (2) Sensing/Intuition (S/N) — how people take in information; (3) Thinking/Feeling (T/F) — how people make decisions; and (4) Judging/Perceiving (J/P) — how people approach the outer world.",
+    "expected_concepts": ["MBTI", "Myers-Briggs", "Personality Profile", "Introvert", "Extrovert"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q014",
+    "question": "How is MBTI personality type linked to disinformation spreading behavior on social media?",
+    "ideal_answer": "According to the material, disinformation spreaders are expected to exhibit MBTI types characterized by Extroversion (E) and Feeling (F), meaning they tend to be outwardly expressive and emotionally driven in their sharing behavior. In contrast, true news spreaders are expected to be of the Thinking (T) and Judging (J) types, reflecting a more rational and structured approach to information sharing.",
+    "expected_concepts": ["MBTI", "Disinformation", "User Credibility", "Extroversion", "Thinking", "Judging"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q015",
+    "question": "How can user health profiles be constructed from social media posts?",
+    "ideal_answer": "User health profiles can be constructed by analyzing social media posts for indicators of mental and physical health. Key signals include sentiment expressed in posts, patterns related to sleep and activity levels, and the use of health-related vocabulary. This approach can support early detection of disorders such as depression and anxiety, and can contribute to public health research and healthcare access analysis.",
+    "expected_concepts": ["User Health Profile", "Mental Health", "Sentiment Analysis", "Depression", "Social Media"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q016",
+    "question": "What signals are used to model a user's geolocation from social media data?",
+    "ideal_answer": "User geolocation can be modeled using geotags, check-ins, timestamps, and local language patterns present in social media content. Methods include spatial-temporal modeling and topic modeling across geographic regions. Key challenges include missing data (many users disable location sharing) and dynamic location changes.",
+    "expected_concepts": ["User Location Modeling", "Geotags", "Spatial-Temporal Modeling", "Topic Modeling"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q017",
+    "question": "What are social roles in digital communities and why are they important to understand?",
+    "ideal_answer": "Social roles refer to distinct behavioral patterns that users adopt within digital communities. Understanding social roles is important because it helps analyze information diffusion — how content spreads through a network, group dynamics — how communities form and evolve, and credibility and influence — identifying who drives narratives and who is trusted.",
+    "expected_concepts": ["Social Roles", "Information Diffusion", "Group Dynamics", "Credibility", "Digital Communities"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q018",
+    "question": "What are the six social roles identified in social media communities?",
+    "ideal_answer": "The six social roles are: (1) Lurkers — passive observers who consume but do not post; (2) Newbies — fresh entrants still learning community norms; (3) Influencers/Power Users/Community Champions — highly visible users who drive discussions; (4) Wisdom Warriors/Experts — providers of accurate, high-quality content; (5) Trolls/Provocateurs — users who deliberately post inflammatory content; and (6) Spammers & Bots — automated accounts posting ads or noise.",
+    "expected_concepts": ["Lurkers", "Newbies", "Influencers", "Wisdom Warriors", "Trolls", "Spammers", "Social Roles"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q019",
+    "question": "How do trolls differ from spammers as social roles, and how is each detected?",
+    "ideal_answer": "Trolls (or Provocateurs) are human users who deliberately post inflammatory or disruptive content to provoke reactions, and they are typically detected through sentiment analysis or toxicity scoring on their text. Spammers and Bots are automated accounts that post advertisements, links, or noise at scale, and they are identified using automation detection methods that analyze posting frequency, patterns, and account behavior.",
+    "expected_concepts": ["Trolls", "Spammers", "Bots", "Toxicity Detection", "Sentiment Analysis", "Automation Detection"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q020",
+    "question": "How does user political orientation get modeled from social media data, and what are its applications?",
+    "ideal_answer": "Political orientation is modeled by analyzing language use, hashtag activism, and the type of content a user shares, all of which reveal political leanings. The primary technique is supervised learning using labeled datasets of political tweets or posts. Applications include political campaign strategy optimization, polarization analysis, misinformation studies, and understanding echo chambers.",
+    "expected_concepts": ["Political Orientation Modeling", "Supervised Learning", "Echo Chambers", "Polarization", "Misinformation"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q021",
+    "question": "How does trust formation in social media networks lead to community formation, and how does that community in turn affect trust?",
+    "ideal_answer": "Trust between user nodes leads to the formation of relationship edges in the social network graph. These edges connect users and eventually result in community formation — clusters of mutually trusting users. Once a community exists, it further reinforces trust among its members, creating a feedback loop where community membership increases trust between the users within that community.",
+    "expected_concepts": ["Trust", "Community Formation", "Social Network", "Edge Property", "Node Property"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q022",
+    "question": "What NLP approaches are used to detect hate speech, and what models are most commonly applied?",
+    "ideal_answer": "Hate speech detection uses two primary approaches: (1) dataset-driven deep learning, such as models trained on datasets like the Twitter hate speech corpora by Davidson et al., and (2) context-aware transformer models like BERT and DeBERTa, which can understand nuanced language and context — important for handling sarcasm, slang, and coded language that rule-based systems miss.",
+    "expected_concepts": ["Hate Speech Detection", "BERT", "DeBERTa", "Deep Learning", "Davidson", "Twitter"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q023",
+    "question": "How does user credibility relate to disinformation spread, and what role does MBTI personality type play in this relationship?",
+    "ideal_answer": "Users with high credibility are observed to be less likely to spread disinformation such as fake news or rumors. Credibility is also linked to personality profile: disinformation spreaders tend to have MBTI types with Extroversion (E) and Feeling (F) traits — emotionally expressive and outward-focused — while true news spreaders tend toward Thinking (T) and Judging (J) types, reflecting more analytical and structured information behavior. This means that MBTI personality type acts as a predictor signal that connects to credibility, which in turn predicts disinformation spreading likelihood.",
+    "expected_concepts": ["User Credibility", "Disinformation", "MBTI", "Extroversion", "Thinking", "Judging", "Fake News"],
+    "expected_chunk_ids": [],
+    "question_type": "multi-hop"
+  },
+  {
+    "id": "q024",
+    "question": "How does the role of an Influencer on social media relate to behavioral credibility, and what makes them different from a Wisdom Warrior?",
+    "ideal_answer": "Influencers (also called Power Users or Community Champions) derive their status from high visibility and significant engagement — they drive discussions and shape norms. Behavioral credibility for such users would show high favoriting activity, a favorable retweet/tweet ratio, and a large follower count (social credibility). Wisdom Warriors, by contrast, derive their standing from the accuracy and quality of their content — they are experts recognized for reliable information, like experienced Redditors or StackOverflow contributors — rather than from raw engagement or follower numbers.",
+    "expected_concepts": ["Influencers", "Wisdom Warriors", "Behavioural Credibility", "Social Credibility", "Social Roles"],
+    "expected_chunk_ids": [],
+    "question_type": "multi-hop"
+  },
+  {
+    "id": "q025",
+    "question": "If a social media platform wants to detect and reduce the spread of politically motivated disinformation, what combination of user modeling techniques and credibility signals would be most effective, and why?",
+    "ideal_answer": "An effective combined approach would use: (1) Political Orientation Modeling — to identify users with strong political leanings likely to share partisan content, using supervised learning on labeled tweets; (2) User Credibility Assessment — specifically behavioral credibility (retweet/tweet ratio) and social credibility (follower count) to compute a trust score; (3) Personality Modeling — MBTI or Big Five analysis to flag high-Extraversion and high-Feeling users who are more prone to emotionally-driven sharing; and (4) Argumentation Mining — to assess whether shared content contains claims supported by premises or is unsubstantiated. High-risk users would be those with low credibility, extroverted-feeling personality profiles, strong partisan orientation, and a history of sharing claims without premises. This multi-signal approach leverages graph-based trust edges (for community patterns), text-based NLP (for content quality), and user attribute modeling (for behavioral profiling).",
+    "expected_concepts": ["Political Orientation Modeling", "User Credibility", "MBTI", "Big Five", "Argumentation Mining", "Disinformation", "Behavioural Credibility", "Personality Modeling", "Trust"],
+    "expected_chunk_ids": [],
+    "question_type": "multi-hop"
+  },
+  {
+    "id": "q026",
+    "question": "What is cyberbullying and how does it differ from trolling?",
+    "ideal_answer": "Cyberbullying refers to using an online platform such as Twitter, Reddit, or Facebook to intentionally and repeatedly harass or harm a specific individual. Cyberbullies post abusive and vicious content — including images, text, audio, and video — directed at a single target. Trolling, by contrast, focuses on being a general nuisance and attracting attention by posting offensive or inflammatory comments in public spaces, without necessarily targeting one specific person. Unlike trolls, cyberbullies do not usually seek public attention — they focus on causing distress to their chosen target.",
+    "expected_concepts": ["Cyberbullying", "Trolling", "Anti-Social Behavior", "Harassment", "Social Media"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q027",
+    "question": "What percentage of school-age children experience cyberbullying, and what forms of media do cyberbullies use?",
+    "ideal_answer": "Depending on the measuring tool applied, between 10% and 40% of school-age children experience some form of cyberbullying. Cyberbullies use multiple media formats to target individuals, including images, text, audio, and video, which are posted repetitively and are intentionally crafted to be abusive and aggressive.",
+    "expected_concepts": ["Cyberbullying", "School-Age Children", "Anti-Social Behavior", "Social Media"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q028",
+    "question": "What are the five categories of anti-social behavior (ASB) used to classify social media posts?",
+    "ideal_answer": "The five ASB categories are: (0) Non-Antisocial/General — normal, non-aggressive posts; (1) Failure to Conform to Social Norms — posts involving unlawful or illegal behavior, often using first/third-person pronouns expressing grievances toward the legal system; (2) Irritability and Aggressiveness — posts with the highest density of abusive, taboo, and angry words; (3) Reckless Disregard for Safety — posts expressing dangerous behavior framed as exciting or fun, without abusive language; and (4) Lack of Remorse — posts showing indifference after having hurt or mistreated others.",
+    "expected_concepts": ["ASB Categories", "Anti-Social Behavior", "Irritability", "Aggressiveness", "Lack of Remorse", "Reckless Disregard"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q029",
+    "question": "What is flaming and how does it differ from trolling in terms of intent?",
+    "ideal_answer": "Flaming (also called roasting) involves posting insults and offensive language online, often fueled by the anonymity of internet forums. The key difference from trolling lies in intent: flaming is a direct, aggressive insult aimed at specific individuals or ideas, often escalating heated discussions. Trolling, however, is more about baiting reactions — the troll sometimes pretends to support extreme positions to spark conflict or chaos, rather than directly insulting someone. Flaming can lead to community division and drive users away.",
+    "expected_concepts": ["Flaming", "Trolling", "Anti-Social Behavior", "Intent", "Anonymity"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q030",
+    "question": "What is dark content and what are examples of it on social media platforms?",
+    "ideal_answer": "Dark content refers to online material that is harmful, disturbing, or malicious. Examples include violent imagery, graphic content, hate speech, cyberbullying, and extremist propaganda. Dark content often spreads fear or confusion and negatively impacts mental health and online safety.",
+    "expected_concepts": ["Dark Content", "Anti-Social Behavior", "Hate Speech", "Cyberbullying", "Extremist Propaganda", "Mental Health"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q031",
+    "question": "What are the three main factors that explain why people exhibit anti-social behavior (ASB)?",
+    "ideal_answer": "Three main types of factors explain anti-social behavior: (1) Environmental factors — including exposure to violence, peer influence, family dysfunction, living in a poor neighborhood, lack of stable employment, or living in a female-headed household; (2) Genetic factors — genes play a vital role in developing ASB, though their influence can be mitigated by changing the individual's environment; and (3) Neural factors — studied through functional and structural approaches focused on brain activity and structure.",
+    "expected_concepts": ["Anti-Social Behavior", "Environmental Factors", "Genetic Factors", "Neural Factors", "ASPD"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q032",
+    "question": "What is Antisocial Personality Disorder (ASPD) and how does it manifest in online behavior?",
+    "ideal_answer": "Antisocial Personality Disorder (ASPD) is a personality disorder grouped in Cluster B along with borderline, histrionic, and narcissistic disorders. People with ASPD may break rules or laws, lie or trick others, act aggressively, disregard safety, and show no remorse after harming others. In online contexts, this manifests as antisocial behavior such as lying, bullying, and harming others — crossing the line from the right to free speech into behavior that is harmful and damaging to the community.",
+    "expected_concepts": ["ASPD", "Anti-Social Behavior", "Anti-Social Computing", "Personality Disorder"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q033",
+    "question": "What is polarization in the context of social media, and how does it manifest on platforms like Twitter and Reddit?",
+    "ideal_answer": "Polarization refers to the growing ideological, emotional, or cultural divide between groups of people online, often manifesting as hostility, echo chambers, or us-versus-them narratives. On platforms like Twitter, Reddit, or Facebook, it is seen through clusters of users with similar political or social views, sharp and emotionally charged language directed toward out-groups, and low exposure to diverse viewpoints.",
+    "expected_concepts": ["Polarization", "Echo Chambers", "Social Media", "Ideological Divide", "Out-Group"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q034",
+    "question": "How does online polarization negatively affect the mental health of social media users?",
+    "ideal_answer": "Polarized online spaces — especially political ones — feature toxic and antagonistic language that can heighten anxiety, stress, and depressive symptoms in users. Research (e.g., Nature Communications 2024) shows that cross-party or cross-ideological replies use more toxic language and receive less engagement, fostering echo chambers and social exclusion. Emotionally charged discourse also spreads faster, inducing stress even in passive readers. Combined, political polarization creates social fragmentation that can leave users feeling unsupported, judged, or emotionally overwhelmed.",
+    "expected_concepts": ["Polarization", "Mental Health", "Echo Chambers", "Emotional Contagion", "Anxiety", "Depression"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q035",
+    "question": "What ethical challenges arise when analyzing user mental health from social media data?",
+    "ideal_answer": "Three major ethical challenges arise: (1) Privacy — analyzing mental health from platforms like Reddit or Instagram, even when anonymized, raises consent issues especially in private or semi-private conversations; (2) Overreach and stigma — automatically flagging users based on emotional language may pathologize normal expression, worsening mental health stigma and user distrust; and (3) Transparency and fairness — developers must ensure that models used for sensitive tasks are explainable, unbiased, and maintain a human-in-the-loop design.",
+    "expected_concepts": ["Mental Health", "Privacy", "Ethics", "Social Media", "Stigma", "Transparency"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q036",
+    "question": "What are the three dimensions used to characterize crisis-related tweets for disaster response?",
+    "ideal_answer": "Crisis-related tweets are characterized along three dimensions: (1) Relatedness — measuring the usefulness or informativeness of the tweet to rescue teams, distinguishing direct (first-person) from indirect (news-based) information, and categorizing information types such as caution/advice, donations, people missing/found/seen, and infrastructure damage; (2) Urgency — indicating whether the information requires immediate action; and (3) Intentions to Act — capturing whether the tweet expresses a commitment to help or respond.",
+    "expected_concepts": ["Crisis Informatics", "Disaster Response", "Tweet Classification", "Urgency", "Relatedness"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q037",
+    "question": "Why are social media signals considered faster than traditional reporting systems for disaster response?",
+    "ideal_answer": "Social media signals are often faster than traditional reporting systems because users post in real time from affected areas, enabling early detection of sudden topic shifts related to emergencies such as earthquakes, fires, and floods. These signals help track disaster evolution, inform the public, and support rescue operations before official channels can respond. Most research in this space uses Twitter, with some systems focusing on detecting new emergencies and others classifying messages for relevance to known events.",
+    "expected_concepts": ["Disaster Response", "Crisis Informatics", "Real-Time Detection", "Twitter", "Emergency Detection"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q038",
+    "question": "What is minimally supervised urgency detection and what are its two setup variations?",
+    "ideal_answer": "Minimally supervised urgency detection is an approach to detecting urgent messages in crisis contexts using very limited labeled training data. It has two setup variations: (1) Set up 1 — a small amount of training data combined with a large background corpus for context; and (2) Set up 2 — a small amount of training data with no background corpus, relying on zero-shot learning to generalize without domain-specific examples.",
+    "expected_concepts": ["Urgency Detection", "Crisis Informatics", "Zero-Shot Learning", "Minimally Supervised Learning"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q039",
+    "question": "What is the difference between misinformation, disinformation, malinformation, and coordinated inauthentic behavior (CIB)?",
+    "ideal_answer": "These four terms differ in information type, intent, and authenticity: Misinformation is false information (e.g., rumor) spread without intent to mislead — the creator does not know it is false; Disinformation is false information (e.g., fake news) deliberately created to mislead; Malinformation is genuine, true information used with intent to harm; and Coordinated Inauthentic Behavior (CIB) — exemplified by propaganda — can be a mix of genuine and fake information, with the intent to influence, harm, and mislead, and may be either true or false in its authenticity.",
+    "expected_concepts": ["Misinformation", "Disinformation", "Malinformation", "CIB", "Propaganda", "Fake News", "Rumor"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q040",
+    "question": "How should fake news, rumors, and propaganda be distinguished from each other based on factuality and harmful intent?",
+    "ideal_answer": "Fake News is disinformation — it is not factual and is harmful, created with malicious intent (false breaking news). Rumor is misinformation — it may or may not be factual, and is not intentionally harmful by design; it is breaking news that has not yet been validated. Propaganda has planned execution and may or may not be factual or harmful — its defining characteristic is that it is deliberate and coordinated, aimed at influencing an audience.",
+    "expected_concepts": ["Fake News", "Rumor", "Propaganda", "Disinformation", "Misinformation", "Intent"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q041",
+    "question": "What are the three perspectives from which Fake News should be analyzed in the Post-Truth Era?",
+    "ideal_answer": "In the Post-Truth Era (as framed in 2024 research), Fake News should be evaluated from three perspectives: (1) Fakeness — whether the content itself is false or inaccurate; (2) Newsworthiness — whether the content would be considered significant or impactful as a news story; and (3) Shareworthiness — whether the content is likely to be shared widely regardless of its accuracy.",
+    "expected_concepts": ["Fake News", "Post-Truth Era", "Fakeness", "Newsworthiness", "Shareworthiness"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q042",
+    "question": "How can LLMs be used in disinformation research, and what are their key weaknesses in this domain?",
+    "ideal_answer": "LLMs can be applied to disinformation research in four ways: (1) Fake news detection — though models relying on stylistic features fail because LLMs produce stylistically consistent texts; (2) Rumor detection — LLMs can be effective here since veracity assessment is based on emotion and community reaction rather than world knowledge; (3) Propaganda detection — LLMs like GPT-4 work well for English but not across languages; and (4) Dataset generation — adversarial prompting can generate fake news datasets from true news. Key LLM weaknesses include poor reasoning due to lack of a complete world view (spatial, temporal, psychological), tendency to make factual errors, exhibit bias and discrimination, and failure to capture nuanced understanding of human-generated content.",
+    "expected_concepts": ["LLM", "Disinformation", "Fake News Detection", "Rumor Detection", "Propaganda", "Adversarial Prompting"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q043",
+    "question": "What is the relationship between trolling behavior and the mental health impact on its victims?",
+    "ideal_answer": "Trolling involves deliberately posting inflammatory, offensive, and disruptive content — including sexist, hateful, racist, and profane comments — to provoke reactions and gain attention. Research shows that the impact of trolling on victims can lead to serious mental health outcomes, including anxiety, depression, and low self-esteem. Over time, trolls themselves become less tolerant and are reported and removed from communities. The harm flows primarily from the repeated nature of exposure and the public humiliation aspect.",
+    "expected_concepts": ["Trolling", "Mental Health", "Anxiety", "Depression", "Anti-Social Behavior", "Victims"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q044",
+    "question": "How does predicting voting intentions from social media differ from traditional polling methods?",
+    "ideal_answer": "Traditional polls are conducted in person, via phone, or online with predefined answer choices, requiring manual design and human surveyors. Social media-based voting intention prediction automates the process by using topic detection (through keyword search or text classification) and sentiment analysis on user posts. Notable examples include the SodaHead platform study that analyzed user comments to infer voting choices by combining textual cues with demographics and inter-comment constraints (Persing and Ng, 2014).",
+    "expected_concepts": ["Voting Intentions", "Social Media Events", "Sentiment Analysis", "Topic Detection", "Political Orientation"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q045",
+    "question": "What real-world disaster response systems have been built using Twitter data, and what events did they address?",
+    "ideal_answer": "Three notable Twitter-based disaster response systems have been built: (1) Yin et al. [2012] pioneered real-time Twitter monitoring for emergency detection to improve situational awareness; (2) Robinson et al. [2013] built an earthquake detector for Australia and New Zealand that sent automated alerts to tsunami warning centers; and (3) Power et al. [2013] developed a fire event identification system for Australia using alert words and tweet classification.",
+    "expected_concepts": ["Disaster Response", "Twitter", "Crisis Informatics", "Earthquake Detection", "Emergency Detection"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q046",
+    "question": "How does the Irritability and Aggressiveness ASB category differ from the Reckless Disregard for Safety category in terms of linguistic features?",
+    "ideal_answer": "The Irritability and Aggressiveness category contains the highest density of aggressive, abusive, taboo, and angry words among all ASB classes — including explicit profanity. This reflects people expressing aggressiveness directly through language. The Reckless Disregard for Safety category, by contrast, almost entirely avoids abusive or taboo vocabulary. Instead, antisocial behavior is expressed through action-oriented words like 'kill', 'fire', 'dangerous', and 'hit', combined with fun-related words like 'like', 'fun', and 'fast' — reflecting people who have fun at the expense of their own or others' safety.",
+    "expected_concepts": ["ASB Categories", "Irritability", "Reckless Disregard for Safety", "Text Classification", "Anti-Social Behavior"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q047",
+    "question": "How does the Lack of Remorse ASB category differ from the Non-Antisocial category in terms of vocabulary and classification difficulty?",
+    "ideal_answer": "The Lack of Remorse category contains a mix of negative words — such as 'suffer', 'die', 'remorse', 'hurt', 'pissing', and 'pain' — representing wrongdoing, alongside positive words like 'love', 'happy', and 'like' that represent the display of indifference after causing harm. This mixed vocabulary makes it challenging to classify. The Non-Antisocial/General category, by contrast, contains exclusively nice, non-aggressive, non-abusive terms like 'love', 'wish', 'help', 'pray', 'hope', 'God', and 'respect', making it the easiest for classification algorithms to identify accurately.",
+    "expected_concepts": ["Lack of Remorse", "Non-Antisocial", "ASB Categories", "Text Classification", "Anti-Social Behavior"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q048",
+    "question": "How does trolling spread geographically and demographically, and what are its long-term behavioral patterns?",
+    "ideal_answer": "Studies show that trolls concentrate their effort on a small number of discussion threads and make issues of petty things. Their writing quality is generally worse than non-trolls, and their posts are often irrelevant to the topic being discussed. From a gender perspective, males are more likely to engage in trolling than females. Over time, trolls become less tolerant of online communities and are progressively reported and removed from conversations or entire communities. For some users, trolling traits appear to be persistent behavioral tendencies — these individuals have a history of trolling and appear to derive enjoyment from causing disruption at others' expense.",
+    "expected_concepts": ["Trolling", "Anti-Social Behavior", "Gender", "Behavioral Patterns", "Community Moderation"],
+    "expected_chunk_ids": [],
+    "question_type": "factual"
+  },
+  {
+    "id": "q049",
+    "question": "How does anti-social computing as a field relate to the detection of both trolling and cyberbullying, and what methods does it use for each?",
+    "ideal_answer": "Anti-social computing is the field that studies how to explain, predict, and prevent anti-social behavior on the internet, and it also includes developing methods to detect and discourage such behaviors. For trolling detection, it relies on sentiment analysis and toxicity scoring to identify inflammatory, offensive, or disruptive content in public spaces. For cyberbullying detection, the focus shifts to tracking repeated abusive content targeted at specific individuals across platforms like Twitter, Reddit, and Facebook — requiring methods that identify targeting patterns, victim identity, and repetition, rather than just the content type.",
+    "expected_concepts": ["Anti-Social Computing", "Trolling", "Cyberbullying", "Sentiment Analysis", "Toxicity Detection"],
+    "expected_chunk_ids": [],
+    "question_type": "relational"
+  },
+  {
+    "id": "q050",
+    "question": "A researcher wants to build a system to detect whether a social media user is likely to spread disinformation during a political crisis. Trace the full pipeline from user behavior signals to a final risk score, incorporating user modeling, credibility assessment, personality profiling, and content-level analysis.",
+    "ideal_answer": "A complete pipeline would proceed as follows: Step 1 — User Modeling: Collect behavioral signals including the user's posting history, language use, hashtag patterns, retweet/tweet ratio, follower/following count, and geolocation to build a comprehensive user profile. Step 2 — Credibility Assessment: Compute a three-component credibility score: Profile Credibility (account age, verification, bio completeness), Behavioural Credibility (retweet/tweet ratio, favorites count), and Social Credibility (follower count, community membership). Low-credibility users are flagged. Step 3 — Personality Profiling: Apply NLP-based MBTI or Big Five inference on the user's post history. Flag users with Extroversion + Feeling (MBTI) or high Openness + low Conscientiousness (Big Five) as higher-risk spreaders. Step 4 — Political Orientation Modeling: Use supervised classification on political tweets/hashtags to identify strong partisan leanings, which correlate with motivated sharing of politically charged disinformation. Step 5 — Content Analysis: Apply Argumentation Mining to the user's recent posts — content with claims unsupported by premises indicates weak epistemic quality. Apply Toxicity Detection and Hate Speech Detection to assess content harm level. Step 6 — Risk Score Fusion: Combine signals: low credibility score + emotionally-driven personality profile + strong partisan orientation + high rate of unsubstantiated claims + elevated toxicity = high disinformation risk score. Step 7 — Graph Context: Use the social network graph to check whether this user is embedded in a polarized echo chamber (cluster of similarly profiled users), which amplifies disinformation spread risk.",
+    "expected_concepts": ["User Modeling", "User Credibility", "MBTI", "Big Five", "Political Orientation Modeling", "Argumentation Mining", "Toxicity Detection", "Hate Speech Detection", "Disinformation", "Polarization", "Echo Chambers", "Trust", "Social Network"],
+    "expected_chunk_ids": [],
+    "question_type": "multi-hop"
+  }
+]

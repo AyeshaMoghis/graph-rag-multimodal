@@ -1,0 +1,1210 @@
+{
+  "created_at": "2026-11-17T17:18:40+00:00",
+  "python": "3.12.6",
+  "config": {
+    "preset": "fixed",
+    "fusion": "rrf",
+    "bm25_tokenizer": "normalized",
+    "rrf_k": 60,
+    "alpha": 0.5,
+    "text_top_k": 5,
+    "embed_model": "BAAI/bge-large-en-v1.5",
+    "llm_model": null,
+    "golden_qa": "data\\golden_qa\\golden_qa_set_complete.json",
+    "n_questions": 50
+  },
+  "summary": {
+    "mode": "retrieval",
+    "total": 50,
+    "successful": 50,
+    "errors": 0,
+    "primary_metric": "context_keyword_recall",
+    "context_keyword_recall": 0.732,
+    "latency_ms_p50": 178.0,
+    "by_type": {
+      "factual": {
+        "n": 31,
+        "context_keyword_recall": 0.75
+      },
+      "multi-hop": {
+        "n": 4,
+        "context_keyword_recall": 0.541
+      },
+      "relational": {
+        "n": 15,
+        "context_keyword_recall": 0.747
+      }
+    },
+    "duplicate_slots_total": 0,
+    "both_signal_hits_total": 224
+  },
+  "results": [
+    {
+      "id": "q001",
+      "question": "What is politeness detection?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Politeness Detection",
+        "User-Generated Text",
+        "Language Civility"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p003_c00",
+        "SC Unit 2-1.pdf_p004_c00",
+        "SC Unit 2-6.pdf_p013_c01",
+        "SC Unit 2-1.pdf_p009_c00",
+        "SC Unit 2-1.pdf_p002_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 4,
+      "latency_ms": 12103.92010002397
+    },
+    {
+      "id": "q002",
+      "question": "What are the two main techniques used for politeness detection?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Politeness Detection",
+        "Rule-Based Methods",
+        "Stanford Politeness Corpus",
+        "NLP"
+      ],
+      "context_keyword_recall": 0.75,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p003_c00",
+        "SC Unit 2-1.pdf_p004_c00",
+        "SC Unit 2-2.pdf_p005_c00",
+        "SC Unit 2-3.pdf_p006_c00",
+        "SC Unit 2-6.pdf_p013_c01"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 155.84130003117025
+    },
+    {
+      "id": "q003",
+      "question": "What is hate speech and why is detecting it important?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Hate Speech Detection",
+        "Discrimination",
+        "Social Platforms",
+        "User Safety"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p005_c00",
+        "SC Unit 2-1.pdf_p005_c01",
+        "SC Unit 2-1.pdf_p006_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-1.pdf_p007_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 155.79969994723797
+    },
+    {
+      "id": "q004",
+      "question": "What are the key challenges in hate speech detection?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Hate Speech Detection",
+        "Sarcasm",
+        "Code Words",
+        "Free Speech"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p005_c00",
+        "SC Unit 2-1.pdf_p005_c01",
+        "SC Unit 2-1.pdf_p006_c00",
+        "SC Unit 2-1.pdf_p009_c00",
+        "SC Unit 2-2.pdf_p010_c01"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 3,
+      "latency_ms": 147.76409999467432
+    },
+    {
+      "id": "q005",
+      "question": "How does toxicity differ from hate speech in social media content moderation?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Toxicity Detection",
+        "Hate Speech Detection",
+        "Content Moderation"
+      ],
+      "context_keyword_recall": 0.667,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p005_c01",
+        "SC Unit 2-1.pdf_p007_c00",
+        "SC Unit 2-1.pdf_p005_c00",
+        "SC Unit 2-2.pdf_p010_c01",
+        "SC Unit 2-3.pdf_p011_c01"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 162.5407999381423
+    },
+    {
+      "id": "q006",
+      "question": "What are the three key components of argumentation mining?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Argumentation Mining",
+        "Claim Detection",
+        "Premise Identification",
+        "Stance Classification"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p008_c00",
+        "SC Unit 2-1.pdf_p009_c00",
+        "SC Unit 2-5.pdf_p015_c01",
+        "SC Unit 2-6.pdf_p013_c01",
+        "SC Unit 2-1.pdf_p005_c01"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 2,
+      "latency_ms": 162.69379993900657
+    },
+    {
+      "id": "q007",
+      "question": "What are the three types of user credibility on Twitter?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "User Credibility",
+        "Profile Credibility",
+        "Behavioural Credibility",
+        "Social Credibility",
+        "Twitter"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p014_c00",
+        "SC Unit 2-2.pdf_p015_c00",
+        "SC Unit 2-3.pdf_p016_c00",
+        "SC Unit 2-1.pdf_p016_c00",
+        "SC Unit 2-2.pdf_p017_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 146.72209997661412
+    },
+    {
+      "id": "q008",
+      "question": "What factors are used to measure profile credibility on Twitter?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Profile Credibility",
+        "Twitter",
+        "User Credibility"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p015_c00",
+        "SC Unit 2-2.pdf_p016_c00",
+        "SC Unit 2-1.pdf_p014_c00",
+        "SC Unit 2-3.pdf_p017_c00",
+        "SC Unit 2-2.pdf_p015_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 153.61139993183315
+    },
+    {
+      "id": "q009",
+      "question": "How is user credibility defined and how does it differ from trust in the context of social media graphs?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "User Credibility",
+        "Trust",
+        "Node Property",
+        "Edge Property",
+        "Social Media Graph"
+      ],
+      "context_keyword_recall": 0.6,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p013_c00",
+        "SC Unit 2-2.pdf_p014_c00",
+        "SC Unit 2-3.pdf_p015_c00",
+        "SC Unit 2-1.pdf_p017_c00",
+        "SC Unit 2-2.pdf_p018_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 188.63569991663098
+    },
+    {
+      "id": "q010",
+      "question": "What is the difference between local trust and global trust on Twitter?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Local Trust",
+        "Global Trust",
+        "Twitter",
+        "Trust",
+        "Retweet Ratio"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p017_c01",
+        "SC Unit 2-2.pdf_p018_c01",
+        "SC Unit 2-3.pdf_p019_c01",
+        "SC Unit 2-1.pdf_p013_c00",
+        "SC Unit 2-1.pdf_p017_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 177.20669996924698
+    },
+    {
+      "id": "q011",
+      "question": "What are the five types of user modeling explored in social computing?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "User Modeling",
+        "Personality",
+        "Health Profile",
+        "Gender",
+        "Ethnicity",
+        "Location",
+        "Political Orientation"
+      ],
+      "context_keyword_recall": 0.571,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00",
+        "SC Unit 2-2.pdf_p001_c00",
+        "SC Unit 2-4.pdf_p002_c00",
+        "SC Unit 2-3.pdf_p002_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 176.50260007940233
+    },
+    {
+      "id": "q012",
+      "question": "What is the Big Five (OCEAN) personality model and how is it applied in social media analysis?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Big Five",
+        "OCEAN",
+        "Personality Modeling",
+        "NLP",
+        "Text Mining",
+        "Social Media"
+      ],
+      "context_keyword_recall": 0.833,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-2.pdf_p001_c00",
+        "SC Unit 2-3.pdf_p002_c00",
+        "SC Unit 2-4.pdf_p003_c00",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 190.0744999293238
+    },
+    {
+      "id": "q013",
+      "question": "What are the four dichotomous scales of the Myers-Briggs Type Indicator (MBTI)?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "MBTI",
+        "Myers-Briggs",
+        "Personality Profile",
+        "Introvert",
+        "Extrovert"
+      ],
+      "context_keyword_recall": 0.8,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p018_c00",
+        "SC Unit 2-2.pdf_p019_c00",
+        "SC Unit 2-3.pdf_p020_c00",
+        "SC Unit 2-1.pdf_p018_c01",
+        "SC Unit 2-2.pdf_p019_c01"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 187.15679994784296
+    },
+    {
+      "id": "q014",
+      "question": "How is MBTI personality type linked to disinformation spreading behavior on social media?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "MBTI",
+        "Disinformation",
+        "User Credibility",
+        "Extroversion",
+        "Thinking",
+        "Judging"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p018_c01",
+        "SC Unit 2-2.pdf_p019_c01",
+        "SC Unit 2-3.pdf_p020_c01",
+        "SC Unit 2-1.pdf_p018_c00",
+        "SC Unit 2-2.pdf_p019_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 174.08129991963506
+    },
+    {
+      "id": "q015",
+      "question": "How can user health profiles be constructed from social media posts?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "User Health Profile",
+        "Mental Health",
+        "Sentiment Analysis",
+        "Depression",
+        "Social Media"
+      ],
+      "context_keyword_recall": 0.6,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-2.pdf_p002_c00",
+        "SC Unit 2-3.pdf_p003_c00",
+        "SC Unit 2-4.pdf_p004_c00",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 165.65770003944635
+    },
+    {
+      "id": "q016",
+      "question": "What signals are used to model a user's geolocation from social media data?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "User Location Modeling",
+        "Geotags",
+        "Spatial-Temporal Modeling",
+        "Topic Modeling"
+      ],
+      "context_keyword_recall": 0.75,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-2.pdf_p004_c00",
+        "SC Unit 2-3.pdf_p005_c00",
+        "SC Unit 2-4.pdf_p006_c00",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 183.96339984610677
+    },
+    {
+      "id": "q017",
+      "question": "What are social roles in digital communities and why are they important to understand?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Social Roles",
+        "Information Diffusion",
+        "Group Dynamics",
+        "Credibility",
+        "Digital Communities"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-2.pdf_p007_c00",
+        "SC Unit 2-3.pdf_p008_c00",
+        "SC Unit 2-4.pdf_p009_c00",
+        "SC Unit 2-2.pdf_p009_c00",
+        "SC Unit 2-4.pdf_p019_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 3,
+      "latency_ms": 163.31490012817085
+    },
+    {
+      "id": "q018",
+      "question": "What are the six social roles identified in social media communities?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Lurkers",
+        "Newbies",
+        "Influencers",
+        "Wisdom Warriors",
+        "Trolls",
+        "Spammers",
+        "Social Roles"
+      ],
+      "context_keyword_recall": 0.571,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-2.pdf_p007_c00",
+        "SC Unit 2-3.pdf_p008_c00",
+        "SC Unit 2-4.pdf_p009_c00",
+        "SC Unit 2-2.pdf_p008_c00",
+        "SC Unit 2-2.pdf_p009_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 154.554900014773
+    },
+    {
+      "id": "q019",
+      "question": "How do trolls differ from spammers as social roles, and how is each detected?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Trolls",
+        "Spammers",
+        "Bots",
+        "Toxicity Detection",
+        "Sentiment Analysis",
+        "Automation Detection"
+      ],
+      "context_keyword_recall": 0.833,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-2.pdf_p010_c00",
+        "SC Unit 2-2.pdf_p010_c01",
+        "SC Unit 2-3.pdf_p011_c00",
+        "SC Unit 2-3.pdf_p011_c01",
+        "SC Unit 2-4.pdf_p012_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 180.3335000295192
+    },
+    {
+      "id": "q020",
+      "question": "How does user political orientation get modeled from social media data, and what are its applications?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Political Orientation Modeling",
+        "Supervised Learning",
+        "Echo Chambers",
+        "Polarization",
+        "Misinformation"
+      ],
+      "context_keyword_recall": 0.8,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-2.pdf_p005_c00",
+        "SC Unit 2-3.pdf_p001_c00",
+        "SC Unit 2-3.pdf_p006_c00",
+        "SC Unit 2-4.pdf_p002_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 187.84500006586313
+    },
+    {
+      "id": "q021",
+      "question": "How does trust formation in social media networks lead to community formation, and how does that community in turn affect trust?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Trust",
+        "Community Formation",
+        "Social Network",
+        "Edge Property",
+        "Node Property"
+      ],
+      "context_keyword_recall": 0.8,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p017_c00",
+        "SC Unit 2-2.pdf_p018_c00",
+        "SC Unit 2-3.pdf_p019_c00",
+        "SC Unit 2-1.pdf_p013_c00",
+        "SC Unit 2-2.pdf_p014_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 209.8451000638306
+    },
+    {
+      "id": "q022",
+      "question": "What NLP approaches are used to detect hate speech, and what models are most commonly applied?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Hate Speech Detection",
+        "BERT",
+        "DeBERTa",
+        "Deep Learning",
+        "Davidson",
+        "Twitter"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p005_c01",
+        "SC Unit 2-1.pdf_p005_c00",
+        "SC Unit 2-1.pdf_p006_c00",
+        "SC Unit 2-5.pdf_p006_c00",
+        "SC Unit 2-5.pdf_p015_c01"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 3,
+      "latency_ms": 175.57200021110475
+    },
+    {
+      "id": "q023",
+      "question": "How does user credibility relate to disinformation spread, and what role does MBTI personality type play in this relationship?",
+      "question_type": "multi-hop",
+      "expected_concepts": [
+        "User Credibility",
+        "Disinformation",
+        "MBTI",
+        "Extroversion",
+        "Thinking",
+        "Judging",
+        "Fake News"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p018_c01",
+        "SC Unit 2-1.pdf_p014_c00",
+        "SC Unit 2-2.pdf_p019_c01",
+        "SC Unit 2-2.pdf_p015_c00",
+        "SC Unit 2-3.pdf_p020_c01"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 229.4144001789391
+    },
+    {
+      "id": "q024",
+      "question": "How does the role of an Influencer on social media relate to behavioral credibility, and what makes them different from a Wisdom Warrior?",
+      "question_type": "multi-hop",
+      "expected_concepts": [
+        "Influencers",
+        "Wisdom Warriors",
+        "Behavioural Credibility",
+        "Social Credibility",
+        "Social Roles"
+      ],
+      "context_keyword_recall": 0.6,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p016_c00",
+        "SC Unit 2-2.pdf_p017_c00",
+        "SC Unit 2-3.pdf_p018_c00",
+        "SC Unit 2-2.pdf_p010_c00",
+        "SC Unit 2-4.pdf_p017_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 3,
+      "latency_ms": 203.21370009332895
+    },
+    {
+      "id": "q025",
+      "question": "If a social media platform wants to detect and reduce the spread of politically motivated disinformation, what combination of user modeling techniques and credibility signals would be most effective, and why?",
+      "question_type": "multi-hop",
+      "expected_concepts": [
+        "Political Orientation Modeling",
+        "User Credibility",
+        "MBTI",
+        "Big Five",
+        "Argumentation Mining",
+        "Disinformation",
+        "Behavioural Credibility",
+        "Personality Modeling",
+        "Trust"
+      ],
+      "context_keyword_recall": 0.333,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p014_c00",
+        "SC Unit 2-2.pdf_p015_c00",
+        "SC Unit 2-3.pdf_p016_c00",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 251.7790999263525
+    },
+    {
+      "id": "q026",
+      "question": "What is cyberbullying and how does it differ from trolling?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Cyberbullying",
+        "Trolling",
+        "Anti-Social Behavior",
+        "Harassment",
+        "Social Media"
+      ],
+      "context_keyword_recall": 0.4,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p001_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-5.pdf_p002_c00",
+        "SC Unit 2-5.pdf_p003_c00",
+        "SC Unit 2-4.pdf_p019_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 167.24790004082024
+    },
+    {
+      "id": "q027",
+      "question": "What percentage of school-age children experience cyberbullying, and what forms of media do cyberbullies use?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Cyberbullying",
+        "School-Age Children",
+        "Anti-Social Behavior",
+        "Social Media"
+      ],
+      "context_keyword_recall": 0.5,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p002_c00",
+        "SC Unit 2-5.pdf_p001_c00",
+        "SC Unit 2-4.pdf_p020_c00",
+        "SC Unit 2-4.pdf_p020_c01",
+        "SC Unit 2-1.pdf_p020_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 4,
+      "latency_ms": 209.09260003827512
+    },
+    {
+      "id": "q028",
+      "question": "What are the five categories of anti-social behavior (ASB) used to classify social media posts?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "ASB Categories",
+        "Anti-Social Behavior",
+        "Irritability",
+        "Aggressiveness",
+        "Lack of Remorse",
+        "Reckless Disregard"
+      ],
+      "context_keyword_recall": 0.5,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p005_c00",
+        "SC Unit 2-5.pdf_p006_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-1.pdf_p001_c00",
+        "SC Unit 2-4.pdf_p016_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 184.12240012548864
+    },
+    {
+      "id": "q029",
+      "question": "What is flaming and how does it differ from trolling in terms of intent?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Flaming",
+        "Trolling",
+        "Anti-Social Behavior",
+        "Intent",
+        "Anonymity"
+      ],
+      "context_keyword_recall": 0.8,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p003_c00",
+        "SC Unit 2-4.pdf_p019_c00",
+        "SC Unit 2-4.pdf_p020_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-4.pdf_p020_c01"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 167.765999911353
+    },
+    {
+      "id": "q030",
+      "question": "What is dark content and what are examples of it on social media platforms?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Dark Content",
+        "Anti-Social Behavior",
+        "Hate Speech",
+        "Cyberbullying",
+        "Extremist Propaganda",
+        "Mental Health"
+      ],
+      "context_keyword_recall": 0.833,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p004_c00",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-5.pdf_p012_c01",
+        "SC Unit 2-3.pdf_p001_c00",
+        "SC Unit 2-5.pdf_p015_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 1,
+      "latency_ms": 163.1327997893095
+    },
+    {
+      "id": "q031",
+      "question": "What are the three main factors that explain why people exhibit anti-social behavior (ASB)?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Anti-Social Behavior",
+        "Environmental Factors",
+        "Genetic Factors",
+        "Neural Factors",
+        "ASPD"
+      ],
+      "context_keyword_recall": 0.6,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-4.pdf_p018_c00",
+        "SC Unit 2-4.pdf_p018_c01",
+        "SC Unit 2-4.pdf_p016_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-4.pdf_p020_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 197.8548001497984
+    },
+    {
+      "id": "q032",
+      "question": "What is Antisocial Personality Disorder (ASPD) and how does it manifest in online behavior?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "ASPD",
+        "Anti-Social Behavior",
+        "Anti-Social Computing",
+        "Personality Disorder"
+      ],
+      "context_keyword_recall": 0.75,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-4.pdf_p016_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-5.pdf_p001_c00",
+        "SC Unit 2-5.pdf_p002_c00",
+        "SC Unit 2-4.pdf_p016_c01"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 191.80850009433925
+    },
+    {
+      "id": "q033",
+      "question": "What is polarization in the context of social media, and how does it manifest on platforms like Twitter and Reddit?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Polarization",
+        "Echo Chambers",
+        "Social Media",
+        "Ideological Divide",
+        "Out-Group"
+      ],
+      "context_keyword_recall": 0.2,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p012_c00",
+        "SC Unit 2-5.pdf_p001_c00",
+        "SC Unit 2-1.pdf_p005_c01",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-5.pdf_p014_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 3,
+      "latency_ms": 238.35229990072548
+    },
+    {
+      "id": "q034",
+      "question": "How does online polarization negatively affect the mental health of social media users?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Polarization",
+        "Mental Health",
+        "Echo Chambers",
+        "Emotional Contagion",
+        "Anxiety",
+        "Depression"
+      ],
+      "context_keyword_recall": 0.667,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p013_c00",
+        "SC Unit 2-5.pdf_p012_c01",
+        "SC Unit 2-5.pdf_p010_c00",
+        "SC Unit 2-5.pdf_p014_c00",
+        "SC Unit 2-5.pdf_p012_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 177.6582000311464
+    },
+    {
+      "id": "q035",
+      "question": "What ethical challenges arise when analyzing user mental health from social media data?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Mental Health",
+        "Privacy",
+        "Ethics",
+        "Social Media",
+        "Stigma",
+        "Transparency"
+      ],
+      "context_keyword_recall": 0.333,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p015_c00",
+        "SC Unit 2-2.pdf_p002_c00",
+        "SC Unit 2-3.pdf_p003_c00",
+        "SC Unit 2-4.pdf_p004_c00",
+        "SC Unit 2-2.pdf_p004_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 4,
+      "latency_ms": 181.10219994559884
+    },
+    {
+      "id": "q036",
+      "question": "What are the three dimensions used to characterize crisis-related tweets for disaster response?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Crisis Informatics",
+        "Disaster Response",
+        "Tweet Classification",
+        "Urgency",
+        "Relatedness"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p002_c00",
+        "SC Unit 2-6.pdf_p005_c00",
+        "SC Unit 2-6.pdf_p006_c00",
+        "SC Unit 2-6.pdf_p001_c00",
+        "SC Unit 2-2.pdf_p005_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 179.33780001476407
+    },
+    {
+      "id": "q037",
+      "question": "Why are social media signals considered faster than traditional reporting systems for disaster response?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Disaster Response",
+        "Crisis Informatics",
+        "Real-Time Detection",
+        "Twitter",
+        "Emergency Detection"
+      ],
+      "context_keyword_recall": 0.8,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p005_c01",
+        "SC Unit 2-6.pdf_p005_c00",
+        "SC Unit 2-6.pdf_p006_c00",
+        "SC Unit 2-6.pdf_p001_c00",
+        "SC Unit 2-1.pdf_p016_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 4,
+      "latency_ms": 143.45610002055764
+    },
+    {
+      "id": "q038",
+      "question": "What is minimally supervised urgency detection and what are its two setup variations?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Urgency Detection",
+        "Crisis Informatics",
+        "Zero-Shot Learning",
+        "Minimally Supervised Learning"
+      ],
+      "context_keyword_recall": 0.5,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p004_c00",
+        "SC Unit 2-5.pdf_p020_c01",
+        "SC Unit 2-1.pdf_p009_c00",
+        "SC Unit 2-5.pdf_p020_c00",
+        "SC Unit 2-2.pdf_p007_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 4,
+      "latency_ms": 150.30269999988377
+    },
+    {
+      "id": "q039",
+      "question": "What is the difference between misinformation, disinformation, malinformation, and coordinated inauthentic behavior (CIB)?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Misinformation",
+        "Disinformation",
+        "Malinformation",
+        "CIB",
+        "Propaganda",
+        "Fake News",
+        "Rumor"
+      ],
+      "context_keyword_recall": 0.857,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p009_c00",
+        "SC Unit 2-6.pdf_p010_c00",
+        "SC Unit 2-5.pdf_p003_c00",
+        "SC Unit 2-6.pdf_p013_c00",
+        "SC Unit 2-6.pdf_p012_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 218.3580999262631
+    },
+    {
+      "id": "q040",
+      "question": "How should fake news, rumors, and propaganda be distinguished from each other based on factuality and harmful intent?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Fake News",
+        "Rumor",
+        "Propaganda",
+        "Disinformation",
+        "Misinformation",
+        "Intent"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p010_c00",
+        "SC Unit 2-6.pdf_p009_c00",
+        "SC Unit 2-6.pdf_p013_c01",
+        "SC Unit 2-6.pdf_p007_c00",
+        "SC Unit 2-6.pdf_p008_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 174.95999997481704
+    },
+    {
+      "id": "q041",
+      "question": "What are the three perspectives from which Fake News should be analyzed in the Post-Truth Era?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Fake News",
+        "Post-Truth Era",
+        "Fakeness",
+        "Newsworthiness",
+        "Shareworthiness"
+      ],
+      "context_keyword_recall": 1.0,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p008_c00",
+        "SC Unit 2-6.pdf_p013_c01",
+        "SC Unit 2-6.pdf_p009_c00",
+        "SC Unit 2-1.pdf_p014_c00",
+        "SC Unit 2-2.pdf_p015_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 159.03199999593198
+    },
+    {
+      "id": "q042",
+      "question": "How can LLMs be used in disinformation research, and what are their key weaknesses in this domain?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "LLM",
+        "Disinformation",
+        "Fake News Detection",
+        "Rumor Detection",
+        "Propaganda",
+        "Adversarial Prompting"
+      ],
+      "context_keyword_recall": 0.5,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p013_c00",
+        "SC Unit 2-6.pdf_p012_c00",
+        "SC Unit 2-5.pdf_p015_c01",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-6.pdf_p011_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 2,
+      "latency_ms": 178.4393999259919
+    },
+    {
+      "id": "q043",
+      "question": "What is the relationship between trolling behavior and the mental health impact on its victims?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Trolling",
+        "Mental Health",
+        "Anxiety",
+        "Depression",
+        "Anti-Social Behavior",
+        "Victims"
+      ],
+      "context_keyword_recall": 0.833,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-4.pdf_p020_c01",
+        "SC Unit 2-4.pdf_p019_c00",
+        "SC Unit 2-5.pdf_p014_c00",
+        "SC Unit 2-5.pdf_p003_c00",
+        "SC Unit 2-4.pdf_p017_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 4,
+      "latency_ms": 155.23630008101463
+    },
+    {
+      "id": "q044",
+      "question": "How does predicting voting intentions from social media differ from traditional polling methods?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Voting Intentions",
+        "Social Media Events",
+        "Sentiment Analysis",
+        "Topic Detection",
+        "Political Orientation"
+      ],
+      "context_keyword_recall": 0.8,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p019_c00",
+        "SC Unit 2-5.pdf_p018_c00",
+        "SC Unit 2-5.pdf_p019_c01",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 142.23630004562438
+    },
+    {
+      "id": "q045",
+      "question": "What real-world disaster response systems have been built using Twitter data, and what events did they address?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Disaster Response",
+        "Twitter",
+        "Crisis Informatics",
+        "Earthquake Detection",
+        "Emergency Detection"
+      ],
+      "context_keyword_recall": 0.8,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p006_c00",
+        "SC Unit 2-6.pdf_p005_c01",
+        "SC Unit 2-6.pdf_p005_c00",
+        "SC Unit 2-5.pdf_p020_c00",
+        "SC Unit 2-6.pdf_p001_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 167.9572998546064
+    },
+    {
+      "id": "q046",
+      "question": "How does the Irritability and Aggressiveness ASB category differ from the Reckless Disregard for Safety category in terms of linguistic features?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "ASB Categories",
+        "Irritability",
+        "Reckless Disregard for Safety",
+        "Text Classification",
+        "Anti-Social Behavior"
+      ],
+      "context_keyword_recall": 0.6,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p007_c00",
+        "SC Unit 2-5.pdf_p007_c01",
+        "SC Unit 2-5.pdf_p006_c00",
+        "SC Unit 2-5.pdf_p008_c00",
+        "SC Unit 2-4.pdf_p019_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 204.43639997392893
+    },
+    {
+      "id": "q047",
+      "question": "How does the Lack of Remorse ASB category differ from the Non-Antisocial category in terms of vocabulary and classification difficulty?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Lack of Remorse",
+        "Non-Antisocial",
+        "ASB Categories",
+        "Text Classification",
+        "Anti-Social Behavior"
+      ],
+      "context_keyword_recall": 0.6,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p008_c00",
+        "SC Unit 2-5.pdf_p006_c00",
+        "SC Unit 2-4.pdf_p016_c00",
+        "SC Unit 2-5.pdf_p008_c01",
+        "SC Unit 2-4.pdf_p018_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 182.44119989685714
+    },
+    {
+      "id": "q048",
+      "question": "How does trolling spread geographically and demographically, and what are its long-term behavioral patterns?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Trolling",
+        "Anti-Social Behavior",
+        "Gender",
+        "Behavioral Patterns",
+        "Community Moderation"
+      ],
+      "context_keyword_recall": 0.4,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-4.pdf_p019_c00",
+        "SC Unit 2-4.pdf_p020_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-4.pdf_p020_c01",
+        "SC Unit 2-1.pdf_p016_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 195.03609999082983
+    },
+    {
+      "id": "q049",
+      "question": "How does anti-social computing as a field relate to the detection of both trolling and cyberbullying, and what methods does it use for each?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Anti-Social Computing",
+        "Trolling",
+        "Cyberbullying",
+        "Sentiment Analysis",
+        "Toxicity Detection"
+      ],
+      "context_keyword_recall": 0.6,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-5.pdf_p001_c00",
+        "SC Unit 2-5.pdf_p002_c00",
+        "SC Unit 2-4.pdf_p020_c00",
+        "SC Unit 2-4.pdf_p019_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 220.94219992868602
+    },
+    {
+      "id": "q050",
+      "question": "A researcher wants to build a system to detect whether a social media user is likely to spread disinformation during a political crisis. Trace the full pipeline from user behavior signals to a final risk score, incorporating user modeling, credibility assessment, personality profiling, and content-level analysis.",
+      "question_type": "multi-hop",
+      "expected_concepts": [
+        "User Modeling",
+        "User Credibility",
+        "MBTI",
+        "Big Five",
+        "Political Orientation Modeling",
+        "Argumentation Mining",
+        "Toxicity Detection",
+        "Hate Speech Detection",
+        "Disinformation",
+        "Polarization",
+        "Echo Chambers",
+        "Trust",
+        "Social Network"
+      ],
+      "context_keyword_recall": 0.231,
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p014_c00",
+        "SC Unit 2-2.pdf_p015_c00",
+        "SC Unit 2-3.pdf_p016_c00",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00"
+      ],
+      "duplicate_slots": 0,
+      "both_signal_hits": 5,
+      "latency_ms": 361.87190003693104
+    }
+  ]
+}
