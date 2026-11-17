@@ -149,39 +149,56 @@ def index(skip_images: bool = typer.Option(False, help="Skip OCR/BLIP captioning
 
 @app.command("build-graph")
 def build_graph_cmd(
-    start_index: int = typer.Option(0, help="Resume from this chunk index."),
+    start_index: int = typer.Option(0, help="Skip chunks before this index."),
     limit: int | None = typer.Option(None, help="Only process this many chunks."),
+    concurrency: int = typer.Option(4, help="Concurrent LLM calls."),
+    serial: bool = typer.Option(False, help="Use the original serial loop with a fixed sleep."),
 ) -> None:
-    """Extract triples with the LLM and upsert them into Neo4j."""
+    """Extract triples with the LLM and upsert them into Neo4j. Safe to re-run: finished
+    chunks are skipped and failed chunks are retried."""
+    import asyncio
 
-    from graphrag.graph.extract import build_graph
+    from graphrag.graph.extract import build_graph, build_graph_async, upsert_triple
     from graphrag.graph.schema import apply_schema, connect, graph_stats
     from graphrag.ingest.chunking import load_chunks
-    from graphrag.reasoning.llm import GroqLLM
+    from graphrag.reasoning.llm import AsyncGroqLLM, GroqLLM
 
     s = _settings()
     if not s.graph_enabled or s.groq_api_key is None:
         raise typer.BadParameter(
             "NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD and GROQ_API_KEY are required"
         )
+    key = s.groq_api_key.get_secret_value()
     driver = connect(s)
     apply_schema(driver)
     chunks = load_chunks(s.documents_dir)
     if limit is not None:
         chunks = chunks[: start_index + limit]
-    llm = GroqLLM(
-        s.groq_api_key.get_secret_value(), s.llm_model, s.llm_temperature, s.llm_max_tokens
-    )
-    stats = build_graph(
-        chunks,
-        llm,
-        driver,
-        s.graph_checkpoint_path,
-        start_index,
-        s.triple_confidence_threshold,
-        s.extraction_sleep_seconds,
-        s.extraction_checkpoint_every,
-    )
+    if serial:
+        stats = build_graph(
+            chunks,
+            GroqLLM(key, s.llm_model, s.llm_temperature, s.llm_max_tokens),
+            driver,
+            s.graph_checkpoint_path,
+            start_index,
+            s.triple_confidence_threshold,
+            s.extraction_sleep_seconds,
+            s.extraction_checkpoint_every,
+        )
+    else:
+        with driver.session() as session:
+            stats = asyncio.run(
+                build_graph_async(
+                    chunks,
+                    AsyncGroqLLM(key, s.llm_model, s.llm_temperature, s.llm_max_tokens),
+                    lambda t, cid: upsert_triple(session, t, cid),
+                    s.graph_checkpoint_path,
+                    start_index=start_index,
+                    concurrency=concurrency,
+                    threshold=s.triple_confidence_threshold,
+                    char_limit=s.triple_text_char_limit,
+                )
+            )
     typer.echo(f"chunks {stats.chunks_processed} | triples {stats.triples} | errors {stats.errors}")
     typer.echo(json.dumps(graph_stats(driver), indent=2))
     driver.close()
