@@ -74,5 +74,5 @@ disallow_untyped_decorators = false
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-q"
+addopts = "-q -m 'not slow'"
 markers = ["slow: needs Docker or network; excluded by default with -m 'not slow'"]

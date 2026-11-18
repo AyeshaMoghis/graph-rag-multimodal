@@ -55,6 +55,8 @@ def apply_schema(driver: Any) -> None:
     with driver.session() as session:
         for cypher in (*CONSTRAINTS, FULLTEXT_INDEX_DDL):
             session.run(cypher)
+        # Index creation is asynchronous; wait so the first full-text query works.
+        session.run("CALL db.awaitIndexes(120)")
 
 
 def graph_stats(driver: Any) -> dict[str, Any]:
