@@ -1,0 +1,44 @@
+# Neo4j + the API. Fill in .env first (see .env.example), then:
+#   docker compose up -d
+#   docker compose exec app graphrag ingest
+#   docker compose exec app graphrag index
+#   docker compose exec app graphrag build-graph
+#
+# NEO4J_USER / NEO4J_PASSWORD from .env set the database's initial login;
+# the app reaches it on the compose network, so NEO4J_URI is overridden here.
+
+services:
+  neo4j:
+    image: neo4j:5
+    environment:
+      NEO4J_AUTH: ${NEO4J_USER:?set NEO4J_USER in .env}/${NEO4J_PASSWORD:?set NEO4J_PASSWORD in .env}
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:7474 >/dev/null || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  app:
+    build: .
+    env_file: .env
+    environment:
+      NEO4J_URI: bolt://neo4j:7687
+      GRAPHRAG_CORPUS_DIR: /app/data/corpus
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./output:/app/output
+      - ./data:/app/data
+      - models:/models
+    depends_on:
+      neo4j:
+        condition: service_healthy
+
+volumes:
+  neo4j_data:
+  models:
