@@ -1,0 +1,3335 @@
+{
+  "created_at": "2026-11-18T18:01:53+00:00",
+  "python": "3.12.6",
+  "config": {
+    "preset": "fixed",
+    "fusion": "rrf",
+    "bm25_tokenizer": "normalized",
+    "rrf_k": 60,
+    "alpha": 0.5,
+    "text_top_k": 5,
+    "embed_model": "BAAI/bge-large-en-v1.5",
+    "rerank": false,
+    "rerank_model": null,
+    "rerank_candidates": null,
+    "llm_model": "openai/gpt-oss-20b",
+    "golden_qa": "data\\golden_qa\\golden_qa_set_complete.json",
+    "n_questions": 50,
+    "overrides": {
+      "fusion": "rrf",
+      "bm25_tokenizer": "normalized"
+    }
+  },
+  "summary": {
+    "mode": "answer",
+    "total": 50,
+    "successful": 50,
+    "errors": 0,
+    "primary_metric": "keyword_recall",
+    "keyword_recall": 0.576,
+    "latency_ms_p50": 12518.3,
+    "by_type": {
+      "factual": {
+        "n": 31,
+        "keyword_recall": 0.613,
+        "graph_self_reported": 0.0
+      },
+      "multi-hop": {
+        "n": 4,
+        "keyword_recall": 0.422,
+        "graph_self_reported": 0.0
+      },
+      "relational": {
+        "n": 15,
+        "keyword_recall": 0.542,
+        "graph_self_reported": 0.0
+      }
+    },
+    "context_keyword_recall": 0.732,
+    "graph_utilization_self_reported": 0.0,
+    "graph_paths_in_context_rate": 0.0,
+    "graph_utilization_validated": 0.0,
+    "citations_total": 143,
+    "citations_fabricated": 9,
+    "fabricated_citation_rate": 0.063,
+    "answers_with_fabrication_rate": 0.1,
+    "judge_faithfulness": 0.857,
+    "judge_answer_relevance": 4.792,
+    "judge_errors": 2,
+    "supported_sentence_rate": 0.432,
+    "confidence": {
+      "high": 23,
+      "medium": 27
+    },
+    "confidence_self_reported": {
+      "high": 46,
+      "low": 3,
+      "medium": 1
+    },
+    "calibration": {
+      "confidence_self_reported": {
+        "high": {
+          "n": 46,
+          "keyword_recall": 0.593
+        },
+        "medium": {
+          "n": 1,
+          "keyword_recall": 0.4
+        },
+        "low": {
+          "n": 3,
+          "keyword_recall": 0.381
+        }
+      },
+      "confidence": {
+        "high": {
+          "n": 23,
+          "keyword_recall": 0.635
+        },
+        "medium": {
+          "n": 27,
+          "keyword_recall": 0.526
+        }
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "q001",
+      "question": "What is politeness detection?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Politeness Detection",
+        "User-Generated Text",
+        "Language Civility"
+      ],
+      "answer": "Politeness detection involves identifying respectful and considerate language in user-generated text. [SC Unit 2-1.pdf_p003_c00] It is useful for enhancing customer service bots, improving online community moderation, and analyzing tone in business communication. [SC Unit 2-1.pdf_p003_c00] Techniques include rule‑based methods such as detecting greetings or hedges, and machine‑learning/NLP models trained on annotated datasets like the Stanford Politeness Corpus. [SC Unit 2-1.pdf_p004_c00] For example, “Would you mind sharing your thoughts?” is classified as polite, whereas “Give me your answer now.” is classified as impolite. [SC Unit 2-1.pdf_p004_c00]",
+      "keyword_recall": 0.667,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.9,
+        "agreement": 0.8,
+        "margin": 1.0
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 1.0,
+      "unsupported_claims": [],
+      "referenced_concepts": [
+        "Politeness Detection",
+        "Rule-based methods",
+        "ML/NLP models",
+        "Stanford Politeness Corpus"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p003_c00",
+        "SC Unit 2-1.pdf_p004_c00",
+        "SC Unit 2-6.pdf_p013_c01",
+        "SC Unit 2-1.pdf_p009_c00",
+        "SC Unit 2-1.pdf_p002_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.00030011869966983795,
+        "graph": 0.005300156772136688,
+        "text": 82.61829987168312,
+        "images": 68.55249986983836,
+        "pack": 0.4485000390559435,
+        "llm": 96373.99710016325
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 97461.8542001117
+    },
+    {
+      "id": "q002",
+      "question": "What are the two main techniques used for politeness detection?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Politeness Detection",
+        "Rule-Based Methods",
+        "Stanford Politeness Corpus",
+        "NLP"
+      ],
+      "answer": "Politeness detection primarily relies on rule‑based methods and machine‑learning/NLP models.[SC Unit 2-1.pdf_p004_c00]",
+      "keyword_recall": 0.5,
+      "context_keyword_recall": 0.75,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.6094,
+        "agreement": 1.0,
+        "margin": 0.2188832054560957
+      },
+      "citations_cited": 1,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "Politeness detection primarily relies on rule‑based methods and machine‑learning/NLP models."
+      ],
+      "referenced_concepts": [
+        "Politeness Detection",
+        "Rule-based methods",
+        "ML/NLP models"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p003_c00",
+        "SC Unit 2-1.pdf_p004_c00",
+        "SC Unit 2-2.pdf_p005_c00",
+        "SC Unit 2-3.pdf_p006_c00",
+        "SC Unit 2-6.pdf_p013_c01"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.001200009137392044,
+        "graph": 0.01300009898841381,
+        "text": 11.329700006172061,
+        "images": 3.7578002084046602,
+        "pack": 0.43010013177990913,
+        "llm": 83.90310010872781
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 827.3823999334127
+    },
+    {
+      "id": "q003",
+      "question": "What is hate speech and why is detecting it important?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Hate Speech Detection",
+        "Discrimination",
+        "Social Platforms",
+        "User Safety"
+      ],
+      "answer": "Hate speech includes abusive, discriminatory, or threatening language targeting specific groups such as race, religion, or gender. [SC Unit 2-1.pdf_p005_c00] Detecting hate speech is critical for social platforms, legal compliance, and user safety. [SC Unit 2-1.pdf_p005_c00] Accurate detection helps prevent discrimination, protects vulnerable communities, and maintains a safer online environment. [SC Unit 2-1.pdf_p005_c00] It also enables platforms to comply with laws that prohibit hate content and to filter or remove such material. [SC Unit 2-1.pdf_p005_c00] Challenges in detection include code words, sarcasm, slang, and the fine line between free speech and hate. [SC Unit 2-1.pdf_p005_c01] Current approaches use dataset-driven deep learning and context-aware models like BERT or DeBERTa. [SC Unit 2-1.pdf_p005_c01] Anti‑social computing studies how to explain, predict, and prevent such behaviors, including hate speech. [SC Unit 2-4.pdf_p017_c00]",
+      "keyword_recall": 0.75,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.6315,
+        "agreement": 1.0,
+        "margin": 0.26307696026005895
+      },
+      "citations_cited": 3,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.571,
+      "unsupported_claims": [
+        "Accurate detection helps prevent discrimination, protects vulnerable communities, and maintains a safer online environment.",
+        "It also enables platforms to comply with laws that prohibit hate content and to filter or remove such material.",
+        "Anti‑social computing studies how to explain, predict, and prevent such behaviors, including hate speech."
+      ],
+      "referenced_concepts": [
+        "hate speech",
+        "detection importance",
+        "anti-social computing",
+        "deep learning models"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p005_c00",
+        "SC Unit 2-1.pdf_p005_c01",
+        "SC Unit 2-1.pdf_p006_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-1.pdf_p007_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.0004998873919248581,
+        "graph": 0.008899951353669167,
+        "text": 13.133100001141429,
+        "images": 7.3991999961435795,
+        "pack": 0.4512001760303974,
+        "llm": 312.6862000208348
+      },
+      "judge_faithfulness": 0.571,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 1103.651000186801
+    },
+    {
+      "id": "q004",
+      "question": "What are the key challenges in hate speech detection?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Hate Speech Detection",
+        "Sarcasm",
+        "Code Words",
+        "Free Speech"
+      ],
+      "answer": "Key challenges in hate speech detection include the use of code words, sarcasm, and slang, which obscure hateful intent [SC Unit 2-1.pdf_p005_c00]. Another major challenge is the ambiguity between free speech and hate, making it difficult to distinguish permissible expression from hateful content [SC Unit 2-1.pdf_p005_c01].",
+      "keyword_recall": 1.0,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.8,
+        "agreement": 0.6,
+        "margin": 1.0
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "Key challenges in hate speech detection include the use of code words, sarcasm, and slang, which obscure hateful intent.",
+        "Another major challenge is the ambiguity between free speech and hate, making it difficult to distinguish permissible expression from hateful content."
+      ],
+      "referenced_concepts": [
+        "Hate Speech Detection Challenges"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p005_c00",
+        "SC Unit 2-1.pdf_p005_c01",
+        "SC Unit 2-1.pdf_p006_c00",
+        "SC Unit 2-1.pdf_p009_c00",
+        "SC Unit 2-2.pdf_p010_c01"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.00030011869966983795,
+        "graph": 0.005499925464391708,
+        "text": 8.577700005844235,
+        "images": 4.955999786034226,
+        "pack": 0.24649989791214466,
+        "llm": 756.5735999960452
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 11297.388299833983
+    },
+    {
+      "id": "q005",
+      "question": "How does toxicity differ from hate speech in social media content moderation?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Toxicity Detection",
+        "Hate Speech Detection",
+        "Content Moderation"
+      ],
+      "answer": "Toxicity refers to rude, disrespectful, or unreasonable comments that make online environments unpleasant. [SC Unit 2-1.pdf_p007_c00] It is broader than hate speech, encompassing insults, threats, harassment, and other non‑targeted negative language. [SC Unit 2-1.pdf_p007_c00] Hate speech specifically targets protected groups with abusive, discriminatory, or threatening language. [SC Unit 2-1.pdf_p005_c00] Therefore, while all hate speech is toxic, not all toxic content is hate speech. [SC Unit 2-1.pdf_p007_c00] [SC Unit 2-1.pdf_p005_c00] Moderation systems often use toxicity scoring or sentiment analysis to flag general harmful content, whereas hate‑speech detection relies on group‑specific context and deeper semantic models like BERT or DeBERTa. [SC Unit 2-1.pdf_p005_c01] [SC Unit 2-1.pdf_p005_c00]",
+      "keyword_recall": 0.0,
+      "context_keyword_recall": 0.667,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5602,
+        "agreement": 1.0,
+        "margin": 0.12042714932126718
+      },
+      "citations_cited": 5,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.4,
+      "unsupported_claims": [
+        "Toxicity refers to rude, disrespectful, or unreasonable comments that make online environments unpleasant.",
+        "It is broader than hate speech, encompassing insults, threats, harassment, and other non‑targeted negative language.",
+        "Therefore, while all hate speech is toxic, not all toxic content is hate speech."
+      ],
+      "referenced_concepts": [
+        "toxicity",
+        "hate speech",
+        "content moderation",
+        "BERT",
+        "DeBERTa"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p005_c01",
+        "SC Unit 2-1.pdf_p007_c00",
+        "SC Unit 2-1.pdf_p005_c00",
+        "SC Unit 2-2.pdf_p010_c01",
+        "SC Unit 2-3.pdf_p011_c01"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.0004998873919248581,
+        "graph": 0.008499948307871819,
+        "text": 11.353300185874104,
+        "images": 4.079699981957674,
+        "pack": 0.22140005603432655,
+        "llm": 1790.1147999800742
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 3541.628299979493
+    },
+    {
+      "id": "q006",
+      "question": "What are the three key components of argumentation mining?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Argumentation Mining",
+        "Claim Detection",
+        "Premise Identification",
+        "Stance Classification"
+      ],
+      "answer": "The three key components of argumentation mining are claim detection, premise identification, and stance classification. [SC Unit 2-1.pdf_p009_c00]",
+      "keyword_recall": 1.0,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.7,
+        "agreement": 0.4,
+        "margin": 1.0
+      },
+      "citations_cited": 1,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 1.0,
+      "unsupported_claims": [],
+      "referenced_concepts": [
+        "Claim detection",
+        "Premise identification",
+        "Stance classification"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p008_c00",
+        "SC Unit 2-1.pdf_p009_c00",
+        "SC Unit 2-5.pdf_p015_c01",
+        "SC Unit 2-6.pdf_p013_c01",
+        "SC Unit 2-1.pdf_p005_c01"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.00030011869966983795,
+        "graph": 0.00600004568696022,
+        "text": 7.680700160562992,
+        "images": 3.722099820151925,
+        "pack": 0.14350004494190216,
+        "llm": 1433.0335999839008
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 16799.99279999174
+    },
+    {
+      "id": "q007",
+      "question": "What are the three types of user credibility on Twitter?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "User Credibility",
+        "Profile Credibility",
+        "Behavioural Credibility",
+        "Social Credibility",
+        "Twitter"
+      ],
+      "answer": "The three types of user credibility on Twitter are Profile Credibility, Behavioural Credibility, and Social Credibility.[SC Unit 2-1.pdf_p014_c00, SC Unit 2-2.pdf_p015_c00, SC Unit 2-3.pdf_p016_c00]",
+      "keyword_recall": 1.0,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5686,
+        "agreement": 1.0,
+        "margin": 0.13729603729603732
+      },
+      "citations_cited": 3,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 1.0,
+      "unsupported_claims": [],
+      "referenced_concepts": [
+        "User Credibility on Twitter",
+        "Profile Credibility",
+        "Behavioural Credibility",
+        "Social Credibility"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p014_c00",
+        "SC Unit 2-2.pdf_p015_c00",
+        "SC Unit 2-3.pdf_p016_c00",
+        "SC Unit 2-1.pdf_p016_c00",
+        "SC Unit 2-2.pdf_p017_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000500120222568512,
+        "graph": 0.007300172001123428,
+        "text": 7.03889993019402,
+        "images": 3.6988998763263226,
+        "pack": 0.24690013378858566,
+        "llm": 1372.6611000020057
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 1667.2171000391245
+    },
+    {
+      "id": "q008",
+      "question": "What factors are used to measure profile credibility on Twitter?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Profile Credibility",
+        "Twitter",
+        "User Credibility"
+      ],
+      "answer": "Profile credibility on Twitter can be measured by factors such as the age of the account, the length of the bio description and screen name, the number of characters in the Twitter handle, the verification status, the user’s willingness to share geospatial information, and the extent of match between the user’s real name and user name. [SC Unit 2-1.pdf_p015_c00]",
+      "keyword_recall": 0.667,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.537,
+        "agreement": 1.0,
+        "margin": 0.07392789373814072
+      },
+      "citations_cited": 3,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 1.0,
+      "unsupported_claims": [],
+      "referenced_concepts": [
+        "Profile Credibility"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p015_c00",
+        "SC Unit 2-2.pdf_p016_c00",
+        "SC Unit 2-1.pdf_p014_c00",
+        "SC Unit 2-3.pdf_p017_c00",
+        "SC Unit 2-2.pdf_p015_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.00030011869966983795,
+        "graph": 0.005499925464391708,
+        "text": 8.534299908205867,
+        "images": 5.212799878790975,
+        "pack": 0.2637000288814306,
+        "llm": 1421.9756999518722
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 2067.192600108683
+    },
+    {
+      "id": "q009",
+      "question": "How is user credibility defined and how does it differ from trust in the context of social media graphs?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "User Credibility",
+        "Trust",
+        "Node Property",
+        "Edge Property",
+        "Social Media Graph"
+      ],
+      "answer": "Credibility is defined as the confidence that other social media users have about a particular user based on his past behaviour [SC Unit 2-1.pdf_p013_c00]. It is a node property, whereas inter-personal trust is an edge property [SC Unit 2-1.pdf_p013_c00]. Trust between user nodes leads to the formation of edges that form communities, which in turn increase trust among members [SC Unit 2-1.pdf_p017_c00].",
+      "keyword_recall": 0.6,
+      "context_keyword_recall": 0.6,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5753,
+        "agreement": 1.0,
+        "margin": 0.15051446003826988
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 1.0,
+      "unsupported_claims": [],
+      "referenced_concepts": [
+        "Credibility",
+        "Trust"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p013_c00",
+        "SC Unit 2-2.pdf_p014_c00",
+        "SC Unit 2-3.pdf_p015_c00",
+        "SC Unit 2-1.pdf_p017_c00",
+        "SC Unit 2-2.pdf_p018_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.007600057870149612,
+        "text": 7.244499865919352,
+        "images": 3.952000057324767,
+        "pack": 0.16400008462369442,
+        "llm": 1323.1215998530388
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 14938.83080012165
+    },
+    {
+      "id": "q010",
+      "question": "What is the difference between local trust and global trust on Twitter?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Local Trust",
+        "Global Trust",
+        "Twitter",
+        "Trust",
+        "Retweet Ratio"
+      ],
+      "answer": "Local trust on Twitter is calculated based on the local behavior of the node, such as the tweet‑retweet ratio. [SC Unit 2-1.pdf_p017_c01] [SC Unit 2-2.pdf_p018_c01] [SC Unit 2-3.pdf_p019_c01] Global trust, in contrast, is derived from global information like the number of followers. [SC Unit 2-1.pdf_p017_c01] [SC Unit 2-2.pdf_p018_c01] [SC Unit 2-3.pdf_p019_c01] Trust can be represented as an attribute vector that includes both local and global trust components. [SC Unit 2-1.pdf_p017_c01] [SC Unit 2-2.pdf_p018_c01] [SC Unit 2-3.pdf_p019_c01]",
+      "keyword_recall": 1.0,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5682,
+        "agreement": 1.0,
+        "margin": 0.13642723880597016
+      },
+      "citations_cited": 3,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 1.0,
+      "unsupported_claims": [],
+      "referenced_concepts": [
+        "Local Trust",
+        "Global Trust",
+        "Trust attribute vector"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p017_c01",
+        "SC Unit 2-2.pdf_p018_c01",
+        "SC Unit 2-3.pdf_p019_c01",
+        "SC Unit 2-1.pdf_p013_c00",
+        "SC Unit 2-1.pdf_p017_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.007899943739175797,
+        "text": 7.543499814346433,
+        "images": 3.4130001440644264,
+        "pack": 0.2568999771028757,
+        "llm": 1954.0319999214262
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 9626.6904999502
+    },
+    {
+      "id": "q011",
+      "question": "What are the five types of user modeling explored in social computing?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "User Modeling",
+        "Personality",
+        "Health Profile",
+        "Gender",
+        "Ethnicity",
+        "Location",
+        "Political Orientation"
+      ],
+      "answer": "The provided excerpts describe user modeling in terms of detecting attributes such as gender, age, region of origin, and political orientation from social media messages, and modeling personality using the Big Five traits, but they do not list or describe five distinct types of user modeling explored in social computing.",
+      "keyword_recall": 0.571,
+      "context_keyword_recall": 0.571,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "low",
+      "evidence": {
+        "score": 0.5392,
+        "agreement": 1.0,
+        "margin": 0.07843962104072387
+      },
+      "citations_cited": 4,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "The provided excerpts describe user modeling in terms of detecting attributes such as gender, age, region of origin, and political orientation from social media messages, and modeling personality using the Big Five traits, but they do not list or describe five distinct types of user modeling explored in social computing."
+      ],
+      "referenced_concepts": [],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00",
+        "SC Unit 2-2.pdf_p001_c00",
+        "SC Unit 2-4.pdf_p002_c00",
+        "SC Unit 2-3.pdf_p002_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.00030011869966983795,
+        "graph": 0.004600035026669502,
+        "text": 7.491399999707937,
+        "images": 5.333899985998869,
+        "pack": 0.40200003422796726,
+        "llm": 1409.2590000946075
+      },
+      "judge_faithfulness": 0.0,
+      "judge_answer_relevance": 0,
+      "judge_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `qwen/qwen3.8-27b` in organization `org_REDACTED` service tier `on_demand` on output tokens per minute (OTPM): Limit 1000, Used 415, Requested 608. Please try again in 1.38s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "latency_ms": 4537.531399866566
+    },
+    {
+      "id": "q012",
+      "question": "What is the Big Five (OCEAN) personality model and how is it applied in social media analysis?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Big Five",
+        "OCEAN",
+        "Personality Modeling",
+        "NLP",
+        "Text Mining",
+        "Social Media"
+      ],
+      "answer": "The Big Five (OCEAN) personality model identifies five core traits: Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism. [SC Unit 2-2.pdf_p001_c00] Social media behavior such as likes, posts, and language use reflects these personality traits. [SC Unit 2-3.pdf_p002_c00] Models use text mining, natural language processing, and machine learning to infer a user’s Big Five profile from their online activity. [SC Unit 2-4.pdf_p003_c00] The inferred personality information is applied to targeted advertising, content recommendation, and mental health detection. [SC Unit 2-2.pdf_p001_c00]",
+      "keyword_recall": 0.667,
+      "context_keyword_recall": 0.833,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5893,
+        "agreement": 1.0,
+        "margin": 0.1786987522281641
+      },
+      "citations_cited": 4,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.5,
+      "unsupported_claims": [
+        "Social media behavior such as likes, posts, and language use reflects these personality traits.",
+        "Models use text mining, natural language processing, and machine learning to infer a user’s Big Five profile from their online activity."
+      ],
+      "referenced_concepts": [
+        "Big Five Personality Traits",
+        "Social media behavior",
+        "Text mining",
+        "Natural Language Processing",
+        "Machine learning",
+        "Targeted advertising",
+        "Content recommendation",
+        "Mental health detection"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-2.pdf_p001_c00",
+        "SC Unit 2-3.pdf_p002_c00",
+        "SC Unit 2-4.pdf_p003_c00",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.006700167432427406,
+        "text": 9.601800004020333,
+        "images": 4.860999993979931,
+        "pack": 0.3440999425947666,
+        "llm": 1816.845100140199
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 2575.9664000943303
+    },
+    {
+      "id": "q013",
+      "question": "What are the four dichotomous scales of the Myers-Briggs Type Indicator (MBTI)?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "MBTI",
+        "Myers-Briggs",
+        "Personality Profile",
+        "Introvert",
+        "Extrovert"
+      ],
+      "answer": "The MBTI consists of four dichotomous scales: Introvert/Extrovert (E/I), Sensing/Intuition (S/N), Thinking/Feeling (T/F), and Judging/Perceiving (J/P). [SC Unit 2-1.pdf_p018_c00]",
+      "keyword_recall": 0.6,
+      "context_keyword_recall": 0.8,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5615,
+        "agreement": 1.0,
+        "margin": 0.12307692307692307
+      },
+      "citations_cited": 3,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 1.0,
+      "unsupported_claims": [],
+      "referenced_concepts": [
+        "Personality Profile",
+        "Myer Briggs Personality Types"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p018_c00",
+        "SC Unit 2-2.pdf_p019_c00",
+        "SC Unit 2-3.pdf_p020_c00",
+        "SC Unit 2-1.pdf_p018_c01",
+        "SC Unit 2-2.pdf_p019_c01"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.0002998858690261841,
+        "graph": 0.005899928510189056,
+        "text": 10.730699868872762,
+        "images": 5.973100196570158,
+        "pack": 0.1984001137316227,
+        "llm": 1369.6618999820203
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 6022.564599988982
+    },
+    {
+      "id": "q014",
+      "question": "How is MBTI personality type linked to disinformation spreading behavior on social media?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "MBTI",
+        "Disinformation",
+        "User Credibility",
+        "Extroversion",
+        "Thinking",
+        "Judging"
+      ],
+      "answer": "Disinformation spreaders on social media are likely to exhibit an extroverted (E) and feeling (F) MBTI profile, whereas those who spread true news tend to be thinking (T) and judging (J) types. This link is based on the observation that personality traits influence how users assess and share information, with credibility often associated with MBTI profiles. The extroverted, feeling orientation may drive a desire for social engagement and emotional resonance, which can facilitate the rapid spread of misleading content, while the thinking, judging orientation is associated with analytical evaluation and structured decision‑making, supporting the dissemination of accurate news.",
+      "keyword_recall": 0.667,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5686,
+        "agreement": 1.0,
+        "margin": 0.13729603729603732
+      },
+      "citations_cited": 5,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "Disinformation spreaders on social media are likely to exhibit an extroverted (E) and feeling (F) MBTI profile, whereas those who spread true news tend to be thinking (T) and judging (J) types.",
+        "This link is based on the observation that personality traits influence how users assess and share information, with credibility often associated with MBTI profiles.",
+        "The extroverted, feeling orientation may drive a desire for social engagement and emotional resonance, which can facilitate the rapid spread of misleading content, while the thinking, judging orientation is associated with analytical evaluation and structured decision‑making, supporting the dissemination of accurate news."
+      ],
+      "referenced_concepts": [
+        "MBTI personality type",
+        "disinformation spreading behavior",
+        "user credibility"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p018_c01",
+        "SC Unit 2-2.pdf_p019_c01",
+        "SC Unit 2-3.pdf_p020_c01",
+        "SC Unit 2-1.pdf_p018_c00",
+        "SC Unit 2-2.pdf_p019_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.0002998858690261841,
+        "graph": 0.00690016895532608,
+        "text": 8.683199994266033,
+        "images": 5.586300045251846,
+        "pack": 0.27190009132027626,
+        "llm": 795.6326000858098
+      },
+      "judge_faithfulness": 0.5,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 10737.869899952784
+    },
+    {
+      "id": "q015",
+      "question": "How can user health profiles be constructed from social media posts?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "User Health Profile",
+        "Mental Health",
+        "Sentiment Analysis",
+        "Depression",
+        "Social Media"
+      ],
+      "answer": "User health profiles can be constructed by analyzing social media posts to extract indicators such as sentiment, sleep patterns, activity levels, and the use of health‑related words [SC Unit 2-2.pdf_p002_c00]. These indicators can reveal mental and physical health status and support early detection of disorders like depression and anxiety [SC Unit 2-3.pdf_p003_c00]. Health profiles derived from such analyses also aid public health research and improve healthcare access analysis [SC Unit 2-4.pdf_p004_c00]. The broader approach of learning user profiles from social media behavior underpins this process [SC Unit 2-1.pdf_p020_c00].",
+      "keyword_recall": 0.6,
+      "context_keyword_recall": 0.6,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5615,
+        "agreement": 1.0,
+        "margin": 0.12307692307692307
+      },
+      "citations_cited": 4,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.5,
+      "unsupported_claims": [
+        "These indicators can reveal mental and physical health status and support early detection of disorders like depression and anxiety.",
+        "The broader approach of learning user profiles from social media behavior underpins this process."
+      ],
+      "referenced_concepts": [
+        "User Health Profile",
+        "Sentiment",
+        "Sleep Patterns",
+        "Activity Levels",
+        "Health‑related Words",
+        "Early Detection of Disorders",
+        "Public Health Research"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-2.pdf_p002_c00",
+        "SC Unit 2-3.pdf_p003_c00",
+        "SC Unit 2-4.pdf_p004_c00",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.005899928510189056,
+        "text": 11.161099886521697,
+        "images": 8.630200056359172,
+        "pack": 0.3939999733120203,
+        "llm": 2105.459100101143
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 15219.619899988174
+    },
+    {
+      "id": "q016",
+      "question": "What signals are used to model a user's geolocation from social media data?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "User Location Modeling",
+        "Geotags",
+        "Spatial-Temporal Modeling",
+        "Topic Modeling"
+      ],
+      "answer": "Geolocation can be derived from geotags, check‑ins, timestamps, and local language patterns.[SC Unit 2-2.pdf_p004_c00]",
+      "keyword_recall": 0.25,
+      "context_keyword_recall": 0.75,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5615,
+        "agreement": 1.0,
+        "margin": 0.12307692307692307
+      },
+      "citations_cited": 3,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "Geolocation can be derived from geotags, check‑ins, timestamps, and local language patterns."
+      ],
+      "referenced_concepts": [
+        "User Location Modeling",
+        "Geolocation signals"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-2.pdf_p004_c00",
+        "SC Unit 2-3.pdf_p005_c00",
+        "SC Unit 2-4.pdf_p006_c00",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000500120222568512,
+        "graph": 0.0069998204708099365,
+        "text": 11.74460002221167,
+        "images": 7.92520004324615,
+        "pack": 0.3907999489456415,
+        "llm": 1027.035899925977
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 11561.811699997634
+    },
+    {
+      "id": "q017",
+      "question": "What are social roles in digital communities and why are they important to understand?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Social Roles",
+        "Information Diffusion",
+        "Group Dynamics",
+        "Credibility",
+        "Digital Communities"
+      ],
+      "answer": "Social roles refer to distinct behavioral patterns users adopt in digital communities [SC Unit 2-2.pdf_p007_c00]. Understanding these roles helps analyze information diffusion, group dynamics, credibility, and influence [SC Unit 2-3.pdf_p008_c00]. Examples include newbies, who are fresh entrants learning norms, and influencers, who shape discussions [SC Unit 2-2.pdf_p009_c00].",
+      "keyword_recall": 1.0,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.8,
+        "agreement": 0.6,
+        "margin": 1.0
+      },
+      "citations_cited": 3,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.333,
+      "unsupported_claims": [
+        "Social roles refer to distinct behavioral patterns users adopt in digital communities.",
+        "Examples include newbies, who are fresh entrants learning norms, and influencers, who shape discussions."
+      ],
+      "referenced_concepts": [
+        "Social Roles",
+        "Information Diffusion",
+        "Group Dynamics",
+        "Credibility",
+        "Influence",
+        "Newbies",
+        "Influencers"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-2.pdf_p007_c00",
+        "SC Unit 2-3.pdf_p008_c00",
+        "SC Unit 2-4.pdf_p009_c00",
+        "SC Unit 2-2.pdf_p009_c00",
+        "SC Unit 2-4.pdf_p019_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000500120222568512,
+        "graph": 0.007600057870149612,
+        "text": 8.519700029864907,
+        "images": 5.374100059270859,
+        "pack": 0.2452000044286251,
+        "llm": 1558.6515001486987
+      },
+      "judge_faithfulness": 0.889,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 6316.088899970055
+    },
+    {
+      "id": "q018",
+      "question": "What are the six social roles identified in social media communities?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Lurkers",
+        "Newbies",
+        "Influencers",
+        "Wisdom Warriors",
+        "Trolls",
+        "Spammers",
+        "Social Roles"
+      ],
+      "answer": "The provided context identifies three social roles: Lurkers, Newbies, and Influencers. [SC Unit 2-2.pdf_p009_c00] The context does not list the remaining three roles. [SC Unit 2-2.pdf_p009_c00]",
+      "keyword_recall": 0.571,
+      "context_keyword_recall": 0.571,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "low",
+      "evidence": {
+        "score": 0.6326,
+        "agreement": 1.0,
+        "margin": 0.2652279144816458
+      },
+      "citations_cited": 1,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "The provided context identifies three social roles: Lurkers, Newbies, and Influencers.",
+        "The context does not list the remaining three roles."
+      ],
+      "referenced_concepts": [
+        "Social Roles"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-2.pdf_p007_c00",
+        "SC Unit 2-3.pdf_p008_c00",
+        "SC Unit 2-4.pdf_p009_c00",
+        "SC Unit 2-2.pdf_p008_c00",
+        "SC Unit 2-2.pdf_p009_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000200001522898674,
+        "graph": 0.005499925464391708,
+        "text": 10.482600191608071,
+        "images": 8.821799885481596,
+        "pack": 0.17119990661740303,
+        "llm": 1659.6964998170733
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 2,
+      "judge_error": null,
+      "latency_ms": 15119.288299931213
+    },
+    {
+      "id": "q019",
+      "question": "How do trolls differ from spammers as social roles, and how is each detected?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Trolls",
+        "Spammers",
+        "Bots",
+        "Toxicity Detection",
+        "Sentiment Analysis",
+        "Automation Detection"
+      ],
+      "answer": "Trolls are users who deliberately post inflammatory or disruptive content, whereas spammers are automated accounts that post ads, links, or noise. Trolls are typically identified by sentiment analysis or toxicity scoring of their text, while spammers are detected through automation detection methods that flag bot-like behavior. [SC Unit 2-2.pdf_p010_c01]",
+      "keyword_recall": 0.667,
+      "context_keyword_recall": 0.833,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5306,
+        "agreement": 1.0,
+        "margin": 0.061133799506404914
+      },
+      "citations_cited": 1,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "Trolls are users who deliberately post inflammatory or disruptive content, whereas spammers are automated accounts that post ads, links, or noise.",
+        "Trolls are typically identified by sentiment analysis or toxicity scoring of their text, while spammers are detected through automation detection methods that flag bot-like behavior."
+      ],
+      "referenced_concepts": [
+        "Trolls",
+        "Spammers",
+        "Sentiment analysis",
+        "Automation detection"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-2.pdf_p010_c00",
+        "SC Unit 2-2.pdf_p010_c01",
+        "SC Unit 2-3.pdf_p011_c00",
+        "SC Unit 2-3.pdf_p011_c01",
+        "SC Unit 2-4.pdf_p012_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.00030011869966983795,
+        "graph": 0.00590016134083271,
+        "text": 9.738299995660782,
+        "images": 6.365400040522218,
+        "pack": 0.1254999078810215,
+        "llm": 968.8276001252234
+      },
+      "judge_faithfulness": 0.0,
+      "judge_answer_relevance": 0,
+      "judge_error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `qwen/qwen3.8-27b` in organization `org_REDACTED` service tier `on_demand` on output tokens per minute (OTPM): Limit 1000, Used 425, Requested 608. Please try again in 1.98s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "latency_ms": 4107.123300200328
+    },
+    {
+      "id": "q020",
+      "question": "How does user political orientation get modeled from social media data, and what are its applications?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Political Orientation Modeling",
+        "Supervised Learning",
+        "Echo Chambers",
+        "Polarization",
+        "Misinformation"
+      ],
+      "answer": "User political orientation is modeled by analyzing language use, hashtag activism, and shared content from social media posts. [SC Unit 2-2.pdf_p005_c00]\nSupervised learning techniques are applied to labeled political tweets or posts to classify users' leanings. [SC Unit 2-3.pdf_p006_c00]\nThese models are employed in political campaign strategies, polarization analysis, and misinformation studies. [SC Unit 2-2.pdf_p005_c00]\nAddressing echo chambers is important to ensure balanced representation and mitigate bias. [SC Unit 2-3.pdf_p006_c00]",
+      "keyword_recall": 0.8,
+      "context_keyword_recall": 0.8,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.531,
+        "agreement": 1.0,
+        "margin": 0.06208369408369437
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.5,
+      "unsupported_claims": [
+        "These models are employed in political campaign strategies, polarization analysis, and misinformation studies.",
+        "Addressing echo chambers is important to ensure balanced representation and mitigate bias."
+      ],
+      "referenced_concepts": [
+        "User Modeling",
+        "Political Orientation Modeling",
+        "Language Use",
+        "Hashtag Activism",
+        "Shared Content",
+        "Supervised Learning",
+        "Political Campaign Strategies",
+        "Polarization Analysis",
+        "Misinformation Studies",
+        "Echo Chambers"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-2.pdf_p005_c00",
+        "SC Unit 2-3.pdf_p001_c00",
+        "SC Unit 2-3.pdf_p006_c00",
+        "SC Unit 2-4.pdf_p002_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.029199989512562752,
+        "text": 7.4887999799102545,
+        "images": 4.0081997867673635,
+        "pack": 0.23390003480017185,
+        "llm": 2711.8913999293
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 3245.268499944359
+    },
+    {
+      "id": "q021",
+      "question": "How does trust formation in social media networks lead to community formation, and how does that community in turn affect trust?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Trust",
+        "Community Formation",
+        "Social Network",
+        "Edge Property",
+        "Node Property"
+      ],
+      "answer": "Trust between user nodes creates relationship edges that connect users. [SC Unit 2-1.pdf_p017_c00] These relationship edges aggregate into communities as users with mutual trust interact more frequently. [SC Unit 2-2.pdf_p018_c00] The resulting community structure then reinforces trust among its members, creating a positive feedback loop. [SC Unit 2-3.pdf_p019_c00]",
+      "keyword_recall": 0.2,
+      "context_keyword_recall": 0.8,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5615,
+        "agreement": 1.0,
+        "margin": 0.12307692307692307
+      },
+      "citations_cited": 3,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.333,
+      "unsupported_claims": [
+        "These relationship edges aggregate into communities as users with mutual trust interact more frequently.",
+        "The resulting community structure then reinforces trust among its members, creating a positive feedback loop."
+      ],
+      "referenced_concepts": [
+        "Trust",
+        "Community formation",
+        "Edge property"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p017_c00",
+        "SC Unit 2-2.pdf_p018_c00",
+        "SC Unit 2-3.pdf_p019_c00",
+        "SC Unit 2-1.pdf_p013_c00",
+        "SC Unit 2-2.pdf_p014_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.006600050255656242,
+        "text": 10.235599940642715,
+        "images": 5.311999935656786,
+        "pack": 0.19689998589456081,
+        "llm": 16518.308900063857
+      },
+      "judge_faithfulness": 0.667,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 16950.11269999668
+    },
+    {
+      "id": "q022",
+      "question": "What NLP approaches are used to detect hate speech, and what models are most commonly applied?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Hate Speech Detection",
+        "BERT",
+        "DeBERTa",
+        "Deep Learning",
+        "Davidson",
+        "Twitter"
+      ],
+      "answer": "NLP approaches for hate speech detection include dataset-driven deep learning and context-aware models. [SC Unit 2-1.pdf_p005_c01] The most commonly applied models are transformer-based architectures such as BERT and DeBERTa. [SC Unit 2-1.pdf_p005_c01]",
+      "keyword_recall": 0.667,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.8,
+        "agreement": 0.6,
+        "margin": 1.0
+      },
+      "citations_cited": 1,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.5,
+      "unsupported_claims": [
+        "The most commonly applied models are transformer-based architectures such as BERT and DeBERTa."
+      ],
+      "referenced_concepts": [
+        "hate speech detection",
+        "dataset-driven deep learning",
+        "context-aware models",
+        "BERT",
+        "DeBERTa"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p005_c01",
+        "SC Unit 2-1.pdf_p005_c00",
+        "SC Unit 2-1.pdf_p006_c00",
+        "SC Unit 2-5.pdf_p006_c00",
+        "SC Unit 2-5.pdf_p015_c01"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.006400048732757568,
+        "text": 6.371600087732077,
+        "images": 4.80940006673336,
+        "pack": 0.3274001646786928,
+        "llm": 11187.644599936903
+      },
+      "judge_faithfulness": 0.667,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 11622.085700044408
+    },
+    {
+      "id": "q023",
+      "question": "How does user credibility relate to disinformation spread, and what role does MBTI personality type play in this relationship?",
+      "question_type": "multi-hop",
+      "expected_concepts": [
+        "User Credibility",
+        "Disinformation",
+        "MBTI",
+        "Extroversion",
+        "Thinking",
+        "Judging",
+        "Fake News"
+      ],
+      "answer": "User credibility on Twitter is inversely related to the likelihood of spreading disinformation; users with higher credibility are less likely to share fake news or rumors [SC Unit 2-1.pdf_p014_c00, SC Unit 2-2.pdf_p015_c00]. Disinformation spreaders are expected to exhibit MBTI traits of extroversion (E) and feeling (F), whereas true news spreaders tend to be thinking (T) and judging (J) types [SC Unit 2-1.pdf_p018_c01, SC Unit 2-2.pdf_p019_c01, SC Unit 2-3.pdf_p020_c01].",
+      "keyword_recall": 1.0,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.531,
+        "agreement": 1.0,
+        "margin": 0.06208369408369437
+      },
+      "citations_cited": 5,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 1.0,
+      "unsupported_claims": [],
+      "referenced_concepts": [
+        "User Credibility",
+        "MBTI Personality Types",
+        "Disinformation Spread"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p018_c01",
+        "SC Unit 2-1.pdf_p014_c00",
+        "SC Unit 2-2.pdf_p019_c01",
+        "SC Unit 2-2.pdf_p015_c00",
+        "SC Unit 2-3.pdf_p020_c01"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.0004998873919248581,
+        "graph": 0.0068999361246824265,
+        "text": 6.9385000970214605,
+        "images": 5.265400046482682,
+        "pack": 0.13970001600682735,
+        "llm": 10739.291799953207
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 11399.323099991307
+    },
+    {
+      "id": "q024",
+      "question": "How does the role of an Influencer on social media relate to behavioral credibility, and what makes them different from a Wisdom Warrior?",
+      "question_type": "multi-hop",
+      "expected_concepts": [
+        "Influencers",
+        "Wisdom Warriors",
+        "Behavioural Credibility",
+        "Social Credibility",
+        "Social Roles"
+      ],
+      "answer": "An influencer’s influence on social media is largely reflected in their behavioral credibility, which can be measured by metrics such as the retweet‑to‑tweet ratio, favourites count, and the average time taken to retweet, all of which are derived from their Twitter timeline [SC Unit 2-1.pdf_p016_c00]. Additionally, their social credibility is indicated by the number of followers and friends they have, which further reinforces their perceived authority on the platform [SC Unit 2-2.pdf_p017_c00]. Unlike a Wisdom Warrior, whose primary role is to provide accurate, high‑quality content and is recognized for expertise, an influencer may prioritize reach and engagement over content accuracy, focusing on building a large audience rather than being an expert source [SC Unit 2-2.pdf_p010_c00].",
+      "keyword_recall": 0.2,
+      "context_keyword_recall": 0.6,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.7795,
+        "agreement": 0.6,
+        "margin": 0.9590809345553116
+      },
+      "citations_cited": 3,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "An influencer’s influence on social media is largely reflected in their behavioral credibility, which can be measured by metrics such as the retweet‑to‑tweet ratio, favourites count, and the average time taken to retweet, all of which are derived from their Twitter timeline.",
+        "Additionally, their social credibility is indicated by the number of followers and friends they have, which further reinforces their perceived authority on the platform.",
+        "Unlike a Wisdom Warrior, whose primary role is to provide accurate, high‑quality content and is recognized for expertise, an influencer may prioritize reach and engagement over content accuracy, focusing on building a large audience rather than being an expert source."
+      ],
+      "referenced_concepts": [
+        "Behavioral Credibility",
+        "Social Credibility",
+        "Wisdom Warriors"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p016_c00",
+        "SC Unit 2-2.pdf_p017_c00",
+        "SC Unit 2-3.pdf_p018_c00",
+        "SC Unit 2-2.pdf_p010_c00",
+        "SC Unit 2-4.pdf_p017_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.00090012326836586,
+        "graph": 0.005600042641162872,
+        "text": 5.955099826678634,
+        "images": 4.32930001989007,
+        "pack": 0.13669999316334724,
+        "llm": 11718.600600026548
+      },
+      "judge_faithfulness": 0.556,
+      "judge_answer_relevance": 4,
+      "judge_error": null,
+      "latency_ms": 12722.957200137898
+    },
+    {
+      "id": "q025",
+      "question": "If a social media platform wants to detect and reduce the spread of politically motivated disinformation, what combination of user modeling techniques and credibility signals would be most effective, and why?",
+      "question_type": "multi-hop",
+      "expected_concepts": [
+        "Political Orientation Modeling",
+        "User Credibility",
+        "MBTI",
+        "Big Five",
+        "Argumentation Mining",
+        "Disinformation",
+        "Behavioural Credibility",
+        "Personality Modeling",
+        "Trust"
+      ],
+      "answer": "A combination of profile, behavioural, and social credibility signals is most effective because users with high credibility are less likely to spread disinformation. [SC Unit 2-1.pdf_p014_c00] Profile credibility can be assessed through account verification, profile completeness, and historical posting patterns, which help distinguish legitimate users from potential spreaders. [SC Unit 2-1.pdf_p014_c00] Behavioural credibility captures how users interact with content, such as the frequency of sharing unverified sources or the diversity of topics, providing a dynamic measure of trustworthiness. [SC Unit 2-1.pdf_p014_c00] Social credibility reflects a user’s network position, including follower/following ratios and the credibility of connected accounts, which can amplify or dampen misinformation spread. [SC Unit 2-1.pdf_p014_c00] User modeling techniques that infer attributes like gender, age, region, and political orientation from posted messages enable targeted interventions and help identify politically motivated campaigns. [SC Unit 2-1.pdf_p020_c00] By integrating these credibility signals with user attribute models, a platform can flag accounts that exhibit low credibility while also monitoring politically aligned clusters that may propagate disinformation. [SC Unit 2-1.pdf_p014_c00][SC Unit 2-1.pdf_p020_c00] This multi‑layered approach reduces false positives and ensures that mitigation efforts focus on the most influential spreaders of politically motivated disinformation. [SC Unit 2-1.pdf_p014_c00]",
+      "keyword_recall": 0.333,
+      "context_keyword_recall": 0.333,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5614,
+        "agreement": 1.0,
+        "margin": 0.12275108894640528
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "A combination of profile, behavioural, and social credibility signals is most effective because users with high credibility are less likely to spread disinformation.",
+        "Profile credibility can be assessed through account verification, profile completeness, and historical posting patterns, which help distinguish legitimate users from potential spreaders.",
+        "Behavioural credibility captures how users interact with content, such as the frequency of sharing unverified sources or the diversity of topics, providing a dynamic measure of trustworthiness.",
+        "Social credibility reflects a user’s network position, including follower/following ratios and the credibility of connected accounts, which can amplify or dampen misinformation spread.",
+        "User modeling techniques that infer attributes like gender, age, region, and political orientation from posted messages enable targeted interventions and help identify politically motivated campaigns.",
+        "By integrating these credibility signals with user attribute models, a platform can flag accounts that exhibit low credibility while also monitoring politically aligned clusters that may propagate disinformation.",
+        "This multi‑layered approach reduces false positives and ensures that mitigation efforts focus on the most influential spreaders of politically motivated disinformation."
+      ],
+      "referenced_concepts": [
+        "User Credibility",
+        "User Modeling",
+        "Profile Credibility",
+        "Behavioural Credibility",
+        "Social Credibility",
+        "Political Orientation Detection"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p014_c00",
+        "SC Unit 2-2.pdf_p015_c00",
+        "SC Unit 2-3.pdf_p016_c00",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.006600050255656242,
+        "text": 9.120499948039651,
+        "images": 6.66880002245307,
+        "pack": 0.4095998592674732,
+        "llm": 10125.597900012508
+      },
+      "judge_faithfulness": 0.077,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 11837.192100007087
+    },
+    {
+      "id": "q026",
+      "question": "What is cyberbullying and how does it differ from trolling?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Cyberbullying",
+        "Trolling",
+        "Anti-Social Behavior",
+        "Harassment",
+        "Social Media"
+      ],
+      "answer": "Cyberbullying is the use of an online platform to intentionally and repeatedly harass or harm an individual. [SC Unit 2-5.pdf_p001_c00] Unlike trolls, cyberbullying does not usually want to attract attention and instead focuses on targeting an individual and causing distress to them. [SC Unit 2-5.pdf_p001_c00] Cyberbullies post images, text, audio, and video that are abusive, aggressive, and intentionally drafted to bully someone online. [SC Unit 2-5.pdf_p002_c00] Trolling, on the other hand, involves general visitors posting inflammatory comments in public sections to disrupt discussions and grab attention. [SC Unit 2-4.pdf_p019_c00] Trolls disregard the author of the writing they comment on and show no respect to other commenters, often using sexist, hateful, racist, or profane language. [SC Unit 2-4.pdf_p019_c00] The main difference in intent is that flaming is a direct, aggressive insult aimed at individuals or ideas, while trolling is more about baiting reactions and sometimes pretending to support extreme positions to spark conflict. [SC Unit 2-5.pdf_p003_c00] Thus, cyberbullying is targeted, repeated harassment aimed at causing distress, whereas trolling is broader, attention‑seeking disruption of online discussions. [SC Unit 2-5.pdf_p003_c00]",
+      "keyword_recall": 0.6,
+      "context_keyword_recall": 0.4,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5604,
+        "agreement": 1.0,
+        "margin": 0.12087966499731236
+      },
+      "citations_cited": 4,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.429,
+      "unsupported_claims": [
+        "Cyberbullies post images, text, audio, and video that are abusive, aggressive, and intentionally drafted to bully someone online.",
+        "Trolling, on the other hand, involves general visitors posting inflammatory comments in public sections to disrupt discussions and grab attention.",
+        "The main difference in intent is that flaming is a direct, aggressive insult aimed at individuals or ideas, while trolling is more about baiting reactions and sometimes pretending to support extreme positions to spark conflict.",
+        "Thus, cyberbullying is targeted, repeated harassment aimed at causing distress, whereas trolling is broader, attention‑seeking disruption of online discussions."
+      ],
+      "referenced_concepts": [
+        "Cyberbullying",
+        "Trolling",
+        "Anti-social behavior online"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p001_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-5.pdf_p002_c00",
+        "SC Unit 2-5.pdf_p003_c00",
+        "SC Unit 2-4.pdf_p019_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.006200047209858894,
+        "text": 10.665900073945522,
+        "images": 6.956799887120724,
+        "pack": 0.48869987949728966,
+        "llm": 17879.89529990591
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 19156.03660000488
+    },
+    {
+      "id": "q027",
+      "question": "What percentage of school-age children experience cyberbullying, and what forms of media do cyberbullies use?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Cyberbullying",
+        "School-Age Children",
+        "Anti-Social Behavior",
+        "Social Media"
+      ],
+      "answer": "Approximately 10% to 40% of school‑age children experience some form of cyberbullying, depending on the measuring tool used. Cyberbullies use a variety of media, including images, text, audio, and video, to target individuals repeatedly.",
+      "keyword_recall": 0.25,
+      "context_keyword_recall": 0.5,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.9,
+        "agreement": 0.8,
+        "margin": 1.0
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "Approximately 10% to 40% of school‑age children experience some form of cyberbullying, depending on the measuring tool used.",
+        "Cyberbullies use a variety of media, including images, text, audio, and video, to target individuals repeatedly."
+      ],
+      "referenced_concepts": [
+        "Cyberbullying"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p002_c00",
+        "SC Unit 2-5.pdf_p001_c00",
+        "SC Unit 2-4.pdf_p020_c00",
+        "SC Unit 2-4.pdf_p020_c01",
+        "SC Unit 2-1.pdf_p020_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.00030011869966983795,
+        "graph": 0.00690016895532608,
+        "text": 9.175699902698398,
+        "images": 5.962700117379427,
+        "pack": 0.416299793869257,
+        "llm": 16008.508100174367
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 17209.988199872896
+    },
+    {
+      "id": "q028",
+      "question": "What are the five categories of anti-social behavior (ASB) used to classify social media posts?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "ASB Categories",
+        "Anti-Social Behavior",
+        "Irritability",
+        "Aggressiveness",
+        "Lack of Remorse",
+        "Reckless Disregard"
+      ],
+      "answer": "The five ASB categories used to classify social media posts are Failure to conform to social norms, Irritability and aggressiveness, Reckless disregard for safety, Lack of remorse, and Non‑Antisocial or General Tweets. [SC Unit 2-5.pdf_p005_img02]",
+      "keyword_recall": 0.833,
+      "context_keyword_recall": 0.5,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.6092,
+        "agreement": 1.0,
+        "margin": 0.2184126984126984
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 1,
+      "citations_dropped": {
+        "source_chunks_used": [
+          "SC Unit 2-5.pdf_p005_img02"
+        ],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 1.0,
+      "unsupported_claims": [],
+      "referenced_concepts": [
+        "ASB Categories",
+        "Class Label"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p005_c00",
+        "SC Unit 2-5.pdf_p006_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-1.pdf_p001_c00",
+        "SC Unit 2-4.pdf_p016_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.007899943739175797,
+        "text": 11.319899931550026,
+        "images": 6.8351998925209045,
+        "pack": 0.28559984639286995,
+        "llm": 9472.572600003332
+      },
+      "judge_faithfulness": 0.4,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 10443.98139999248
+    },
+    {
+      "id": "q029",
+      "question": "What is flaming and how does it differ from trolling in terms of intent?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Flaming",
+        "Trolling",
+        "Anti-Social Behavior",
+        "Intent",
+        "Anonymity"
+      ],
+      "answer": "Flaming is the act of posting insults and offensive language online, often fueled by anonymity, and is intended to directly insult or provoke individuals or ideas, escalating heated discussions. [SC Unit 2-5.pdf_p003_c00] Trolling, on the other hand, is more about baiting reactions, sometimes pretending to support extreme positions to spark conflict, with the primary intent of disrupting discussion and gaining attention, rather than direct aggression. [SC Unit 2-4.pdf_p019_c00] The key difference in intent is that flaming is a direct, aggressive insult aimed at individuals or ideas, while trolling is aimed at provoking reactions and chaos. [SC Unit 2-5.pdf_p003_c00]",
+      "keyword_recall": 0.8,
+      "context_keyword_recall": 0.8,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.6022,
+        "agreement": 1.0,
+        "margin": 0.20432900432900453
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.333,
+      "unsupported_claims": [
+        "Flaming is the act of posting insults and offensive language online, often fueled by anonymity, and is intended to directly insult or provoke individuals or ideas, escalating heated discussions.",
+        "Trolling, on the other hand, is more about baiting reactions, sometimes pretending to support extreme positions to spark conflict, with the primary intent of disrupting discussion and gaining attention, rather than direct aggression."
+      ],
+      "referenced_concepts": [
+        "Flaming",
+        "Trolling",
+        "Intent"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p003_c00",
+        "SC Unit 2-4.pdf_p019_c00",
+        "SC Unit 2-4.pdf_p020_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-4.pdf_p020_c01"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.0061998143792152405,
+        "text": 9.59350005723536,
+        "images": 5.6801000609993935,
+        "pack": 0.20150002092123032,
+        "llm": 13541.144599905238
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 14515.933899907395
+    },
+    {
+      "id": "q030",
+      "question": "What is dark content and what are examples of it on social media platforms?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Dark Content",
+        "Anti-Social Behavior",
+        "Hate Speech",
+        "Cyberbullying",
+        "Extremist Propaganda",
+        "Mental Health"
+      ],
+      "answer": "Dark content refers to online material that is harmful, disturbing, or malicious. [SC Unit 2-5.pdf_p004_c00] Examples include violent imagery, graphic content, hate speech, cyberbullying, and extremist propaganda. [SC Unit 2-5.pdf_p004_c00]",
+      "keyword_recall": 0.667,
+      "context_keyword_recall": 0.833,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.6,
+        "agreement": 0.2,
+        "margin": 1.0
+      },
+      "citations_cited": 1,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "Dark content refers to online material that is harmful, disturbing, or malicious.",
+        "Examples include violent imagery, graphic content, hate speech, cyberbullying, and extremist propaganda."
+      ],
+      "referenced_concepts": [
+        "Dark Content"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p004_c00",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-5.pdf_p012_c01",
+        "SC Unit 2-3.pdf_p001_c00",
+        "SC Unit 2-5.pdf_p015_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.004400033503770828,
+        "text": 7.986199809238315,
+        "images": 4.105099942535162,
+        "pack": 0.19410019740462303,
+        "llm": 13452.449100092053
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 14012.973499950022
+    },
+    {
+      "id": "q031",
+      "question": "What are the three main factors that explain why people exhibit anti-social behavior (ASB)?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Anti-Social Behavior",
+        "Environmental Factors",
+        "Genetic Factors",
+        "Neural Factors",
+        "ASPD"
+      ],
+      "answer": "The three main factors that explain why people exhibit anti-social behavior (ASB) are Environmental, Genetic, and Neural. [SC Unit 2-4.pdf_p018_c00] [SC Unit 2-4.pdf_p018_c01]",
+      "keyword_recall": 0.2,
+      "context_keyword_recall": 0.6,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5893,
+        "agreement": 1.0,
+        "margin": 0.1786987522281641
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 1.0,
+      "unsupported_claims": [],
+      "referenced_concepts": [
+        "Environmental factors",
+        "Genetic factors",
+        "Neural factors"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-4.pdf_p018_c00",
+        "SC Unit 2-4.pdf_p018_c01",
+        "SC Unit 2-4.pdf_p016_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-4.pdf_p020_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000600004568696022,
+        "graph": 0.0073998235166072845,
+        "text": 10.520000010728836,
+        "images": 6.692499853670597,
+        "pack": 0.28389994986355305,
+        "llm": 12410.467799985781
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 12755.612599896267
+    },
+    {
+      "id": "q032",
+      "question": "What is Antisocial Personality Disorder (ASPD) and how does it manifest in online behavior?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "ASPD",
+        "Anti-Social Behavior",
+        "Anti-Social Computing",
+        "Personality Disorder"
+      ],
+      "answer": "Antisocial Personality Disorder (ASPD) is a long‑lasting pattern of thinking and behaving that deviates from societal expectations, usually beginning in adolescence or early adulthood and remaining stable over time, causing life problems. [SC Unit 2-4.pdf_p016_c00]\nASPD is part of Cluster B personality disorders and is characterized by behaviors such as breaking rules, lying, acting aggressively, disregarding safety, and lacking remorse. [SC Unit 2-4.pdf_p016_c00]\nIn online contexts, ASPD manifests as antisocial computing behaviors like trolling, personal attacks, and cyberbullying, where individuals repeatedly harass or harm others, post abusive content, and show indifference to the victim’s distress. [SC Unit 2-5.pdf_p001_c00] [SC Unit 2-5.pdf_p002_c00] [SC Unit 2-4.pdf_p016_c00]\nThese behaviors align with the class labels of failure to conform to social norms, irritability and aggressiveness, reckless disregard for safety, and lack of remorse, as illustrated in the labeled tweet examples. [SC Unit 2-5.pdf_p005_img02] [SC Unit 2-5.pdf_p005_img01]",
+      "keyword_recall": 0.5,
+      "context_keyword_recall": 0.75,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5673,
+        "agreement": 1.0,
+        "margin": 0.13468720821662014
+      },
+      "citations_cited": 7,
+      "citations_fabricated": 2,
+      "citations_dropped": {
+        "source_chunks_used": [
+          "SC Unit 2-5.pdf_p005_img02",
+          "SC Unit 2-5.pdf_p005_img01"
+        ],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.75,
+      "unsupported_claims": [
+        "ASPD is part of Cluster B personality disorders and is characterized by behaviors such as breaking rules, lying, acting aggressively, disregarding safety, and lacking remorse."
+      ],
+      "referenced_concepts": [
+        "Antisocial Personality Disorder",
+        "Online antisocial behavior",
+        "Cyberbullying"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-4.pdf_p016_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-5.pdf_p001_c00",
+        "SC Unit 2-5.pdf_p002_c00",
+        "SC Unit 2-4.pdf_p016_c01"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000800006091594696,
+        "graph": 0.0069998204708099365,
+        "text": 8.229499915614724,
+        "images": 4.299500025808811,
+        "pack": 0.4227999597787857,
+        "llm": 13802.463200176135
+      },
+      "judge_faithfulness": 0.867,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 15128.830899950117
+    },
+    {
+      "id": "q033",
+      "question": "What is polarization in the context of social media, and how does it manifest on platforms like Twitter and Reddit?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Polarization",
+        "Echo Chambers",
+        "Social Media",
+        "Ideological Divide",
+        "Out-Group"
+      ],
+      "answer": "Polarization in social media refers to the growing ideological, emotional, or cultural divide between groups of people online, often manifesting as hostility, echo chambers, or us‑vs‑them narratives. On platforms such as Twitter and Reddit, this division is seen through polarized discussions, users clustering into like‑minded communities, and the spread of partisan content that reinforces group identities.",
+      "keyword_recall": 0.6,
+      "context_keyword_recall": 0.2,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.8,
+        "agreement": 0.6,
+        "margin": 1.0
+      },
+      "citations_cited": 1,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "Polarization in social media refers to the growing ideological, emotional, or cultural divide between groups of people online, often manifesting as hostility, echo chambers, or us‑vs‑them narratives.",
+        "On platforms such as Twitter and Reddit, this division is seen through polarized discussions, users clustering into like‑minded communities, and the spread of partisan content that reinforces group identities."
+      ],
+      "referenced_concepts": [
+        "Polarization",
+        "Twitter",
+        "Reddit"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p012_c00",
+        "SC Unit 2-5.pdf_p001_c00",
+        "SC Unit 2-1.pdf_p005_c01",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-5.pdf_p014_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.0004998873919248581,
+        "graph": 0.00600004568696022,
+        "text": 9.246400091797113,
+        "images": 5.9581000823527575,
+        "pack": 0.2166999038308859,
+        "llm": 12146.821999922395
+      },
+      "judge_faithfulness": 0.4,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 12971.28550009802
+    },
+    {
+      "id": "q034",
+      "question": "How does online polarization negatively affect the mental health of social media users?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Polarization",
+        "Mental Health",
+        "Echo Chambers",
+        "Emotional Contagion",
+        "Anxiety",
+        "Depression"
+      ],
+      "answer": "Online polarization creates hostile environments that heighten anxiety, stress, and emotional distress. [SC Unit 2-5.pdf_p013_c00] Polarized spaces feature toxic, antagonistic language and sharp, emotionally charged remarks toward out‑groups, which can increase anxiety and stress. [SC Unit 2-5.pdf_p012_c01] Emotional contagion in polarized threads spreads faster, inducing stress in passive readers exposed to frequent outrage or partisan conflict. [SC Unit 2-5.pdf_p014_c00] The fragmented landscape leaves users feeling unsupported, judged, or emotionally overwhelmed, contributing to mental health issues. [SC Unit 2-5.pdf_p014_c00] These dynamics align with rising suicide rates and increased help‑seeking via crisis hotlines, indicating a broader impact on mental well‑being. [SC Unit 2-6.pdf_p003_img01] The prevalence of antisocial or aggressive tweets in polarized contexts further exacerbates emotional distress. [SC Unit 2-5.pdf_p005_img02]",
+      "keyword_recall": 0.667,
+      "context_keyword_recall": 0.667,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5527,
+        "agreement": 1.0,
+        "margin": 0.10541176470588262
+      },
+      "citations_cited": 7,
+      "citations_fabricated": 2,
+      "citations_dropped": {
+        "source_chunks_used": [
+          "SC Unit 2-6.pdf_p003_img01",
+          "SC Unit 2-5.pdf_p005_img02"
+        ],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.167,
+      "unsupported_claims": [
+        "Polarized spaces feature toxic, antagonistic language and sharp, emotionally charged remarks toward out‑groups, which can increase anxiety and stress.",
+        "Emotional contagion in polarized threads spreads faster, inducing stress in passive readers exposed to frequent outrage or partisan conflict.",
+        "The fragmented landscape leaves users feeling unsupported, judged, or emotionally overwhelmed, contributing to mental health issues.",
+        "These dynamics align with rising suicide rates and increased help‑seeking via crisis hotlines, indicating a broader impact on mental well‑being.",
+        "The prevalence of antisocial or aggressive tweets in polarized contexts further exacerbates emotional distress."
+      ],
+      "referenced_concepts": [
+        "Polarization",
+        "Mental Health",
+        "Emotional Distress",
+        "Emotional Contagion",
+        "Social Fragmentation",
+        "Suicide Rates",
+        "Antisocial Behavior"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p013_c00",
+        "SC Unit 2-5.pdf_p012_c01",
+        "SC Unit 2-5.pdf_p010_c00",
+        "SC Unit 2-5.pdf_p014_c00",
+        "SC Unit 2-5.pdf_p012_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.01610000617802143,
+        "text": 8.064699824899435,
+        "images": 3.0351001769304276,
+        "pack": 0.18199998885393143,
+        "llm": 11389.621600043029
+      },
+      "judge_faithfulness": 0.778,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 12596.174099948257
+    },
+    {
+      "id": "q035",
+      "question": "What ethical challenges arise when analyzing user mental health from social media data?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Mental Health",
+        "Privacy",
+        "Ethics",
+        "Social Media",
+        "Stigma",
+        "Transparency"
+      ],
+      "answer": "Privacy is a major concern when analyzing user mental health from social media data, as even anonymized data can raise ethical issues around consent, especially in private or semi-private conversations. [SC Unit 2-5.pdf_p015_c00] These concerns highlight the need for careful handling of personal data and ensuring users' informed consent. [SC Unit 2-5.pdf_p015_c00]",
+      "keyword_recall": 0.5,
+      "context_keyword_recall": 0.333,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.9,
+        "agreement": 0.8,
+        "margin": 1.0
+      },
+      "citations_cited": 1,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.5,
+      "unsupported_claims": [
+        "These concerns highlight the need for careful handling of personal data and ensuring users' informed consent."
+      ],
+      "referenced_concepts": [
+        "Privacy",
+        "Consent",
+        "Anonymization"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p015_c00",
+        "SC Unit 2-2.pdf_p002_c00",
+        "SC Unit 2-3.pdf_p003_c00",
+        "SC Unit 2-4.pdf_p004_c00",
+        "SC Unit 2-2.pdf_p004_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.005299923941493034,
+        "text": 9.075199952349067,
+        "images": 5.111700156703591,
+        "pack": 0.20430004224181175,
+        "llm": 12204.706700053066
+      },
+      "judge_faithfulness": 0.75,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 15117.209100164473
+    },
+    {
+      "id": "q036",
+      "question": "What are the three dimensions used to characterize crisis-related tweets for disaster response?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Crisis Informatics",
+        "Disaster Response",
+        "Tweet Classification",
+        "Urgency",
+        "Relatedness"
+      ],
+      "answer": "The three dimensions used to characterize crisis‑related tweets for disaster response are Relatedness, Intentions to act, and Urgency [SC Unit 2-6.pdf_p002_c00].",
+      "keyword_recall": 0.6,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.6514,
+        "agreement": 1.0,
+        "margin": 0.30283392289575733
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 1.0,
+      "unsupported_claims": [],
+      "referenced_concepts": [
+        "Relatedness",
+        "Intentions to act",
+        "Urgency"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p002_c00",
+        "SC Unit 2-6.pdf_p005_c00",
+        "SC Unit 2-6.pdf_p006_c00",
+        "SC Unit 2-6.pdf_p001_c00",
+        "SC Unit 2-2.pdf_p005_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000500120222568512,
+        "graph": 0.00700005330145359,
+        "text": 6.388399982824922,
+        "images": 4.441599827259779,
+        "pack": 0.18079997971653938,
+        "llm": 6904.1787998285145
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 7229.701499920338
+    },
+    {
+      "id": "q037",
+      "question": "Why are social media signals considered faster than traditional reporting systems for disaster response?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Disaster Response",
+        "Crisis Informatics",
+        "Real-Time Detection",
+        "Twitter",
+        "Emergency Detection"
+      ],
+      "answer": "Social media signals are considered faster than traditional reporting systems because they provide real‑time detection of sudden topic shifts such as earthquakes, fires, and floods, allowing first responders and authorities to receive alerts almost immediately. [SC Unit 2-6.pdf_p005_c00] This immediacy makes them a valuable real‑time sensor for disaster response, as noted in studies that monitor Twitter for early emergency detection. [SC Unit 2-6.pdf_p005_c01]",
+      "keyword_recall": 0.6,
+      "context_keyword_recall": 0.8,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.9,
+        "agreement": 0.8,
+        "margin": 1.0
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.5,
+      "unsupported_claims": [
+        "Social media signals are considered faster than traditional reporting systems because they provide real‑time detection of sudden topic shifts such as earthquakes, fires, and floods, allowing first responders and authorities to receive alerts almost immediately."
+      ],
+      "referenced_concepts": [
+        "Social media signals",
+        "Real‑time detection",
+        "Disaster response"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p005_c01",
+        "SC Unit 2-6.pdf_p005_c00",
+        "SC Unit 2-6.pdf_p006_c00",
+        "SC Unit 2-6.pdf_p001_c00",
+        "SC Unit 2-1.pdf_p016_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000500120222568512,
+        "graph": 0.007700175046920776,
+        "text": 6.610499927774072,
+        "images": 5.367799894884229,
+        "pack": 0.4626999143511057,
+        "llm": 9254.640399944037
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 9777.10699988529
+    },
+    {
+      "id": "q038",
+      "question": "What is minimally supervised urgency detection and what are its two setup variations?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Urgency Detection",
+        "Crisis Informatics",
+        "Zero-Shot Learning",
+        "Minimally Supervised Learning"
+      ],
+      "answer": "[LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_REDACTED` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 5729, Requested 2353. Please try again in 615ms. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}]",
+      "keyword_recall": 0.0,
+      "context_keyword_recall": 0.5,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "low",
+      "evidence": {
+        "score": 0.9,
+        "agreement": 0.8,
+        "margin": 1.0
+      },
+      "citations_cited": 0,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": null,
+      "unsupported_claims": [],
+      "referenced_concepts": [],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p004_c00",
+        "SC Unit 2-5.pdf_p020_c01",
+        "SC Unit 2-1.pdf_p009_c00",
+        "SC Unit 2-5.pdf_p020_c00",
+        "SC Unit 2-2.pdf_p007_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.006400048732757568,
+        "text": 10.444500017911196,
+        "images": 7.939399918541312,
+        "pack": 0.2071000635623932,
+        "llm": 12153.29060005024
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 1,
+      "judge_error": null,
+      "latency_ms": 12440.422999905422
+    },
+    {
+      "id": "q039",
+      "question": "What is the difference between misinformation, disinformation, malinformation, and coordinated inauthentic behavior (CIB)?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Misinformation",
+        "Disinformation",
+        "Malinformation",
+        "CIB",
+        "Propaganda",
+        "Fake News",
+        "Rumor"
+      ],
+      "answer": "Misinformation is false information that is not intended to mislead, often presented as a rumor that has not yet been verified [SC Unit 2-6.pdf_p009_c00]. Disinformation is false information deliberately created to mislead, such as fake news that is maliciously fabricated [SC Unit 2-6.pdf_p009_c00]. Malinformation consists of genuine, true information that is shared with the intent to harm, for example true news used to damage reputations [SC Unit 2-6.pdf_p009_c00]. Coordinated inauthentic behavior (CIB) is a strategy that mixes genuine and fabricated content, often in the form of propaganda, to influence, harm, or mislead audiences through coordinated accounts or campaigns [SC Unit 2-6.pdf_p009_c00].",
+      "keyword_recall": 1.0,
+      "context_keyword_recall": 0.857,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.6158,
+        "agreement": 1.0,
+        "margin": 0.23151260504201684
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.5,
+      "unsupported_claims": [
+        "Misinformation is false information that is not intended to mislead, often presented as a rumor that has not yet been verified.",
+        "Disinformation is false information deliberately created to mislead, such as fake news that is maliciously fabricated."
+      ],
+      "referenced_concepts": [
+        "misinformation",
+        "disinformation",
+        "malinformation",
+        "coordinated inauthentic behavior (CIB)"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p009_c00",
+        "SC Unit 2-6.pdf_p010_c00",
+        "SC Unit 2-5.pdf_p003_c00",
+        "SC Unit 2-6.pdf_p013_c00",
+        "SC Unit 2-6.pdf_p012_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000600004568696022,
+        "graph": 0.00590016134083271,
+        "text": 10.52479981444776,
+        "images": 4.656200064346194,
+        "pack": 0.313800061121583,
+        "llm": 3848.7245000433177
+      },
+      "judge_faithfulness": 0.818,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 4856.514499988407
+    },
+    {
+      "id": "q040",
+      "question": "How should fake news, rumors, and propaganda be distinguished from each other based on factuality and harmful intent?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Fake News",
+        "Rumor",
+        "Propaganda",
+        "Disinformation",
+        "Misinformation",
+        "Intent"
+      ],
+      "answer": "Fake news is false content produced with malicious intent to mislead. [SC Unit 2-6.pdf_p010_c00]. Rumors are unverified claims that may be true or false but are not created with malicious intent. [SC Unit 2-6.pdf_p010_c00]. Propaganda is a planned campaign that can mix true and false information and is intended to influence, harm, or mislead. [SC Unit 2-6.pdf_p009_c00].",
+      "keyword_recall": 0.667,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5939,
+        "agreement": 1.0,
+        "margin": 0.1877200704225352
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 1.0,
+      "unsupported_claims": [],
+      "referenced_concepts": [
+        "Fake News",
+        "Rumor",
+        "Propaganda",
+        "Factuality",
+        "Harmful Intent"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p010_c00",
+        "SC Unit 2-6.pdf_p009_c00",
+        "SC Unit 2-6.pdf_p013_c01",
+        "SC Unit 2-6.pdf_p007_c00",
+        "SC Unit 2-6.pdf_p008_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.00600004568696022,
+        "text": 7.581799989566207,
+        "images": 3.643499920144677,
+        "pack": 0.26219990104436874,
+        "llm": 15167.575099971145
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 15690.240399912
+    },
+    {
+      "id": "q041",
+      "question": "What are the three perspectives from which Fake News should be analyzed in the Post-Truth Era?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Fake News",
+        "Post-Truth Era",
+        "Fakeness",
+        "Newsworthiness",
+        "Shareworthiness"
+      ],
+      "answer": "Fake News should be analyzed from the perspectives of fakeness, newsworthiness, and shareworthiness.",
+      "keyword_recall": 0.8,
+      "context_keyword_recall": 1.0,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.6113,
+        "agreement": 1.0,
+        "margin": 0.2225506756756757
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "Fake News should be analyzed from the perspectives of fakeness, newsworthiness, and shareworthiness."
+      ],
+      "referenced_concepts": [
+        "Fakeness",
+        "Newsworthiness",
+        "Shareworthiness"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p008_c00",
+        "SC Unit 2-6.pdf_p013_c01",
+        "SC Unit 2-6.pdf_p009_c00",
+        "SC Unit 2-1.pdf_p014_c00",
+        "SC Unit 2-2.pdf_p015_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000500120222568512,
+        "graph": 0.0068999361246824265,
+        "text": 12.272899970412254,
+        "images": 5.3848999086767435,
+        "pack": 0.26929983869194984,
+        "llm": 17096.09890007414
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 18001.768599962816
+    },
+    {
+      "id": "q042",
+      "question": "How can LLMs be used in disinformation research, and what are their key weaknesses in this domain?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "LLM",
+        "Disinformation",
+        "Fake News Detection",
+        "Rumor Detection",
+        "Propaganda",
+        "Adversarial Prompting"
+      ],
+      "answer": "LLMs can be used to generate synthetic disinformation datasets that aid research into how false narratives spread. [SC Unit 2-6.pdf_p012_c00] They can also be employed to test whether humans can detect disinformation that is produced by a language model, providing insight into human susceptibility to machine‑generated content. [SC Unit 2-6.pdf_p012_c00] Additionally, LLMs serve as a source of data for training or evaluating specialized disinformation detection models (SLMs) that aim to identify content produced by large language models. [SC Unit 2-6.pdf_p012_c00] However, LLMs are weak in reasoning because they lack a world view such as spatial, temporal, or psychological context, which leads to factual errors. [SC Unit 2-6.pdf_p012_c00] They also exhibit bias and discrimination, further limiting their reliability for disinformation research. [SC Unit 2-6.pdf_p012_c00] Because LLMs generate text that is stylistically consistent, models that rely on stylistic cues cannot reliably detect machine‑generated disinformation. [SC Unit 2-6.pdf_p013_c00] Moreover, human‑generated and machine‑generated disinformation typically have different feature distributions, so models trained only on human‑generated content perform poorly on LLM‑generated examples. [SC Unit 2-6.pdf_p013_c00] Finally, the lack of nuanced understanding of human‑generated content further hampers the effectiveness of LLMs in accurately modeling or detecting disinformation. [SC Unit 2-6.pdf_p012_c00]",
+      "keyword_recall": 0.333,
+      "context_keyword_recall": 0.5,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.7,
+        "agreement": 0.4,
+        "margin": 1.0
+      },
+      "citations_cited": 3,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.25,
+      "unsupported_claims": [
+        "LLMs can be used to generate synthetic disinformation datasets that aid research into how false narratives spread.",
+        "They can also be employed to test whether humans can detect disinformation that is produced by a language model, providing insight into human susceptibility to machine‑generated content.",
+        "Additionally, LLMs serve as a source of data for training or evaluating specialized disinformation detection models (SLMs) that aim to identify content produced by large language models.",
+        "They also exhibit bias and discrimination, further limiting their reliability for disinformation research.",
+        "Moreover, human‑generated and machine‑generated disinformation typically have different feature distributions, so models trained only on human‑generated content perform poorly on LLM‑generated examples.",
+        "Finally, the lack of nuanced understanding of human‑generated content further hampers the effectiveness of LLMs in accurately modeling or detecting disinformation."
+      ],
+      "referenced_concepts": [
+        "LLM for Disinformation Research",
+        "LLM-based Fake news detection",
+        "LLM weaknesses",
+        "Disinformation contexts"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p013_c00",
+        "SC Unit 2-6.pdf_p012_c00",
+        "SC Unit 2-5.pdf_p015_c01",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-6.pdf_p011_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.006800051778554916,
+        "text": 11.103800032287836,
+        "images": 6.029499927535653,
+        "pack": 0.28760009445250034,
+        "llm": 10658.07420015335
+      },
+      "judge_faithfulness": 0.923,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 11850.68909986876
+    },
+    {
+      "id": "q043",
+      "question": "What is the relationship between trolling behavior and the mental health impact on its victims?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Trolling",
+        "Mental Health",
+        "Anxiety",
+        "Depression",
+        "Anti-Social Behavior",
+        "Victims"
+      ],
+      "answer": "Trolling is a form of anti‑social computing that involves posting inflammatory, sexist, hateful, or profane comments to disrupt discussions and attract attention. [SC Unit 2-4.pdf_p019_c00, SC Unit 2-4.pdf_p017_c00]\nVictims of such trolling often experience negative mental‑health outcomes such as anxiety, depression, and low self‑esteem. [SC Unit 2-4.pdf_p020_c01]\nThe emotional contagion that spreads through polarized online threads can amplify these effects, causing stress in passive readers exposed to frequent outrage or partisan conflict. [SC Unit 2-5.pdf_p014_c00]\nThus, the intensity and frequency of trolling behaviors directly correlate with the severity of mental‑health impacts on those targeted. [SC Unit 2-4.pdf_p019_c00, SC Unit 2-5.pdf_p014_c00]",
+      "keyword_recall": 0.667,
+      "context_keyword_recall": 0.833,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.9,
+        "agreement": 0.8,
+        "margin": 1.0
+      },
+      "citations_cited": 4,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "Trolling is a form of anti‑social computing that involves posting inflammatory, sexist, hateful, or profane comments to disrupt discussions and attract attention.",
+        "Victims of such trolling often experience negative mental‑health outcomes such as anxiety, depression, and low self‑esteem.",
+        "The emotional contagion that spreads through polarized online threads can amplify these effects, causing stress in passive readers exposed to frequent outrage or partisan conflict.",
+        "Thus, the intensity and frequency of trolling behaviors directly correlate with the severity of mental‑health impacts on those targeted."
+      ],
+      "referenced_concepts": [
+        "trolling behavior",
+        "mental health impact",
+        "anti-social computing",
+        "emotional contagion"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-4.pdf_p020_c01",
+        "SC Unit 2-4.pdf_p019_c00",
+        "SC Unit 2-5.pdf_p014_c00",
+        "SC Unit 2-5.pdf_p003_c00",
+        "SC Unit 2-4.pdf_p017_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.0004998873919248581,
+        "graph": 0.006800051778554916,
+        "text": 9.62439994327724,
+        "images": 6.417500087991357,
+        "pack": 0.3825000021606684,
+        "llm": 15275.869899895042
+      },
+      "judge_faithfulness": 0.75,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 16413.990000030026
+    },
+    {
+      "id": "q044",
+      "question": "How does predicting voting intentions from social media differ from traditional polling methods?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Voting Intentions",
+        "Social Media Events",
+        "Sentiment Analysis",
+        "Topic Detection",
+        "Political Orientation"
+      ],
+      "answer": "Traditional polls rely on in-person, phone, or online surveys with predefined answer options. [SC Unit 2-5.pdf_p019_c00] Social media-based prediction automates the process by analyzing user-generated content, using textual cues, demographics, and inter-comment constraints. [SC Unit 2-5.pdf_p019_c01] This approach begins with topic detection via keyword search or text classification before applying sentiment analysis to infer voting intentions. [SC Unit 2-5.pdf_p018_c00] Thus, unlike traditional polling, social media methods do not require structured survey questions and can capture real-time, unsolicited expressions of political preference. [SC Unit 2-5.pdf_p019_c01]",
+      "keyword_recall": 0.6,
+      "context_keyword_recall": 0.8,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "high",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.6402,
+        "agreement": 1.0,
+        "margin": 0.28032559062934287
+      },
+      "citations_cited": 3,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.25,
+      "unsupported_claims": [
+        "Traditional polls rely on in-person, phone, or online surveys with predefined answer options.",
+        "This approach begins with topic detection via keyword search or text classification before applying sentiment analysis to infer voting intentions.",
+        "Thus, unlike traditional polling, social media methods do not require structured survey questions and can capture real-time, unsolicited expressions of political preference."
+      ],
+      "referenced_concepts": [
+        "Predicting Voting Intentions",
+        "Traditional Polling",
+        "Social Media-based Methods",
+        "Sentiment Analysis",
+        "Topic Detection"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p019_c00",
+        "SC Unit 2-5.pdf_p018_c00",
+        "SC Unit 2-5.pdf_p019_c01",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000500120222568512,
+        "graph": 0.006800051778554916,
+        "text": 7.650099927559495,
+        "images": 3.9276999887079,
+        "pack": 0.19279983825981617,
+        "llm": 12927.97699989751
+      },
+      "judge_faithfulness": 0.875,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 13805.176499998197
+    },
+    {
+      "id": "q045",
+      "question": "What real-world disaster response systems have been built using Twitter data, and what events did they address?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Disaster Response",
+        "Twitter",
+        "Crisis Informatics",
+        "Earthquake Detection",
+        "Emergency Detection"
+      ],
+      "answer": "Yin et al. (2012) pioneered a Twitter‑based monitoring system for real‑time emergency detection, improving situation awareness during various disasters. [SC Unit 2-6.pdf_p006_c00] Robinson et al. (2013) developed an earthquake detector that analyzes Twitter data from Australia and New Zealand, sending alerts to tsunami warning centers when seismic events occur. [SC Unit 2-6.pdf_p006_c00] Power et al. (2013) created a system that identifies fire events in Australia by detecting alert words and classifying tweets, enabling rapid fire response. [SC Unit 2-6.pdf_p006_c00]",
+      "keyword_recall": 0.4,
+      "context_keyword_recall": 0.8,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5615,
+        "agreement": 1.0,
+        "margin": 0.12307692307692307
+      },
+      "citations_cited": 1,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.167,
+      "unsupported_claims": [
+        "Yin et al.",
+        "Robinson et al.",
+        "(2013) developed an earthquake detector that analyzes Twitter data from Australia and New Zealand, sending alerts to tsunami warning centers when seismic events occur.",
+        "Power et al.",
+        "(2013) created a system that identifies fire events in Australia by detecting alert words and classifying tweets, enabling rapid fire response."
+      ],
+      "referenced_concepts": [
+        "Twitter-based emergency detection",
+        "Earthquake detection system",
+        "Fire event detection system"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-6.pdf_p006_c00",
+        "SC Unit 2-6.pdf_p005_c01",
+        "SC Unit 2-6.pdf_p005_c00",
+        "SC Unit 2-5.pdf_p020_c00",
+        "SC Unit 2-6.pdf_p001_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.006600050255656242,
+        "text": 10.814499808475375,
+        "images": 6.77089998498559,
+        "pack": 0.3357999958097935,
+        "llm": 9996.171500068158
+      },
+      "judge_faithfulness": 0.857,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 11559.857300017029
+    },
+    {
+      "id": "q046",
+      "question": "How does the Irritability and Aggressiveness ASB category differ from the Reckless Disregard for Safety category in terms of linguistic features?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "ASB Categories",
+        "Irritability",
+        "Reckless Disregard for Safety",
+        "Text Classification",
+        "Anti-Social Behavior"
+      ],
+      "answer": "The Irritability and Aggressiveness category is characterized by the frequent use of abusive and taboo words such as \"fuck\", \"asshole\", and \"bitch\" [SC Unit 2-5.pdf_p007_c00]. In contrast, the Reckless Disregard for Safety category contains little to no abusive language and instead features terms related to danger and risk, such as \"kill\", \"fire\", \"dangerous\", and also playful words like \"fun\" and \"fast\" [SC Unit 2-5.pdf_p007_c01].",
+      "keyword_recall": 0.4,
+      "context_keyword_recall": 0.6,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5947,
+        "agreement": 1.0,
+        "margin": 0.18938372652864732
+      },
+      "citations_cited": 2,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.5,
+      "unsupported_claims": [
+        "In contrast, the Reckless Disregard for Safety category contains little to no abusive language and instead features terms related to danger and risk, such as \"kill\", \"fire\", \"dangerous\", and also playful words like \"fun\" and \"fast\"."
+      ],
+      "referenced_concepts": [
+        "Irritability and Aggressiveness",
+        "Reckless Disregard for Safety"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p007_c00",
+        "SC Unit 2-5.pdf_p007_c01",
+        "SC Unit 2-5.pdf_p006_c00",
+        "SC Unit 2-5.pdf_p008_c00",
+        "SC Unit 2-4.pdf_p019_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.006800051778554916,
+        "text": 10.811999905854464,
+        "images": 6.039900006726384,
+        "pack": 0.4235999658703804,
+        "llm": 17541.731299832463
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 18882.27489986457
+    },
+    {
+      "id": "q047",
+      "question": "How does the Lack of Remorse ASB category differ from the Non-Antisocial category in terms of vocabulary and classification difficulty?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Lack of Remorse",
+        "Non-Antisocial",
+        "ASB Categories",
+        "Text Classification",
+        "Anti-Social Behavior"
+      ],
+      "answer": "The Lack of Remorse ASB category is characterized by a mix of negative terms such as suffer, die, remorse, hurt, pissing, pain, and also positive terms like love, happy, and like, which makes its vocabulary less distinctive. [SC Unit 2-5.pdf_p008_c00] In contrast, the Non‑Antisocial or General category contains only positive, non‑abusive terms such as love, wish, help, pray, hope, God, others, well, and respect, which are clearly distinct from abusive or taboo words. [SC Unit 2-5.pdf_p008_c01] Because the Lack of Remorse class mixes negative and positive language, it is harder for classification algorithms to separate it from other antisocial classes, whereas the Non‑Antisocial class is easier to identify due to the absence of abusive or taboo words. [SC Unit 2-5.pdf_p005_img02] [SC Unit 2-5.pdf_p005_img01]",
+      "keyword_recall": 0.2,
+      "context_keyword_recall": 0.6,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5682,
+        "agreement": 1.0,
+        "margin": 0.13642723880597016
+      },
+      "citations_cited": 6,
+      "citations_fabricated": 2,
+      "citations_dropped": {
+        "source_chunks_used": [
+          "SC Unit 2-5.pdf_p005_img02",
+          "SC Unit 2-5.pdf_p005_img01"
+        ],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.0,
+      "unsupported_claims": [
+        "The Lack of Remorse ASB category is characterized by a mix of negative terms such as suffer, die, remorse, hurt, pissing, pain, and also positive terms like love, happy, and like, which makes its vocabulary less distinctive.",
+        "In contrast, the Non‑Antisocial or General category contains only positive, non‑abusive terms such as love, wish, help, pray, hope, God, others, well, and respect, which are clearly distinct from abusive or taboo words.",
+        "Because the Lack of Remorse class mixes negative and positive language, it is harder for classification algorithms to separate it from other antisocial classes, whereas the Non‑Antisocial class is easier to identify due to the absence of abusive or taboo words."
+      ],
+      "referenced_concepts": [
+        "Lack of Remorse ASB category",
+        "Non-Antisocial category",
+        "vocabulary",
+        "classification difficulty"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-5.pdf_p008_c00",
+        "SC Unit 2-5.pdf_p006_c00",
+        "SC Unit 2-4.pdf_p016_c00",
+        "SC Unit 2-5.pdf_p008_c01",
+        "SC Unit 2-4.pdf_p018_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.00600004568696022,
+        "text": 6.443900056183338,
+        "images": 3.6280001513659954,
+        "pack": 0.3620998468250036,
+        "llm": 13182.191600091755
+      },
+      "judge_faithfulness": 0.857,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 14047.52240004018
+    },
+    {
+      "id": "q048",
+      "question": "How does trolling spread geographically and demographically, and what are its long-term behavioral patterns?",
+      "question_type": "factual",
+      "expected_concepts": [
+        "Trolling",
+        "Anti-Social Behavior",
+        "Gender",
+        "Behavioral Patterns",
+        "Community Moderation"
+      ],
+      "answer": "The provided material does not describe how trolling spreads across geographic regions. [SC Unit 2-4.pdf_p019_c00] Demographically, studies indicate that males are more likely to engage in trolling than females. [SC Unit 2-4.pdf_p020_c00] Long‑term behavioral patterns show that trolls tend to focus on a small number of threads and make petty complaints, often producing irrelevant or lower‑quality comments. [SC Unit 2-4.pdf_p020_c00] Over time, trolls become less tolerant of the online community, are reported, and may be removed from discussions or communities. [SC Unit 2-4.pdf_p020_c01] Victims of trolling can experience anxiety, depression, and low self‑esteem as a result of sustained harassment. [SC Unit 2-4.pdf_p020_c01] Some trolls exhibit inborn traits and a history of trolling, suggesting a persistent behavioral pattern that persists over time. [SC Unit 2-4.pdf_p019_c00]",
+      "keyword_recall": 0.4,
+      "context_keyword_recall": 0.4,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "medium",
+      "evidence": {
+        "score": 0.5784,
+        "agreement": 1.0,
+        "margin": 0.15687745165521838
+      },
+      "citations_cited": 3,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.5,
+      "unsupported_claims": [
+        "The provided material does not describe how trolling spreads across geographic regions.",
+        "Victims of trolling can experience anxiety, depression, and low self‑esteem as a result of sustained harassment.",
+        "Some trolls exhibit inborn traits and a history of trolling, suggesting a persistent behavioral pattern that persists over time."
+      ],
+      "referenced_concepts": [
+        "trolling",
+        "gender distribution",
+        "long-term behavioral patterns"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-4.pdf_p019_c00",
+        "SC Unit 2-4.pdf_p020_c00",
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-4.pdf_p020_c01",
+        "SC Unit 2-1.pdf_p016_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.006200047209858894,
+        "text": 11.248499853536487,
+        "images": 9.516000049188733,
+        "pack": 0.5272999405860901,
+        "llm": 14303.817600011826
+      },
+      "judge_faithfulness": 1.0,
+      "judge_answer_relevance": 4,
+      "judge_error": null,
+      "latency_ms": 15151.438500033692
+    },
+    {
+      "id": "q049",
+      "question": "How does anti-social computing as a field relate to the detection of both trolling and cyberbullying, and what methods does it use for each?",
+      "question_type": "relational",
+      "expected_concepts": [
+        "Anti-Social Computing",
+        "Trolling",
+        "Cyberbullying",
+        "Sentiment Analysis",
+        "Toxicity Detection"
+      ],
+      "answer": "Anti‑social computing is the study of how to explain, predict, and prevent anti‑social behavior on the internet, such as trolling and personal attacks, and it also includes how to detect and discourage these behaviors. [SC Unit 2-4.pdf_p017_c00] For trolling, anti‑social computing focuses on detecting inflammatory, sexist, hateful, racist, or profane comments that are irrelevant to the discussion and that aim to disrupt online conversations. [SC Unit 2-4.pdf_p019_c00] For cyberbullying, the field seeks to identify repetitive abusive content—text, images, audio, or video—targeted at a single individual, which causes distress and is often used on platforms like Twitter, Reddit, or Facebook. [SC Unit 2-5.pdf_p001_c00] [SC Unit 2-5.pdf_p002_c00] The methods employed by anti‑social computing for both trolling and cyberbullying involve automated detection of such content and the implementation of discouragement strategies to reduce the prevalence of these behaviors. [SC Unit 2-4.pdf_p017_c00]",
+      "keyword_recall": 0.4,
+      "context_keyword_recall": 0.6,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5748,
+        "agreement": 1.0,
+        "margin": 0.1495567082367658
+      },
+      "citations_cited": 4,
+      "citations_fabricated": 0,
+      "citations_dropped": {
+        "source_chunks_used": [],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.5,
+      "unsupported_claims": [
+        "For trolling, anti‑social computing focuses on detecting inflammatory, sexist, hateful, racist, or profane comments that are irrelevant to the discussion and that aim to disrupt online conversations.",
+        "The methods employed by anti‑social computing for both trolling and cyberbullying involve automated detection of such content and the implementation of discouragement strategies to reduce the prevalence of these behaviors."
+      ],
+      "referenced_concepts": [
+        "Anti-social computing",
+        "trolling",
+        "cyberbullying",
+        "detection",
+        "discouragement"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-4.pdf_p017_c00",
+        "SC Unit 2-5.pdf_p001_c00",
+        "SC Unit 2-5.pdf_p002_c00",
+        "SC Unit 2-4.pdf_p020_c00",
+        "SC Unit 2-4.pdf_p019_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.006600050255656242,
+        "text": 8.29359982162714,
+        "images": 5.005900049582124,
+        "pack": 0.2919000107795,
+        "llm": 14213.497499935329
+      },
+      "judge_faithfulness": 0.833,
+      "judge_answer_relevance": 4,
+      "judge_error": null,
+      "latency_ms": 15080.46119986102
+    },
+    {
+      "id": "q050",
+      "question": "A researcher wants to build a system to detect whether a social media user is likely to spread disinformation during a political crisis. Trace the full pipeline from user behavior signals to a final risk score, incorporating user modeling, credibility assessment, personality profiling, and content-level analysis.",
+      "question_type": "multi-hop",
+      "expected_concepts": [
+        "User Modeling",
+        "User Credibility",
+        "MBTI",
+        "Big Five",
+        "Political Orientation Modeling",
+        "Argumentation Mining",
+        "Toxicity Detection",
+        "Hate Speech Detection",
+        "Disinformation",
+        "Polarization",
+        "Echo Chambers",
+        "Trust",
+        "Social Network"
+      ],
+      "answer": "The pipeline starts by collecting raw user behavior signals such as tweet frequency, retweet patterns, and interaction networks. [SC Unit 2-1.pdf_p014_c00] [SC Unit 2-2.pdf_p015_c00] [SC Unit 2-3.pdf_p016_c00]\nThe signals feed a user modeling module that infers demographic and psychographic attributes (gender, age, region, political orientation) solely from posted content. [SC Unit 2-1.pdf_p020_c00] [SC Unit 2-3.pdf_p001_c00]\nThe inferred attributes are combined with a personality profiling layer that maps users onto a trait space defined by the big model of personality graphic. [SC Unit 2-2.pdf_p001_img01]\nParallel to user modeling, a credibility assessment module evaluates profile credibility (account age, verification status), behavioural credibility (consistency of content, posting patterns), and social credibility (network centrality, follower quality). [SC Unit 2-1.pdf_p014_c00] [SC Unit 2-2.pdf_p015_c00] [SC Unit 2-3.pdf_p016_c00]\nContent-level analysis then scans recent posts for linguistic cues, source reliability, and stance signals that indicate potential disinformation. [SC Unit 2-6.pdf_p011_img01]\nThe outputs of user modeling, personality profiling, credibility assessment, and content analysis are weighted and aggregated into a composite risk score that predicts the likelihood of the user spreading disinformation during a political crisis. [SC Unit 2-1.pdf_p014_c00] [SC Unit 2-2.pdf_p015_c00] [SC Unit 2-3.pdf_p016_c00] [SC Unit 2-6.pdf_p011_img01]",
+      "keyword_recall": 0.154,
+      "context_keyword_recall": 0.231,
+      "graph_utilized": false,
+      "graph_paths_count": 0,
+      "graph_utilized_validated": false,
+      "graph_paths_in_context": 0,
+      "confidence": "medium",
+      "confidence_self_reported": "high",
+      "evidence": {
+        "score": 0.5788,
+        "agreement": 1.0,
+        "margin": 0.1576278659611996
+      },
+      "citations_cited": 9,
+      "citations_fabricated": 2,
+      "citations_dropped": {
+        "source_chunks_used": [
+          "SC Unit 2-2.pdf_p001_img01",
+          "SC Unit 2-6.pdf_p011_img01"
+        ],
+        "graph_paths_used": [],
+        "relevant_images": []
+      },
+      "supported_sentence_rate": 0.167,
+      "unsupported_claims": [
+        "The pipeline starts by collecting raw user behavior signals such as tweet frequency, retweet patterns, and interaction networks.",
+        "The inferred attributes are combined with a personality profiling layer that maps users onto a trait space defined by the big model of personality graphic.",
+        "Parallel to user modeling, a credibility assessment module evaluates profile credibility (account age, verification status), behavioural credibility (consistency of content, posting patterns), and social credibility (network centrality, follower quality).",
+        "Content-level analysis then scans recent posts for linguistic cues, source reliability, and stance signals that indicate potential disinformation.",
+        "The outputs of user modeling, personality profiling, credibility assessment, and content analysis are weighted and aggregated into a composite risk score that predicts the likelihood of the user spreading disinformation during a political crisis."
+      ],
+      "referenced_concepts": [
+        "User behavior signals",
+        "User modeling",
+        "Personality profiling",
+        "Credibility assessment",
+        "Content-level analysis",
+        "Risk score"
+      ],
+      "retrieved_chunk_ids": [
+        "SC Unit 2-1.pdf_p014_c00",
+        "SC Unit 2-2.pdf_p015_c00",
+        "SC Unit 2-3.pdf_p016_c00",
+        "SC Unit 2-1.pdf_p020_c00",
+        "SC Unit 2-3.pdf_p001_c00"
+      ],
+      "text_chunks_used": 5,
+      "images_used": 2,
+      "timings_ms": {
+        "route": 0.000400003045797348,
+        "graph": 0.008300179615616798,
+        "text": 14.347600052133203,
+        "images": 5.055299960076809,
+        "pack": 0.24110008962452412,
+        "llm": 14113.373800180852
+      },
+      "judge_faithfulness": 0.125,
+      "judge_answer_relevance": 5,
+      "judge_error": null,
+      "latency_ms": 15017.785399919376
+    }
+  ]
+}

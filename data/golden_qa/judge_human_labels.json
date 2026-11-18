@@ -1,0 +1,65 @@
+{
+  "instructions": "For each answer, read the retrieved context and set human_faithfulness to the share of the answer's claims the context supports (0.0 to 1.0). Leave null until labelled.",
+  "items": [
+    {
+      "id": "q001",
+      "answer": "Politeness detection involves identifying respectful and considerate language in user-generated text. [SC Unit 2-1.pdf_p003_c00] It is useful for enhancing customer service bots, improving online community moderation, and analyzing tone in business communication. [SC Unit 2-1.pdf_p003_c00] Techniques include rule‑based methods such as detecting greetings or hedges, and machine‑learning/NLP models trained on annotated datasets like the Stanford Politeness Corpus. [SC Unit 2-1.pdf_p004_c00] For example, “Would you mind sharing your thoughts?” is classified as polite, whereas “Give me your answer now.” is classified as impolite. [SC Unit 2-1.pdf_p004_c00]",
+      "human_faithfulness": null
+    },
+    {
+      "id": "q002",
+      "answer": "Politeness detection primarily relies on rule‑based methods and machine‑learning/NLP models.[SC Unit 2-1.pdf_p004_c00]",
+      "human_faithfulness": null
+    },
+    {
+      "id": "q003",
+      "answer": "Hate speech includes abusive, discriminatory, or threatening language targeting specific groups such as race, religion, or gender. [SC Unit 2-1.pdf_p005_c00] Detecting hate speech is critical for social platforms, legal compliance, and user safety. [SC Unit 2-1.pdf_p005_c00] Accurate detection helps prevent discrimination, protects vulnerable communities, and maintains a safer online environment. [SC Unit 2-1.pdf_p005_c00] It also enables platforms to comply with laws that prohibit hate content and to filter or remove such material. [SC Unit 2-1.pdf_p005_c00] Challenges in detection include code words, sarcasm, slang, and the fine line between free speech and hate. [SC Unit 2-1.pdf_p005_c01] Current approaches use dataset-driven deep learning and context-aware models like BERT or DeBERTa. [SC Unit 2-1.pdf_p005_c01] Anti‑social computing studies how to explain, predict, and prevent such behaviors, including hate speech. [SC Unit 2-4.pdf_p017_c00]",
+      "human_faithfulness": null
+    },
+    {
+      "id": "q004",
+      "answer": "Key challenges in hate speech detection include the use of code words, sarcasm, and slang, which obscure hateful intent [SC Unit 2-1.pdf_p005_c00]. Another major challenge is the ambiguity between free speech and hate, making it difficult to distinguish permissible expression from hateful content [SC Unit 2-1.pdf_p005_c01].",
+      "human_faithfulness": null
+    },
+    {
+      "id": "q005",
+      "answer": "Toxicity refers to rude, disrespectful, or unreasonable comments that make online environments unpleasant. [SC Unit 2-1.pdf_p007_c00] It is broader than hate speech, encompassing insults, threats, harassment, and other non‑targeted negative language. [SC Unit 2-1.pdf_p007_c00] Hate speech specifically targets protected groups with abusive, discriminatory, or threatening language. [SC Unit 2-1.pdf_p005_c00] Therefore, while all hate speech is toxic, not all toxic content is hate speech. [SC Unit 2-1.pdf_p007_c00] [SC Unit 2-1.pdf_p005_c00] Moderation systems often use toxicity scoring or sentiment analysis to flag general harmful content, whereas hate‑speech detection relies on group‑specific context and deeper semantic models like BERT or DeBERTa. [SC Unit 2-1.pdf_p005_c01] [SC Unit 2-1.pdf_p005_c00]",
+      "human_faithfulness": null
+    },
+    {
+      "id": "q006",
+      "answer": "The three key components of argumentation mining are claim detection, premise identification, and stance classification. [SC Unit 2-1.pdf_p009_c00]",
+      "human_faithfulness": null
+    },
+    {
+      "id": "q007",
+      "answer": "The three types of user credibility on Twitter are Profile Credibility, Behavioural Credibility, and Social Credibility.[SC Unit 2-1.pdf_p014_c00, SC Unit 2-2.pdf_p015_c00, SC Unit 2-3.pdf_p016_c00]",
+      "human_faithfulness": null
+    },
+    {
+      "id": "q008",
+      "answer": "Profile credibility on Twitter can be measured by factors such as the age of the account, the length of the bio description and screen name, the number of characters in the Twitter handle, the verification status, the user’s willingness to share geospatial information, and the extent of match between the user’s real name and user name. [SC Unit 2-1.pdf_p015_c00]",
+      "human_faithfulness": null
+    },
+    {
+      "id": "q009",
+      "answer": "Credibility is defined as the confidence that other social media users have about a particular user based on his past behaviour [SC Unit 2-1.pdf_p013_c00]. It is a node property, whereas inter-personal trust is an edge property [SC Unit 2-1.pdf_p013_c00]. Trust between user nodes leads to the formation of edges that form communities, which in turn increase trust among members [SC Unit 2-1.pdf_p017_c00].",
+      "human_faithfulness": null
+    },
+    {
+      "id": "q010",
+      "answer": "Local trust on Twitter is calculated based on the local behavior of the node, such as the tweet‑retweet ratio. [SC Unit 2-1.pdf_p017_c01] [SC Unit 2-2.pdf_p018_c01] [SC Unit 2-3.pdf_p019_c01] Global trust, in contrast, is derived from global information like the number of followers. [SC Unit 2-1.pdf_p017_c01] [SC Unit 2-2.pdf_p018_c01] [SC Unit 2-3.pdf_p019_c01] Trust can be represented as an attribute vector that includes both local and global trust components. [SC Unit 2-1.pdf_p017_c01] [SC Unit 2-2.pdf_p018_c01] [SC Unit 2-3.pdf_p019_c01]",
+      "human_faithfulness": null
+    },
+    {
+      "id": "q011",
+      "answer": "The provided excerpts describe user modeling in terms of detecting attributes such as gender, age, region of origin, and political orientation from social media messages, and modeling personality using the Big Five traits, but they do not list or describe five distinct types of user modeling explored in social computing.",
+      "human_faithfulness": null
+    },
+    {
+      "id": "q012",
+      "answer": "The Big Five (OCEAN) personality model identifies five core traits: Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism. [SC Unit 2-2.pdf_p001_c00] Social media behavior such as likes, posts, and language use reflects these personality traits. [SC Unit 2-3.pdf_p002_c00] Models use text mining, natural language processing, and machine learning to infer a user’s Big Five profile from their online activity. [SC Unit 2-4.pdf_p003_c00] The inferred personality information is applied to targeted advertising, content recommendation, and mental health detection. [SC Unit 2-2.pdf_p001_c00]",
+      "human_faithfulness": null
+    }
+  ]
+}

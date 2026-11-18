@@ -6,7 +6,7 @@ A retrieval-augmented question-answering system over PDF lecture material that
 combines three kinds of evidence: text chunks found by hybrid dense + BM25
 search, image captions produced by OCR with a BLIP fallback, and a Neo4j
 knowledge graph of concepts extracted by an LLM. Retrieved evidence is packed
-into a token budget and answered by Llama-3.1-8B, and every answer sentence is
+into a token budget and answered by an LLM on Groq (`gpt-oss-20b`), and every answer sentence is
 checked against the source it cites. The project started as a research notebook;
 this repository is the production rewrite, including the fix for a fusion bug
 that made the original "hybrid" retriever worse than dense search alone.
@@ -40,7 +40,7 @@ flowchart LR
         NEO --> PK
         IR --> PK
         PK --> NLI1[NLI conflict check]
-        PK --> LLM[Llama-3.1-8B<br/>cited JSON answer]
+        PK --> LLM[gpt-oss-20b on Groq<br/>cited JSON answer]
         LLM --> VER[Citation validation +<br/>sentence entailment]
         VER --> OUT[Answer, sources,<br/>evidence-based confidence]
     end
@@ -153,6 +153,11 @@ graph of the paths that were in context.
   parameters, and full-text queries are escaped.
 
 ## Known limitations
+
+* **The original LLM is retired.** The notebook used `llama-3.1-8b-instant`, which
+  Groq no longer offers. Answer-level numbers here use `openai/gpt-oss-20b` (judge:
+  `qwen/qwen3.8-27b`) for both the before and after runs, so they compare the
+  pipelines fairly but cannot be compared directly with the notebook's 0.588.
 
 * **Small, single-corpus evaluation.** 143 chunks from six lecture PDFs and 50
   questions (4 of them multi-hop). Differences of a few points are within noise,

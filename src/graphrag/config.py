@@ -51,10 +51,12 @@ class Settings(BaseSettings):
     embed_batch_size: int = 64
     embed_query_cache_size: int = 1024  # in-memory LRU; the ablation sets 0
     caption_model: str = "Salesforce/blip-image-captioning-base"
-    llm_model: str = "llama-3.1-8b-instant"
+    # The notebook used llama-3.1-8b-instant, which Groq has since retired.
+    llm_model: str = "openai/gpt-oss-20b"
     llm_temperature: float = 0.1
-    llm_max_tokens: int = 1024
-    judge_model: str | None = None  # must differ from llm_model; enables LLM-as-judge
+    llm_max_tokens: int = 2048  # gpt-oss spends part of this on hidden reasoning
+    # Must differ from llm_model; a different vendor avoids same-family preference.
+    judge_model: str | None = None
     prompt_version: Literal["v1", "v2", "v3"] = "v3"
     entailment_threshold: float = 0.5
     conflict_mode: Literal["nli", "naive"] = "nli"
