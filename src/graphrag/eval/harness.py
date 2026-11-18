@@ -101,6 +101,8 @@ def evaluate_item(pipeline: Pipeline, item: GoldenItem, mode: EvalMode) -> dict[
             citations_cited=citations.get("cited", 0),
             citations_fabricated=citations.get("fabricated", 0),
             citations_dropped=dropped,
+            supported_sentence_rate=answer.get("supported_sentence_rate"),
+            unsupported_claims=answer.get("unsupported_claims", []),
             referenced_concepts=answer.get("referenced_concepts", []),
             retrieved_chunk_ids=[h.chunk_id for h in result.text_chunks],
             text_chunks_used=meta.get("text_chunks_used", 0),
@@ -191,6 +193,10 @@ def summarize(results: Sequence[dict[str, Any]], mode: EvalMode) -> dict[str, An
         summary["fabricated_citation_rate"] = round(fabricated / cited, 3) if cited else 0.0
         summary["answers_with_fabrication_rate"] = mean(
             [{"v": float(r["citations_fabricated"] > 0)} for r in good], "v"
+        )
+        rated = [r for r in good if r.get("supported_sentence_rate") is not None]
+        summary["supported_sentence_rate"] = (
+            mean(rated, "supported_sentence_rate") if rated else None
         )
         summary["confidence"] = dict(Counter(r["confidence"] for r in good))
         summary["confidence_self_reported"] = dict(

@@ -106,6 +106,7 @@ def render_reasoning_prompt_v2(
     text_items: list[tuple[str, str, int, str]],
     image_items: list[tuple[str, str]],
     conflicts: list[str],
+    template: str | None = None,
 ) -> str:
     """``text_items`` are (chunk_id, doc_id, page, text); ``image_items`` are (image_id, caption)."""
     graph = (
@@ -120,8 +121,17 @@ def render_reasoning_prompt_v2(
     )
     images = "\n".join(f"[{iid}] {cap}" for iid, cap in image_items) or "(none)"
     conflict_note = ("POTENTIAL CONFLICTS DETECTED:\n" + "\n".join(conflicts)) if conflicts else ""
-    prompt = REASONING_PROMPT_V2.replace("{graph_context}", graph)
+    prompt = (template or REASONING_PROMPT_V2).replace("{graph_context}", graph)
     prompt = prompt.replace("{text_chunks}", texts)
     prompt = prompt.replace("{image_captions}", images)
     prompt = prompt.replace("{conflict_note}", conflict_note)
     return prompt.replace("REPLACE_QUERY_HERE", query)
+
+
+# v3: v2 plus a citation at the end of every answer sentence (Task 3.5).
+REASONING_PROMPT_V3 = REASONING_PROMPT_V2.replace(
+    "- Cite only ids that appear in square brackets above.",
+    "- End EVERY sentence of the answer with the ids that support it, in square\n"
+    '  brackets, e.g. "Credibility is a node property [SC Unit 2-1.pdf_p013_c00]."\n'
+    "- Cite only ids that appear in square brackets above.",
+)

@@ -30,7 +30,7 @@ from graphrag.reasoning.answer import generate_answer
 from graphrag.reasoning.llm import LLM
 from graphrag.reasoning.verify import (
     CrossEncoderNLI,
-    NLIScorer,
+    NLIModel,
     detect_conflicts,
     evidence_confidence,
 )
@@ -82,7 +82,7 @@ class Pipeline:
         llm: LLM | None = None,
         extract_entities: Callable[[str], list[str]] | None = None,
         linker: EntityLinker | None = None,
-        nli: NLIScorer | None = None,
+        nli: NLIModel | None = None,
         router: QueryRouter | None = None,
     ) -> None:
         self.settings = settings
@@ -100,7 +100,7 @@ class Pipeline:
             )
         self.extract_entities = extract_entities
         self.linker = linker
-        self.nli: NLIScorer | None = nli
+        self.nli: NLIModel | None = nli
         self.router: QueryRouter | None = router
 
     @classmethod
@@ -282,7 +282,16 @@ class Pipeline:
         result = self.retrieve(query, **retrieve_kwargs)
         t0 = time.perf_counter()
         context = self.pack(result)
-        answer = generate_answer(query, context, self.llm, self.settings.prompt_version)
+        if self.nli is None and self.settings.prompt_version == "v3":
+            self.nli = CrossEncoderNLI(self.settings.nli_model)
+        answer = generate_answer(
+            query,
+            context,
+            self.llm,
+            self.settings.prompt_version,
+            nli=self.nli if self.settings.prompt_version == "v3" else None,
+            entailment_threshold=self.settings.entailment_threshold,
+        )
         result.timings_ms["llm"] = (time.perf_counter() - t0) * 1000
         evidence = evidence_confidence(
             result.text_chunks,

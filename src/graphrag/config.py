@@ -53,7 +53,8 @@ class Settings(BaseSettings):
     llm_model: str = "llama-3.1-8b-instant"
     llm_temperature: float = 0.1
     llm_max_tokens: int = 1024
-    prompt_version: Literal["v1", "v2"] = "v2"
+    prompt_version: Literal["v1", "v2", "v3"] = "v3"
+    entailment_threshold: float = 0.5
     conflict_mode: Literal["nli", "naive"] = "nli"
     nli_model: str = "cross-encoder/nli-deberta-v3-small"
     nli_threshold: float = 0.8

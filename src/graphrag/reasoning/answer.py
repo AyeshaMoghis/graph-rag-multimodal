@@ -3,15 +3,21 @@
 from __future__ import annotations
 
 import json
+from dataclasses import asdict
 from typing import Any, Literal
 
 from graphrag.graph.extract import strip_fences
 from graphrag.reasoning.llm import LLM
-from graphrag.reasoning.prompts import render_reasoning_prompt, render_reasoning_prompt_v2
-from graphrag.reasoning.verify import validate_citations
+from graphrag.reasoning.prompts import (
+    REASONING_PROMPT_V2,
+    REASONING_PROMPT_V3,
+    render_reasoning_prompt,
+    render_reasoning_prompt_v2,
+)
+from graphrag.reasoning.verify import EntailmentScorer, validate_citations, verify_sentences
 from graphrag.retrieval.fusion import PackedContext
 
-PromptVersion = Literal["v1", "v2"]
+PromptVersion = Literal["v1", "v2", "v3"]
 
 ANSWER_KEYS = (
     "answer",
@@ -65,13 +71,24 @@ def render_prompt(query: str, context: PackedContext, prompt_version: PromptVers
         ],
         [(str(getattr(i, "image_id", "")), str(getattr(i, "caption", i))) for i in context.images],
         context.conflicts,
+        template=REASONING_PROMPT_V3 if prompt_version == "v3" else REASONING_PROMPT_V2,
     )
 
 
 def generate_answer(
-    query: str, context: PackedContext, llm: LLM, prompt_version: PromptVersion = "v2"
+    query: str,
+    context: PackedContext,
+    llm: LLM,
+    prompt_version: PromptVersion = "v3",
+    nli: EntailmentScorer | None = None,
+    entailment_threshold: float = 0.5,
 ) -> dict[str, Any]:
-    """Generate, then validate citations: entries not present in the prompt are removed."""
+    """Generate, then validate citations: entries not present in the prompt are removed.
+
+    With an NLI model, every answer sentence is also checked against the sources
+    it cites; sentences that are uncited, cite an unknown id, or are not entailed
+    by any cited source are listed in ``unsupported_claims``.
+    """
     try:
         result = parse_answer(llm.complete(render_prompt(query, context, prompt_version)))
     except Exception as exc:
@@ -80,6 +97,13 @@ def generate_answer(
     for name, kept in report.kept.items():
         result[name] = kept
     result["_citations"] = report.to_dict()
+    if nli is not None and isinstance(result.get("answer"), str) and not result.get("_parse_error"):
+        sentences = verify_sentences(result["answer"], context, nli, entailment_threshold)
+        result["sentences"] = [asdict(s) for s in sentences]
+        result["unsupported_claims"] = [s.text for s in sentences if not s.supported]
+        result["supported_sentence_rate"] = (
+            round(sum(s.supported for s in sentences) / len(sentences), 3) if sentences else 0.0
+        )
     result["confidence_self_reported"] = result.pop("confidence", None)
     result["_fusion_metadata"] = context.metadata()
     result["_query"] = query

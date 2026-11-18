@@ -178,25 +178,42 @@ class NLIScorer(Protocol):
     def contradiction_probs(self, pairs: Sequence[tuple[str, str]]) -> list[float]: ...
 
 
+class EntailmentScorer(Protocol):
+    def entailment_probs(self, pairs: Sequence[tuple[str, str]]) -> list[float]: ...
+
+
+class NLIModel(NLIScorer, EntailmentScorer, Protocol):
+    """An NLI model that can score both contradiction and entailment."""
+
+
 class CrossEncoderNLI:
-    """``cross-encoder/nli-deberta-v3-small``; the label order is read from the model config."""
+    """``cross-encoder/nli-deberta-v3-small``; the label order is read from the model config.
+
+    Pairs are (premise, hypothesis).
+    """
 
     def __init__(self, model_name: str = "cross-encoder/nli-deberta-v3-small") -> None:
         self.model_name = model_name
         self._model: Any = None
-        self._idx = 0
+        self._labels: dict[str, int] = {}
 
-    def contradiction_probs(self, pairs: Sequence[tuple[str, str]]) -> list[float]:
+    def _probs(self, pairs: Sequence[tuple[str, str]], label: str) -> list[float]:
         if not pairs:
             return []
         if self._model is None:
             from sentence_transformers import CrossEncoder
 
             self._model = CrossEncoder(self.model_name)
-            labels = {int(k): v.lower() for k, v in self._model.config.id2label.items()}
-            self._idx = next(i for i, name in labels.items() if name.startswith("contradiction"))
+            self._labels = {v.lower(): int(k) for k, v in self._model.config.id2label.items()}
+        idx = next(i for name, i in self._labels.items() if name.startswith(label))
         probs = self._model.predict(list(pairs), apply_softmax=True, show_progress_bar=False)
-        return [float(row[self._idx]) for row in probs]
+        return [float(row[idx]) for row in probs]
+
+    def contradiction_probs(self, pairs: Sequence[tuple[str, str]]) -> list[float]:
+        return self._probs(pairs, "contradiction")
+
+    def entailment_probs(self, pairs: Sequence[tuple[str, str]]) -> list[float]:
+        return self._probs(pairs, "entailment")
 
 
 @dataclass
@@ -284,3 +301,91 @@ def detect_conflicts(
         if p >= threshold
     ]
     return sorted(found, key=lambda c: -c.probability)
+
+
+# ── Sentence-level citations (Task 3.5) ─────────────────────────────────────
+# With prompt v3 every answer sentence ends with the ids that support it. Each
+# sentence is checked: its ids must exist in the prompt, and the NLI model must
+# judge that at least one cited source entails the sentence. Everything else is
+# listed as an unsupported claim.
+
+_CITATION = re.compile(r"\[([^\[\]]+)\]")
+_ANSWER_SENTENCE_END = re.compile(r"(?<=[.!?\]])\s+(?=[A-Z0-9\"'(])")
+
+
+@dataclass
+class SentenceSupport:
+    text: str
+    cited: list[str]
+    valid_ids: list[str]
+    fabricated_ids: list[str]
+    entailment: float
+    supported: bool
+    sources: list[dict[str, Any]] = field(default_factory=list)
+
+
+def split_answer(answer: str) -> list[tuple[str, list[str]]]:
+    """(sentence without citation markers, cited ids) for each answer sentence."""
+    out = []
+    for raw in _ANSWER_SENTENCE_END.split(answer.strip()):
+        ids = [
+            part.strip()
+            for group in _CITATION.findall(raw)
+            for part in re.split(r"[,;]", group)
+            if part.strip()
+        ]
+        text = " ".join(_CITATION.sub("", raw).split()).replace(" .", ".")
+        if text:
+            out.append((text, ids))
+    return out
+
+
+def verify_sentences(
+    answer: str,
+    context: PackedContext,
+    nli: EntailmentScorer,
+    threshold: float = 0.5,
+) -> list[SentenceSupport]:
+    """Check each sentence's citations against the prompt and with NLI entailment."""
+    premises: dict[str, tuple[str, dict[str, Any]]] = {}
+    for c in context.text_chunks:
+        cid = str(getattr(c, "chunk_id", ""))
+        meta = {"id": cid, "doc_id": getattr(c, "doc_id", ""), "page": getattr(c, "page", 0)}
+        premises[cid] = (str(getattr(c, "text", "")), meta)
+    for i, path in enumerate(context.kept_graph_paths):
+        premises[graph_path_id(i)] = (path, {"id": graph_path_id(i), "graph_path": path})
+    for img in context.images:
+        iid = str(getattr(img, "image_id", ""))
+        premises[iid] = (
+            str(getattr(img, "caption", "")),
+            {"id": iid, "doc_id": getattr(img, "doc_id", ""), "page": getattr(img, "page", 0)},
+        )
+
+    sentences = split_answer(answer)
+    pairs: list[tuple[str, str]] = []
+    owners: list[int] = []
+    for i, (text, ids) in enumerate(sentences):
+        for cid in ids:
+            if cid in premises:
+                pairs.append((premises[cid][0], text))
+                owners.append(i)
+    probs = nli.entailment_probs(pairs)
+    best = [0.0] * len(sentences)
+    for i, p in zip(owners, probs, strict=True):
+        best[i] = max(best[i], p)
+
+    out = []
+    for i, (text, ids) in enumerate(sentences):
+        valid = [cid for cid in ids if cid in premises]
+        out.append(
+            SentenceSupport(
+                text=text,
+                cited=ids,
+                valid_ids=valid,
+                fabricated_ids=[cid for cid in ids if cid not in premises],
+                entailment=round(best[i], 4),
+                supported=bool(valid) and best[i] >= threshold,
+                sources=[premises[cid][1] for cid in valid],
+            )
+        )
+    return out
