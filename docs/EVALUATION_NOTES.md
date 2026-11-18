@@ -159,3 +159,20 @@ fabricated-citation rate, calibration plot, supported-sentence rate, LLM-judge
 faithfulness and its agreement with human labels, multi-hop recall with the
 router and decomposition, HyDE, the graph and image ablation rows, and
 `docker compose up`.
+
+### Image captions (`graphrag index --skip-text`)
+
+14 images survive dedup and the useless-caption filter, matching the
+notebook's 14 image chunks. On this machine Tesseract is not installed, so all
+14 were captioned by BLIP (0 OCR). Reading them shows the count hides a quality
+problem:
+
+* BLIP misidentifies the university logo as other institutions (2 captions).
+* Two captions are degenerate repetition ("gender gender gender ...").
+* Text-heavy tables and diagrams get vague captions; OCR would recover their
+  text. The notebook ran with Tesseract, so its OCR/BLIP split differed.
+
+The useless-caption filter catches none of these. Two follow-ups, not yet done:
+install Tesseract (the Dockerfile does), and reject captions with a low
+unique-word ratio. Image retrieval quality is therefore not representative of
+the original pipeline until captions are rebuilt with OCR.
