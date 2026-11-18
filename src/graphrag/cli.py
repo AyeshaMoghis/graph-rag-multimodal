@@ -70,7 +70,10 @@ def ingest(corpus_dir: Path | None = typer.Option(None, help="Folder of PDFs."))
 
 
 @app.command()
-def index(skip_images: bool = typer.Option(False, help="Skip OCR/BLIP captioning.")) -> None:
+def index(
+    skip_images: bool = typer.Option(False, help="Skip OCR/BLIP captioning."),
+    skip_text: bool = typer.Option(False, help="Only caption and embed images."),
+) -> None:
     """Embed chunks into Chroma, build BM25, and caption + embed images."""
     from dataclasses import asdict
 
@@ -88,29 +91,30 @@ def index(skip_images: bool = typer.Option(False, help="Skip OCR/BLIP captioning
     embedder = Embedder(s.embed_model, s.embed_batch_size)
     store = VectorStore(s.chroma_path)
 
-    vectors = embedder.encode([c.text for c in chunks], show_progress=True)
-    n_text = store.rebuild(
-        TEXT_COLLECTION,
-        [c.chunk_id for c in chunks],
-        [c.text for c in chunks],
-        vectors,
-        [
-            {
-                "doc_id": c.doc_id,
-                "page": c.page,
-                "page_type": c.page_type,
-                "source": "text",
-                "word_count": c.word_count,
-            }
+    if not skip_text:
+        vectors = embedder.encode([c.text for c in chunks], show_progress=True)
+        n_text = store.rebuild(
+            TEXT_COLLECTION,
+            [c.chunk_id for c in chunks],
+            [c.text for c in chunks],
+            vectors,
+            [
+                {
+                    "doc_id": c.doc_id,
+                    "page": c.page,
+                    "page_type": c.page_type,
+                    "source": "text",
+                    "word_count": c.word_count,
+                }
+                for c in chunks
+            ],
+        )
+        metas = [
+            {"doc_id": c.doc_id, "page": c.page, "page_type": c.page_type, "source": "text"}
             for c in chunks
-        ],
-    )
-    metas = [
-        {"doc_id": c.doc_id, "page": c.page, "page_type": c.page_type, "source": "text"}
-        for c in chunks
-    ]
-    BM25Index([c.chunk_id for c in chunks], [c.text for c in chunks], metas).save(s.bm25_path)
-    typer.echo(f"text_chunks {n_text} | bm25 {len(chunks)}")
+        ]
+        BM25Index([c.chunk_id for c in chunks], [c.text for c in chunks], metas).save(s.bm25_path)
+        typer.echo(f"text_chunks {n_text} | bm25 {len(chunks)}")
 
     if skip_images:
         return
@@ -541,6 +545,24 @@ def judge_agreement(
     if not pairs:
         raise typer.BadParameter("no labelled items with judge scores yet")
     typer.echo(json.dumps(agreement([h for h, _ in pairs], [j for _, j in pairs]), indent=2))
+
+
+@app.command("render-readme")
+def render_readme(
+    readme: Path = typer.Option(Path("README.md")),
+    results: Path = typer.Option(Path("results/ablation.json")),
+) -> None:
+    """Replace the README's ablation section with the table from saved results."""
+    from graphrag.eval.ablation import render_table
+
+    start, end = "<!-- ABLATION:START -->", "<!-- ABLATION:END -->"
+    text = readme.read_text(encoding="utf-8")
+    if start not in text or end not in text:
+        raise typer.BadParameter("README is missing the ABLATION markers")
+    head, rest = text.split(start, 1)
+    _, tail = rest.split(end, 1)
+    readme.write_text(f"{head}{start}\n{render_table(results)}\n{end}{tail}", encoding="utf-8")
+    typer.echo(f"updated {readme} from {results}")
 
 
 if __name__ == "__main__":

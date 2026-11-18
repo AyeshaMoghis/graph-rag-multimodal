@@ -210,10 +210,11 @@ def render_table(path: Path) -> str:
             return f"{m:.3f}" + (f" ± {sd:.3f}" if sd else "")
 
         latency = agg["latency_ms_p50"]
+        spread = f" ± {latency['std']:.0f}" if round(latency["std"]) else ""
         lines.append(
             f"| {row['name']} | {cell('recall_at_5')} | {cell('mrr')} | {cell('ndcg_at_5')} | "
             f"{cell('context_keyword_recall')} | pending (LLM) | pending (LLM) | "
-            f"{latency['mean']:.0f} ms ± {latency['std']:.0f} |"
+            f"{latency['mean']:.0f} ms{spread} |"
         )
     note = (
         "\n\n*Retrieval labels are automatic suggestions not yet reviewed by a human; "
