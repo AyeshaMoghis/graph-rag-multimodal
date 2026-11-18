@@ -86,7 +86,7 @@ Requires Docker, a Groq API key, and a folder of PDFs.
 
 ```bash
 cp .env.example .env              # set GROQ_API_KEY, NEO4J_USER, NEO4J_PASSWORD
-mkdir -p data/corpus && cp /path/to/your/pdfs/*.pdf data/corpus/
+mkdir -p data/corpus && cp data/sample/*.pdf data/corpus/    # or your own PDFs
 docker compose up -d --build
 docker compose exec app graphrag ingest
 docker compose exec app graphrag index
@@ -100,7 +100,7 @@ Without Docker:
 python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
 pip install torch==2.15.0 --index-url https://download.pytorch.org/whl/cpu
 pip install -e ".[dev,demo]"
-graphrag ingest --corpus-dir path/to/pdfs
+graphrag ingest --corpus-dir data/sample   # three CC BY 4.0 papers, see data/sample/README.md
 graphrag index
 graphrag build-graph          # needs Neo4j
 graphrag ask "..."
@@ -109,7 +109,9 @@ streamlit run demo/app.py                            # demo UI
 ```
 
 The corpus used for the results above is university lecture material and is not
-redistributed. Point `--corpus-dir` at any folder of PDFs; to evaluate, add a
+redistributed. `data/sample` holds three CC BY 4.0 papers that exercise every
+layer (70 text chunks, 3 image chunks); point `--corpus-dir` at any folder of
+PDFs instead. To evaluate, add a
 golden set in the format of `data/golden_qa/golden_qa_set_complete.json`.
 
 ## Demo
