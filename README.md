@@ -52,25 +52,51 @@ sources, images and the subgraph used.
 
 ## Results
 
+### Retrieval ablation
+
 Retrieval ablation on the original six-PDF lecture corpus (143 chunks) and its
 50-question golden set: top 5 chunks, 3 runs per row, every cache off, CPU only.
 Reproduce with `graphrag ablation`; raw numbers are in `results/ablation.json`.
 
 <!-- ABLATION:START -->
-| Config | Recall@5 | MRR | nDCG@5 | Context keyword recall | Keyword recall (answer) | Faithfulness | p50 latency |
-|---|---|---|---|---|---|---|---|
-| dense only | 0.773 | 0.934 | 0.775 | 0.723 | pending (LLM) | pending (LLM) | 242 ms ± 4 |
-| BM25 only | 0.653 | 0.789 | 0.623 | 0.691 | pending (LLM) | pending (LLM) | 1 ms |
-| hybrid (broken fusion, original) | 0.650 | 0.581 | 0.525 | 0.647 | pending (LLM) | pending (LLM) | 256 ms ± 3 |
-| hybrid (RRF, fixed) | 0.787 | 0.930 | 0.779 | 0.732 | pending (LLM) | pending (LLM) | 259 ms ± 17 |
-| hybrid + rerank | 0.787 | 0.863 | 0.754 | 0.728 | pending (LLM) | pending (LLM) | 9263 ms ± 379 |
-| hybrid + rerank + graph | pending | | | | | | needs Neo4j (NEO4J_* not set) |
-| full (+ images) | pending | | | | | | needs Neo4j (NEO4J_* not set); needs image captions (run `graphrag index` without --skip-images) |
+| Config | Recall@5 | MRR | nDCG@5 | Context keyword recall | p50 latency |
+|---|---|---|---|---|---|
+| dense only | 0.773 | 0.934 | 0.775 | 0.723 | 242 ms ± 4 |
+| BM25 only | 0.653 | 0.789 | 0.623 | 0.691 | 1 ms |
+| hybrid (broken fusion, original) | 0.650 | 0.581 | 0.525 | 0.647 | 256 ms ± 3 |
+| hybrid (RRF, fixed) | 0.787 | 0.930 | 0.779 | 0.732 | 259 ms ± 17 |
+| hybrid + rerank | 0.787 | 0.863 | 0.754 | 0.728 | 9263 ms ± 379 |
+| hybrid + rerank + graph | pending | | | | needs Neo4j (NEO4J_* not set) |
+| full (+ images) | pending | | | | needs Neo4j (NEO4J_* not set); needs image captions (run `graphrag index` without --skip-images) |
 
 *Retrieval labels are automatic suggestions not yet reviewed by a human; Recall@5, MRR and nDCG@5 are provisional.*
 
 50 questions, 3 runs per row, mean ± std (std omitted when zero).
 <!-- ABLATION:END -->
+
+### Answer quality
+
+Generated answers on the same 50 questions, before and after, with the same
+model (`openai/gpt-oss-20b`; judge `qwen/qwen3.8-27b`) and the graph layer off.
+Raw results: `results/answer_original_r1.json`, `results/answer_fixed_r1.json`.
+
+| Metric | Original pipeline | Fixed pipeline |
+|---|---|---|
+| Answer keyword recall | 0.562 | 0.588 |
+| Fabricated citations | 62.9% (100 of 159) | 6.3% (9 of 143) |
+| Answers with any fabricated citation | 76% | 10% |
+| LLM-judge faithfulness | 0.776 | 0.854 |
+
+On the 32 questions every run completed, fixing retrieval alone raised answer
+keyword recall from 0.572 to 0.611, and the citation-per-sentence prompt cut
+fabricated citations to 1.2%. Single runs: small differences are within noise.
+
+![Confidence calibration](docs/calibration.png)
+
+The model's own confidence rated 46 of 49 answers "high"; confidence computed
+from retrieval evidence splits them into groups with different accuracy.
+
+### The fusion bug
 
 The headline is the fusion fix. The original notebook keyed dense hits on the
 first 30 characters of chunk text and BM25 hits on chunk ids, so the two lists
@@ -165,9 +191,12 @@ graph of the paths that were in context.
 * **Provisional retrieval labels.** Chunk-level relevance was generated
   automatically and has not yet been reviewed by a person. The labels come from
   semantic similarity to the ideal answer, which may favour dense retrieval.
-* **Answer-level metrics are not in yet.** Keyword recall on generated answers,
-  the fabricated-citation rate, the calibration plot, LLM-judge faithfulness and
-  multi-hop recall with the router all need an LLM run.
+* **One run per answer-level configuration.** The Groq free tier allows about
+  one 50-question run a day, so LLM variance is not measured, and the
+  router/decomposition and HyDE variants are not yet measured at answer level.
+* **Strict sentence check.** The small NLI model rejects some correct
+  paraphrases of bullet-point slides; the 43% supported-sentence rate is a
+  lower bound.
 * **LLM-as-judge limitations.** Judges can be lenient, prefer fluent answers and
   disagree with people; the judge must be a different model from the generator,
   and its agreement with human labels is reported rather than assumed.

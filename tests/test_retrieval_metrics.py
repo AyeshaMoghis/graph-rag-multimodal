@@ -85,7 +85,7 @@ def test_render_table_marks_pending_and_provisional(tmp_path: Path) -> None:
     path = tmp_path / "ablation.json"
     save_ablation(path, [measured, pending], True, {"questions": 50, "runs": 2, "labels": "x"})
     table = render_table(path)
-    assert "| hybrid | 0.500 | 0.700 | 0.600 | 0.730 | pending (LLM) |" in table
+    assert "| hybrid | 0.500 | 0.700 | 0.600 | 0.730 | 205 ms ± 5 |" in table
     assert "205 ms ± 5" in table
     assert "| graph | pending |" in table and "needs Neo4j" in table
     assert "provisional" in table

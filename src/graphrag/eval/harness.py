@@ -82,6 +82,9 @@ def evaluate_item(
         )
     else:
         answer, result = pipeline.answer(item.question, text_top_k=5, image_top_k=2, graph_hops=2)
+        if answer.get("_llm_error"):
+            # A failed LLM call (e.g. rate limit) is an error, never a zero-recall answer.
+            raise RuntimeError(f"LLM call failed: {answer['_llm_error']}")
         meta = answer.get("_fusion_metadata", {})
         citations = answer.get("_citations", {})
         kept, dropped = citations.get("kept", {}), citations.get("dropped", {})

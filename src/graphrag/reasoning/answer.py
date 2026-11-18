@@ -93,6 +93,7 @@ def generate_answer(
         result = parse_answer(llm.complete(render_prompt(query, context, prompt_version)))
     except Exception as exc:
         result = parse_answer(f"[LLM error: {exc}]")
+        result["_llm_error"] = str(exc)  # callers must not score this as an answer
     report = validate_citations(result, context)
     for name, kept in report.kept.items():
         result[name] = kept

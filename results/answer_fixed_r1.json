@@ -23,15 +23,15 @@
   "summary": {
     "mode": "answer",
     "total": 50,
-    "successful": 50,
-    "errors": 0,
+    "successful": 49,
+    "errors": 1,
     "primary_metric": "keyword_recall",
-    "keyword_recall": 0.576,
-    "latency_ms_p50": 12518.3,
+    "keyword_recall": 0.588,
+    "latency_ms_p50": 12596.2,
     "by_type": {
       "factual": {
-        "n": 31,
-        "keyword_recall": 0.613,
+        "n": 30,
+        "keyword_recall": 0.633,
         "graph_self_reported": 0.0
       },
       "multi-hop": {
@@ -45,25 +45,25 @@
         "graph_self_reported": 0.0
       }
     },
-    "context_keyword_recall": 0.732,
+    "context_keyword_recall": 0.737,
     "graph_utilization_self_reported": 0.0,
     "graph_paths_in_context_rate": 0.0,
     "graph_utilization_validated": 0.0,
     "citations_total": 143,
     "citations_fabricated": 9,
     "fabricated_citation_rate": 0.063,
-    "answers_with_fabrication_rate": 0.1,
-    "judge_faithfulness": 0.857,
-    "judge_answer_relevance": 4.792,
+    "answers_with_fabrication_rate": 0.102,
+    "judge_faithfulness": 0.854,
+    "judge_answer_relevance": 4.872,
     "judge_errors": 2,
     "supported_sentence_rate": 0.432,
     "confidence": {
-      "high": 23,
+      "high": 22,
       "medium": 27
     },
     "confidence_self_reported": {
       "high": 46,
-      "low": 3,
+      "low": 2,
       "medium": 1
     },
     "calibration": {
@@ -77,14 +77,14 @@
           "keyword_recall": 0.4
         },
         "low": {
-          "n": 3,
-          "keyword_recall": 0.381
+          "n": 2,
+          "keyword_recall": 0.571
         }
       },
       "confidence": {
         "high": {
-          "n": 23,
-          "keyword_recall": 0.635
+          "n": 22,
+          "keyword_recall": 0.664
         },
         "medium": {
           "n": 27,
@@ -2470,57 +2470,7 @@
       "id": "q038",
       "question": "What is minimally supervised urgency detection and what are its two setup variations?",
       "question_type": "factual",
-      "expected_concepts": [
-        "Urgency Detection",
-        "Crisis Informatics",
-        "Zero-Shot Learning",
-        "Minimally Supervised Learning"
-      ],
-      "answer": "[LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_REDACTED` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 5729, Requested 2353. Please try again in 615ms. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}]",
-      "keyword_recall": 0.0,
-      "context_keyword_recall": 0.5,
-      "graph_utilized": false,
-      "graph_paths_count": 0,
-      "graph_utilized_validated": false,
-      "graph_paths_in_context": 0,
-      "confidence": "high",
-      "confidence_self_reported": "low",
-      "evidence": {
-        "score": 0.9,
-        "agreement": 0.8,
-        "margin": 1.0
-      },
-      "citations_cited": 0,
-      "citations_fabricated": 0,
-      "citations_dropped": {
-        "source_chunks_used": [],
-        "graph_paths_used": [],
-        "relevant_images": []
-      },
-      "supported_sentence_rate": null,
-      "unsupported_claims": [],
-      "referenced_concepts": [],
-      "retrieved_chunk_ids": [
-        "SC Unit 2-6.pdf_p004_c00",
-        "SC Unit 2-5.pdf_p020_c01",
-        "SC Unit 2-1.pdf_p009_c00",
-        "SC Unit 2-5.pdf_p020_c00",
-        "SC Unit 2-2.pdf_p007_c00"
-      ],
-      "text_chunks_used": 5,
-      "images_used": 2,
-      "timings_ms": {
-        "route": 0.000400003045797348,
-        "graph": 0.006400048732757568,
-        "text": 10.444500017911196,
-        "images": 7.939399918541312,
-        "pack": 0.2071000635623932,
-        "llm": 12153.29060005024
-      },
-      "judge_faithfulness": 1.0,
-      "judge_answer_relevance": 1,
-      "judge_error": null,
-      "latency_ms": 12440.422999905422
+      "error": "[LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_REDACTED` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 5729, Requested 2353. Please try again in 615ms. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}]"
     },
     {
       "id": "q039",
@@ -3331,5 +3281,6 @@
       "judge_error": null,
       "latency_ms": 15017.785399919376
     }
-  ]
+  ],
+  "rescored_note": "1 rows whose LLM call failed were converted to errors after a harness fix"
 }

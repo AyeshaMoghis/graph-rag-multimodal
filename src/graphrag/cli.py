@@ -249,6 +249,9 @@ def eval_cmd(
     overrides: list[str] = typer.Option(
         [], "--set", help="Override any setting, e.g. --set rerank=true (repeatable)."
     ),
+    rerun_errors: bool = typer.Option(
+        False, help="Re-run only the questions that errored in an existing --out file."
+    ),
 ) -> None:
     """Run the golden QA set and save raw results, a summary and a markdown report."""
     from graphrag.eval.harness import (
@@ -280,6 +283,14 @@ def eval_cmd(
         judge = GroqLLM(
             s.groq_api_key.get_secret_value(), check_judge_model(s.judge_model, s.llm_model), 0.0
         )
+    previous: list[dict[str, Any]] = []
+    if rerun_errors:
+        if not out.exists():
+            raise typer.BadParameter(f"--rerun-errors needs an existing {out}")
+        previous = json.loads(out.read_text(encoding="utf-8"))["results"]
+        failed = {r["id"] for r in previous if "error" in r}
+        golden = [q for q in golden if q.id in failed]
+        typer.echo(f"re-running {len(golden)} errored questions")
     results = run_evaluation(
         pipeline,
         golden,
@@ -289,6 +300,10 @@ def eval_cmd(
         sleep_seconds=s.eval_sleep_seconds,
         judge=judge,
     )
+    if previous:
+        fresh = {r["id"]: r for r in results}
+        results = [fresh.get(r["id"], r) for r in previous]
+        golden = load_golden(s.golden_qa_path)[:limit]
     summary = summarize(results, mode)  # type: ignore[arg-type]
     config = {
         "preset": preset,

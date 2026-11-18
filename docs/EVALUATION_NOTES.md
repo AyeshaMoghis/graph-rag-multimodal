@@ -174,3 +174,62 @@ With Tesseract 5.4 installed: 14 images survive dedup and the caption filter
   handles the images that produced the repetition.
 * Still wrong: BLIP describes the university logo as other universities
   (2 captions). OCR text is noisy on diagrams. Neither is filtered.
+
+## Answer-level results (Groq)
+
+**Models.** The notebook's `llama-3.1-8b-instant` is no longer offered on Groq,
+so every answer-level run uses `openai/gpt-oss-20b` for answers and
+`qwen/qwen3.8-27b` as the judge (a different vendor, so the judge never grades
+its own family). These numbers compare pipelines fairly with each other but
+are not comparable with the notebook's 0.588, which used another model and a
+live knowledge graph. The graph is disabled in all runs below.
+
+**Full runs** (`results/answer_original_r1.json`, `results/answer_fixed_r1.json`):
+
+| Metric | Original pipeline | Fixed pipeline |
+|---|---|---|
+| Questions answered | 50 | 49 (1 hit the daily token limit) |
+| Answer keyword recall | 0.562 | 0.588 |
+| Context keyword recall | 0.647 | 0.737 |
+| Fabricated citations | 62.9% (100 of 159) | 6.3% (9 of 143) |
+| Answers with any fabricated citation | 76% | 10% |
+| Judge faithfulness | 0.776 | 0.854 |
+| Judge answer relevance (1 to 5) | 4.94 | 4.87 |
+| Sentences entailed by their citation (NLI) | n/a | 43% |
+
+**Separating retrieval from the prompt.** The fixed preset changes both
+retrieval and the prompt (v3 requires a citation on every sentence). A third
+run used fixed retrieval with the original prompt
+(`results/answer_fixed_prompt_v1_r1.json`); 18 of its questions hit the daily
+token limit, so the comparison below is paired on the 32 questions that every
+run completed:
+
+| Configuration | Answer keyword recall | Judge faithfulness | Fabricated citations | Median words |
+|---|---|---|---|---|
+| Original | 0.572 | 0.808 | 62.2% | 85 |
+| Fixed retrieval, original prompt | 0.611 | 0.775 | 52.8% | 84 |
+| Fixed retrieval, v3 prompt | 0.623 | 0.858 | 1.2% | 53 |
+
+The retrieval fix raises answer recall; the v3 prompt removes nearly all
+fabricated citations and shortens answers without losing recall. Single runs on
+32 to 50 questions: differences of a few hundredths are within noise.
+
+**Calibration** (`docs/calibration.png`, fixed run). The model's self-report
+put 46 of 49 answers at "high" (mean recall 0.593). Evidence-based confidence
+split them 22 high (0.664) and 27 medium (0.526). Both are coarse with this
+little data, but only the evidence signal separates answers into usable groups.
+
+**NLI sentence check is strict.** Reading flagged sentences: most are real
+embellishments without a citation, but some correctly cited paraphrases of
+bullet-point slides are rejected by the small NLI model. Treat 43% as a lower
+bound; the judge's 0.854 is the more lenient view.
+
+**A harness bug found during this run.** When Groq's daily token limit was
+hit, the answer step stored the error text as the answer and the eval scored it
+as zero recall. Failed LLM calls are now errors that are excluded and counted,
+saved runs were rescored (19 rows), and `graphrag eval --rerun-errors` re-runs
+only failed questions.
+
+**Not feasible on the free tier.** A 50-question answer run uses most of the
+200,000 daily tokens for `gpt-oss-20b`, so answer-level rows have one run each,
+not three; LLM variance is not measured.

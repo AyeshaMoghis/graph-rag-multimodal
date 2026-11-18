@@ -182,3 +182,29 @@ def test_answer_summary_reports_fabrication_and_calibration(tmp_path: Path) -> N
     path.write_text(json.dumps({"results": rows}))
     plot_calibration(path, tmp_path / "cal.png")
     assert (tmp_path / "cal.png").stat().st_size > 0
+
+
+class FailingLLM:
+    def complete(self, prompt: str) -> str:
+        raise RuntimeError("429 rate limit")
+
+
+def test_llm_failure_is_flagged_not_scored() -> None:
+    out = generate_answer("q?", context(), FailingLLM())
+    assert out["_llm_error"] == "429 rate limit"
+
+
+def test_eval_turns_llm_failure_into_error_row() -> None:
+    from types import SimpleNamespace
+
+    from graphrag.config import Settings
+    from graphrag.eval.harness import GoldenItem, run_evaluation
+
+    class P:
+        settings = Settings(_env_file=None)  # type: ignore[call-arg]
+
+        def answer(self, q: str, **kw: object) -> tuple[dict, object]:
+            return {"answer": "[LLM error: 429]", "_llm_error": "429"}, SimpleNamespace()
+
+    rows = run_evaluation(P(), [GoldenItem("q1", "q?", "factual", ["x"])], "answer")  # type: ignore[arg-type]
+    assert "error" in rows[0] and "keyword_recall" not in rows[0]

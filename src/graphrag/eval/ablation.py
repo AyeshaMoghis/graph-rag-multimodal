@@ -193,16 +193,15 @@ def render_table(path: Path) -> str:
     """Markdown table from a saved ablation file (used for the README)."""
     data = json.loads(path.read_text(encoding="utf-8"))
     header = (
-        "| Config | Recall@5 | MRR | nDCG@5 | Context keyword recall | "
-        "Keyword recall (answer) | Faithfulness | p50 latency |\n"
-        "|---|---|---|---|---|---|---|---|"
+        "| Config | Recall@5 | MRR | nDCG@5 | Context keyword recall | p50 latency |\n"
+        "|---|---|---|---|---|---|"
     )
     lines = [header]
     for row in data["rows"]:
         agg = row["aggregate"]
         if row["status"] != "measured":
             reason = row["status"].removeprefix("pending: ")
-            lines.append(f"| {row['name']} | pending | | | | | | {reason} |")
+            lines.append(f"| {row['name']} | pending | | | | {reason} |")
             continue
 
         def cell(key: str, agg: dict[str, dict[str, float]] = agg) -> str:
@@ -213,8 +212,7 @@ def render_table(path: Path) -> str:
         spread = f" ± {latency['std']:.0f}" if round(latency["std"]) else ""
         lines.append(
             f"| {row['name']} | {cell('recall_at_5')} | {cell('mrr')} | {cell('ndcg_at_5')} | "
-            f"{cell('context_keyword_recall')} | pending (LLM) | pending (LLM) | "
-            f"{latency['mean']:.0f} ms{spread} |"
+            f"{cell('context_keyword_recall')} | {latency['mean']:.0f} ms{spread} |"
         )
     note = (
         "\n\n*Retrieval labels are automatic suggestions not yet reviewed by a human; "
