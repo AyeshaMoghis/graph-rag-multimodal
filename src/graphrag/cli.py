@@ -456,5 +456,43 @@ def ablation(
     typer.echo(table)
 
 
+@app.command("route-eval")
+def route_eval(
+    out: Path = typer.Option(Path("results/router.json"), help="Where to save results."),
+) -> None:
+    """Accuracy of the zero-shot router against the golden question types."""
+    from collections import Counter
+
+    from graphrag.eval.harness import load_golden
+    from graphrag.index.embeddings import Embedder
+    from graphrag.retrieval.query import GOLDEN_TO_CLASS, QueryRouter
+
+    s = _settings()
+    router = QueryRouter(Embedder(s.embed_model, s.embed_batch_size))
+    rows = [
+        {
+            "id": q.id,
+            "expected": GOLDEN_TO_CLASS[q.question_type],
+            "predicted": router.classify(q.question),
+        }
+        for q in load_golden(s.golden_qa_path)
+    ]
+    confusion = Counter((r["expected"], r["predicted"]) for r in rows)
+    summary = {
+        "accuracy": round(sum(r["expected"] == r["predicted"] for r in rows) / len(rows), 3),
+        "per_class_recall": {
+            cls: round(
+                confusion[(cls, cls)] / max(1, sum(1 for r in rows if r["expected"] == cls)), 3
+            )
+            for cls in ("lookup", "relational", "multi-hop")
+        },
+        "confusion": {f"{e} -> {p}": n for (e, p), n in sorted(confusion.items())},
+        "note": "Zero-shot templates; not trained on these labels, but written after seeing them.",
+    }
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps({"summary": summary, "results": rows}, indent=2), encoding="utf-8")
+    typer.echo(json.dumps(summary, indent=2))
+
+
 if __name__ == "__main__":
     app()

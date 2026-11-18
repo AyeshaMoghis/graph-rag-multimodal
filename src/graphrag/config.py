@@ -79,6 +79,9 @@ class Settings(BaseSettings):
     rerank: bool = False
     rerank_model: str = "BAAI/bge-reranker-base"
     rerank_candidates: int = 30
+    router: bool = False
+    decompose: bool = False
+    hyde: bool = False
     text_top_k: int = 5
     image_top_k: int = 3
     graph_hops: int = 2

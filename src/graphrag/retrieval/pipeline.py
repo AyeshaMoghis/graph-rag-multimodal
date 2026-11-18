@@ -36,6 +36,12 @@ from graphrag.reasoning.verify import (
 )
 from graphrag.retrieval.fusion import BudgetConfig, PackedContext, pack_context
 from graphrag.retrieval.hybrid import FusedHit, HybridRetriever
+from graphrag.retrieval.query import (
+    QueryRouter,
+    decompose,
+    hypothetical_document,
+    merge_rankings,
+)
 from graphrag.retrieval.rerank import CrossEncoderReranker, CrossEncoderScorer
 
 log = get_logger(__name__)
@@ -59,6 +65,9 @@ class RetrievalResult:
     text_chunks: list[FusedHit]
     images: list[ImageHit]
     timings_ms: dict[str, float] = field(default_factory=dict)
+    route: str | None = None
+    sub_queries: list[str] = field(default_factory=list)
+    hyde_passage: str | None = None
 
 
 class Pipeline:
@@ -74,6 +83,7 @@ class Pipeline:
         extract_entities: Callable[[str], list[str]] | None = None,
         linker: EntityLinker | None = None,
         nli: NLIScorer | None = None,
+        router: QueryRouter | None = None,
     ) -> None:
         self.settings = settings
         self.hybrid = hybrid
@@ -91,6 +101,7 @@ class Pipeline:
         self.extract_entities = extract_entities
         self.linker = linker
         self.nli: NLIScorer | None = nli
+        self.router: QueryRouter | None = router
 
     @classmethod
     def from_settings(
@@ -143,7 +154,8 @@ class Pipeline:
                 settings.llm_temperature,
                 settings.llm_max_tokens,
             )
-        return cls(settings, hybrid, image_searcher, graph_store, llm, linker=linker)
+        router = QueryRouter(embedder) if settings.router else None
+        return cls(settings, hybrid, image_searcher, graph_store, llm, linker=linker, router=router)
 
     def retrieve(
         self,
@@ -155,10 +167,18 @@ class Pipeline:
         s = self.settings
         timings: dict[str, float] = {}
         entities: list[str] = []
+        top_k = text_top_k or s.text_top_k
+
+        t0 = time.perf_counter()
+        route = self.router.route(query) if self.router is not None else None
+        timings["route"] = (time.perf_counter() - t0) * 1000
+        if route is not None and graph_hops is None and route.use_graph:
+            graph_hops = route.graph_hops
+        use_graph = route is None or route.use_graph
 
         t0 = time.perf_counter()
         graph = GraphResult()
-        if self.graph_store is not None:
+        if self.graph_store is not None and use_graph:
             entities = self.extract_entities(query)
             graph = graph_retrieve(
                 entities,
@@ -173,14 +193,35 @@ class Pipeline:
         timings["graph"] = (time.perf_counter() - t0) * 1000
 
         t0 = time.perf_counter()
-        texts = self.hybrid.retrieve(query, top_k=text_top_k or s.text_top_k)
+        hyde_passage = (
+            hypothetical_document(query, self.llm) if s.hyde and self.llm is not None else None
+        )
+        sub_queries: list[str] = []
+        if self.llm is not None and (s.decompose or (route is not None and route.decompose)):
+            sub_queries = decompose(query, self.llm)
+        if len(sub_queries) > 1:
+            texts = merge_rankings(
+                [self.hybrid.retrieve(q, top_k=top_k) for q in sub_queries], top_k, s.rrf_k
+            )
+        else:
+            texts = self.hybrid.retrieve(query, top_k=top_k, dense_query=hyde_passage)
         timings["text"] = (time.perf_counter() - t0) * 1000
 
         t0 = time.perf_counter()
         images = self._images(query, image_top_k if image_top_k is not None else s.image_top_k)
         timings["images"] = (time.perf_counter() - t0) * 1000
 
-        return RetrievalResult(query, entities, graph, texts, images, timings)
+        return RetrievalResult(
+            query,
+            entities,
+            graph,
+            texts,
+            images,
+            timings,
+            route=route.query_class if route is not None else None,
+            sub_queries=sub_queries,
+            hyde_passage=hyde_passage,
+        )
 
     def _images(self, query: str, top_k: int) -> list[ImageHit]:
         if self.image_searcher is None or top_k <= 0:

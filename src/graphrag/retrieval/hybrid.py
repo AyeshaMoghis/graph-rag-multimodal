@@ -213,21 +213,26 @@ class HybridRetriever:
         self.reranker = reranker
         self.rerank_candidates = rerank_candidates
 
-    def retrieve(self, query: str, top_k: int = 5) -> list[FusedHit]:
+    def retrieve(
+        self, query: str, top_k: int = 5, dense_query: str | None = None
+    ) -> list[FusedHit]:
         """Fuse, then optionally rerank the top ``rerank_candidates`` with a cross-encoder.
 
         ``dense`` and ``sparse`` modes query only that retriever (for the
         ablation); a single list fused with RRF keeps that retriever's order.
+        ``dense_query`` replaces the text sent to the dense retriever (HyDE);
+        BM25 and the reranker always see the original query.
         """
+        dq = dense_query or query
         pool = max(top_k, self.rerank_candidates) if self.reranker else top_k
         n = max(top_k * self.candidate_multiplier, pool)
         if self.mode == "dense":
-            hits = fuse(self.dense.search(query, n), [], mode="rrf", rrf_k=self.rrf_k)
+            hits = fuse(self.dense.search(dq, n), [], mode="rrf", rrf_k=self.rrf_k)
         elif self.mode == "sparse":
             hits = fuse([], self.sparse.search(query, n), mode="rrf", rrf_k=self.rrf_k)
         else:
             hits = fuse(
-                self.dense.search(query, n),
+                self.dense.search(dq, n),
                 self.sparse.search(query, n),
                 mode=self.mode,
                 rrf_k=self.rrf_k,

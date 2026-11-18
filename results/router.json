@@ -1,0 +1,274 @@
+{
+  "summary": {
+    "accuracy": 0.58,
+    "per_class_recall": {
+      "lookup": 0.516,
+      "relational": 0.733,
+      "multi-hop": 0.5
+    },
+    "confusion": {
+      "lookup -> lookup": 16,
+      "lookup -> multi-hop": 6,
+      "lookup -> relational": 9,
+      "multi-hop -> lookup": 1,
+      "multi-hop -> multi-hop": 2,
+      "multi-hop -> relational": 1,
+      "relational -> lookup": 1,
+      "relational -> multi-hop": 3,
+      "relational -> relational": 11
+    },
+    "note": "Zero-shot templates; not trained on these labels, but written after seeing them."
+  },
+  "results": [
+    {
+      "id": "q001",
+      "expected": "lookup",
+      "predicted": "relational"
+    },
+    {
+      "id": "q002",
+      "expected": "lookup",
+      "predicted": "relational"
+    },
+    {
+      "id": "q003",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q004",
+      "expected": "lookup",
+      "predicted": "multi-hop"
+    },
+    {
+      "id": "q005",
+      "expected": "relational",
+      "predicted": "relational"
+    },
+    {
+      "id": "q006",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q007",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q008",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q009",
+      "expected": "relational",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q010",
+      "expected": "relational",
+      "predicted": "relational"
+    },
+    {
+      "id": "q011",
+      "expected": "lookup",
+      "predicted": "multi-hop"
+    },
+    {
+      "id": "q012",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q013",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q014",
+      "expected": "relational",
+      "predicted": "multi-hop"
+    },
+    {
+      "id": "q015",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q016",
+      "expected": "lookup",
+      "predicted": "multi-hop"
+    },
+    {
+      "id": "q017",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q018",
+      "expected": "lookup",
+      "predicted": "relational"
+    },
+    {
+      "id": "q019",
+      "expected": "relational",
+      "predicted": "relational"
+    },
+    {
+      "id": "q020",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q021",
+      "expected": "relational",
+      "predicted": "multi-hop"
+    },
+    {
+      "id": "q022",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q023",
+      "expected": "multi-hop",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q024",
+      "expected": "multi-hop",
+      "predicted": "relational"
+    },
+    {
+      "id": "q025",
+      "expected": "multi-hop",
+      "predicted": "multi-hop"
+    },
+    {
+      "id": "q026",
+      "expected": "relational",
+      "predicted": "relational"
+    },
+    {
+      "id": "q027",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q028",
+      "expected": "lookup",
+      "predicted": "relational"
+    },
+    {
+      "id": "q029",
+      "expected": "relational",
+      "predicted": "relational"
+    },
+    {
+      "id": "q030",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q031",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q032",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q033",
+      "expected": "lookup",
+      "predicted": "multi-hop"
+    },
+    {
+      "id": "q034",
+      "expected": "relational",
+      "predicted": "multi-hop"
+    },
+    {
+      "id": "q035",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q036",
+      "expected": "lookup",
+      "predicted": "lookup"
+    },
+    {
+      "id": "q037",
+      "expected": "lookup",
+      "predicted": "relational"
+    },
+    {
+      "id": "q038",
+      "expected": "lookup",
+      "predicted": "relational"
+    },
+    {
+      "id": "q039",
+      "expected": "lookup",
+      "predicted": "relational"
+    },
+    {
+      "id": "q040",
+      "expected": "relational",
+      "predicted": "relational"
+    },
+    {
+      "id": "q041",
+      "expected": "lookup",
+      "predicted": "relational"
+    },
+    {
+      "id": "q042",
+      "expected": "lookup",
+      "predicted": "multi-hop"
+    },
+    {
+      "id": "q043",
+      "expected": "relational",
+      "predicted": "relational"
+    },
+    {
+      "id": "q044",
+      "expected": "relational",
+      "predicted": "relational"
+    },
+    {
+      "id": "q045",
+      "expected": "lookup",
+      "predicted": "multi-hop"
+    },
+    {
+      "id": "q046",
+      "expected": "relational",
+      "predicted": "relational"
+    },
+    {
+      "id": "q047",
+      "expected": "relational",
+      "predicted": "relational"
+    },
+    {
+      "id": "q048",
+      "expected": "lookup",
+      "predicted": "relational"
+    },
+    {
+      "id": "q049",
+      "expected": "relational",
+      "predicted": "relational"
+    },
+    {
+      "id": "q050",
+      "expected": "multi-hop",
+      "predicted": "multi-hop"
+    }
+  ]
+}
