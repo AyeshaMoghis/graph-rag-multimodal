@@ -86,3 +86,11 @@ def test_settings_defaults_have_no_credentials(
     s = Settings()
     assert s.groq_api_key is None and not s.graph_enabled
     assert s.fusion == "rrf" and s.rrf_k == 60
+
+
+def test_repetitive_captions_are_useless() -> None:
+    from graphrag.index.captions import is_repetitive
+
+    assert is_useless("gender gender gender gender gender gender gender gender")
+    assert is_repetitive("global market market market market market market")
+    assert not is_repetitive("a bar chart comparing user credibility types across platforms")

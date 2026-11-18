@@ -162,17 +162,15 @@ router and decomposition, HyDE, the graph and image ablation rows, and
 
 ### Image captions (`graphrag index --skip-text`)
 
-14 images survive dedup and the useless-caption filter, matching the
-notebook's 14 image chunks. On this machine Tesseract is not installed, so all
-14 were captioned by BLIP (0 OCR). Reading them shows the count hides a quality
-problem:
+With Tesseract 5.4 installed: 14 images survive dedup and the caption filter
+(10 OCR, 4 BLIP), matching the notebook's 14 image chunks.
 
-* BLIP misidentifies the university logo as other institutions (2 captions).
-* Two captions are degenerate repetition ("gender gender gender ...").
-* Text-heavy tables and diagrams get vague captions; OCR would recover their
-  text. The notebook ran with Tesseract, so its OCR/BLIP split differed.
-
-The useless-caption filter catches none of these. Two follow-ups, not yet done:
-install Tesseract (the Dockerfile does), and reject captions with a low
-unique-word ratio. Image retrieval quality is therefore not representative of
-the original pipeline until captions are rebuilt with OCR.
+* An earlier run without Tesseract sent all 14 to BLIP. Two of those captions
+  were degenerate repetition ("gender gender gender ...") and text-heavy tables
+  got vague one-liners. With OCR, those images now carry their real text, for
+  example the antisocial-behaviour label table and the crisis-tweet taxonomy.
+* The caption filter now also rejects repetitive captions (six or more words,
+  fewer than half distinct). On this corpus it no longer fires, because OCR
+  handles the images that produced the repetition.
+* Still wrong: BLIP describes the university logo as other universities
+  (2 captions). OCR text is noisy on diagrams. Neither is filtered.

@@ -166,7 +166,8 @@ graph of the paths that were in context.
   and its agreement with human labels is reported rather than assumed.
 * **Graph rows not measured.** The graph and image ablation rows need a running
   Neo4j; `docker compose up` itself has not yet been tested end to end.
-* **OCR.** Without Tesseract installed, every image falls back to BLIP captions.
+* **Image captions.** BLIP misnames logos and OCR text from diagrams is noisy;
+  captions help retrieval only for text-heavy slides.
 * **Router.** Zero-shot routing matches the golden question types 58% of the
   time.
 

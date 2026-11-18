@@ -71,6 +71,7 @@ class Settings(BaseSettings):
     chunk_dense_line_count: int = 6
     chunk_min_chunk_words: int = 25
     ocr_min_alpha_words: int = 15
+    tesseract_cmd: str | None = None  # path to the tesseract binary if not on PATH
     caption_min_words: int = 4
 
     # ── Retrieval ────────────────────────────────────────────────────────

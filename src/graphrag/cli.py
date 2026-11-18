@@ -118,7 +118,7 @@ def index(
 
     if skip_images:
         return
-    captioner = Captioner(s.caption_model, s.ocr_min_alpha_words)
+    captioner = Captioner(s.caption_model, s.ocr_min_alpha_words, tesseract_cmd=s.tesseract_cmd)
     captions: list[CaptionRecord] = []
     counts = {"ocr": 0, "blip": 0, "useless": 0}
     for rec in load_image_records(s.documents_dir):
