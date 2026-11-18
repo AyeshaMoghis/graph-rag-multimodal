@@ -1,0 +1,339 @@
+{
+  "created_at": "2026-11-18T16:19:30+00:00",
+  "provisional_labels": true,
+  "meta": {
+    "questions": 50,
+    "runs": 3,
+    "labels": "data\\golden_qa\\relevance_candidates.json"
+  },
+  "rows": [
+    {
+      "name": "dense only",
+      "overrides": {
+        "fusion": "dense",
+        "bm25_tokenizer": "normalized"
+      },
+      "status": "measured",
+      "aggregate": {
+        "recall_at_5": {
+          "mean": 0.7733,
+          "std": 0.0
+        },
+        "mrr": {
+          "mean": 0.934,
+          "std": 0.0
+        },
+        "ndcg_at_5": {
+          "mean": 0.7748,
+          "std": 0.0
+        },
+        "context_keyword_recall": {
+          "mean": 0.7234,
+          "std": 0.0
+        },
+        "latency_ms_p50": {
+          "mean": 241.8648,
+          "std": 3.5412
+        },
+        "questions_labelled": {
+          "mean": 50.0,
+          "std": 0.0
+        }
+      },
+      "runs": [
+        {
+          "recall_at_5": 0.7733333333333333,
+          "mrr": 0.934,
+          "ndcg_at_5": 0.7747951580756479,
+          "context_keyword_recall": 0.72342,
+          "latency_ms_p50": 237.63429990503937,
+          "questions_labelled": 50.0
+        },
+        {
+          "recall_at_5": 0.7733333333333333,
+          "mrr": 0.934,
+          "ndcg_at_5": 0.7747951580756479,
+          "context_keyword_recall": 0.72342,
+          "latency_ms_p50": 241.65904987603426,
+          "questions_labelled": 50.0
+        },
+        {
+          "recall_at_5": 0.7733333333333333,
+          "mrr": 0.934,
+          "ndcg_at_5": 0.7747951580756479,
+          "context_keyword_recall": 0.72342,
+          "latency_ms_p50": 246.30115006584674,
+          "questions_labelled": 50.0
+        }
+      ]
+    },
+    {
+      "name": "BM25 only",
+      "overrides": {
+        "fusion": "sparse",
+        "bm25_tokenizer": "normalized"
+      },
+      "status": "measured",
+      "aggregate": {
+        "recall_at_5": {
+          "mean": 0.6533,
+          "std": 0.0
+        },
+        "mrr": {
+          "mean": 0.789,
+          "std": 0.0
+        },
+        "ndcg_at_5": {
+          "mean": 0.6233,
+          "std": 0.0
+        },
+        "context_keyword_recall": {
+          "mean": 0.6912,
+          "std": 0.0
+        },
+        "latency_ms_p50": {
+          "mean": 1.1012,
+          "std": 0.0202
+        },
+        "questions_labelled": {
+          "mean": 50.0,
+          "std": 0.0
+        }
+      },
+      "runs": [
+        {
+          "recall_at_5": 0.6533333333333333,
+          "mrr": 0.789,
+          "ndcg_at_5": 0.6232604830865462,
+          "context_keyword_recall": 0.6911799999999999,
+          "latency_ms_p50": 1.1155500542372465,
+          "questions_labelled": 50.0
+        },
+        {
+          "recall_at_5": 0.6533333333333333,
+          "mrr": 0.789,
+          "ndcg_at_5": 0.6232604830865462,
+          "context_keyword_recall": 0.6911799999999999,
+          "latency_ms_p50": 1.0726001346483827,
+          "questions_labelled": 50.0
+        },
+        {
+          "recall_at_5": 0.6533333333333333,
+          "mrr": 0.789,
+          "ndcg_at_5": 0.6232604830865462,
+          "context_keyword_recall": 0.6911799999999999,
+          "latency_ms_p50": 1.1155500542372465,
+          "questions_labelled": 50.0
+        }
+      ]
+    },
+    {
+      "name": "hybrid (broken fusion, original)",
+      "overrides": {
+        "fusion": "legacy",
+        "bm25_tokenizer": "legacy",
+        "graph_mode": "legacy",
+        "entity_extractor": "legacy",
+        "prompt_version": "v1",
+        "conflict_mode": "naive"
+      },
+      "status": "measured",
+      "aggregate": {
+        "recall_at_5": {
+          "mean": 0.65,
+          "std": 0.0
+        },
+        "mrr": {
+          "mean": 0.5807,
+          "std": 0.0
+        },
+        "ndcg_at_5": {
+          "mean": 0.5248,
+          "std": 0.0
+        },
+        "context_keyword_recall": {
+          "mean": 0.6474,
+          "std": 0.0
+        },
+        "latency_ms_p50": {
+          "mean": 256.0449,
+          "std": 3.493
+        },
+        "questions_labelled": {
+          "mean": 50.0,
+          "std": 0.0
+        }
+      },
+      "runs": [
+        {
+          "recall_at_5": 0.65,
+          "mrr": 0.5806666666666667,
+          "ndcg_at_5": 0.5247706150424746,
+          "context_keyword_recall": 0.64738,
+          "latency_ms_p50": 259.75115003529936,
+          "questions_labelled": 50.0
+        },
+        {
+          "recall_at_5": 0.65,
+          "mrr": 0.5806666666666667,
+          "ndcg_at_5": 0.5247706150424746,
+          "context_keyword_recall": 0.64738,
+          "latency_ms_p50": 257.02009990345687,
+          "questions_labelled": 50.0
+        },
+        {
+          "recall_at_5": 0.65,
+          "mrr": 0.5806666666666667,
+          "ndcg_at_5": 0.5247706150424746,
+          "context_keyword_recall": 0.64738,
+          "latency_ms_p50": 251.36344996280968,
+          "questions_labelled": 50.0
+        }
+      ]
+    },
+    {
+      "name": "hybrid (RRF, fixed)",
+      "overrides": {
+        "fusion": "rrf",
+        "bm25_tokenizer": "normalized"
+      },
+      "status": "measured",
+      "aggregate": {
+        "recall_at_5": {
+          "mean": 0.7867,
+          "std": 0.0
+        },
+        "mrr": {
+          "mean": 0.93,
+          "std": 0.0
+        },
+        "ndcg_at_5": {
+          "mean": 0.7794,
+          "std": 0.0
+        },
+        "context_keyword_recall": {
+          "mean": 0.7322,
+          "std": 0.0
+        },
+        "latency_ms_p50": {
+          "mean": 258.77,
+          "std": 16.6976
+        },
+        "questions_labelled": {
+          "mean": 50.0,
+          "std": 0.0
+        }
+      },
+      "runs": [
+        {
+          "recall_at_5": 0.7866666666666667,
+          "mrr": 0.93,
+          "ndcg_at_5": 0.7794316960620152,
+          "context_keyword_recall": 0.73224,
+          "latency_ms_p50": 282.34365000389516,
+          "questions_labelled": 50.0
+        },
+        {
+          "recall_at_5": 0.7866666666666667,
+          "mrr": 0.93,
+          "ndcg_at_5": 0.7794316960620152,
+          "context_keyword_recall": 0.73224,
+          "latency_ms_p50": 248.17825003992766,
+          "questions_labelled": 50.0
+        },
+        {
+          "recall_at_5": 0.7866666666666667,
+          "mrr": 0.93,
+          "ndcg_at_5": 0.7794316960620152,
+          "context_keyword_recall": 0.73224,
+          "latency_ms_p50": 245.7880498841405,
+          "questions_labelled": 50.0
+        }
+      ]
+    },
+    {
+      "name": "hybrid + rerank",
+      "overrides": {
+        "fusion": "rrf",
+        "bm25_tokenizer": "normalized",
+        "rerank": true
+      },
+      "status": "measured",
+      "aggregate": {
+        "recall_at_5": {
+          "mean": 0.7867,
+          "std": 0.0
+        },
+        "mrr": {
+          "mean": 0.863,
+          "std": 0.0
+        },
+        "ndcg_at_5": {
+          "mean": 0.7541,
+          "std": 0.0
+        },
+        "context_keyword_recall": {
+          "mean": 0.7275,
+          "std": 0.0
+        },
+        "latency_ms_p50": {
+          "mean": 9263.298,
+          "std": 379.0392
+        },
+        "questions_labelled": {
+          "mean": 50.0,
+          "std": 0.0
+        }
+      },
+      "runs": [
+        {
+          "recall_at_5": 0.7866666666666667,
+          "mrr": 0.863,
+          "ndcg_at_5": 0.7540622557973536,
+          "context_keyword_recall": 0.72752,
+          "latency_ms_p50": 9689.121449948289,
+          "questions_labelled": 50.0
+        },
+        {
+          "recall_at_5": 0.7866666666666667,
+          "mrr": 0.863,
+          "ndcg_at_5": 0.7540622557973536,
+          "context_keyword_recall": 0.72752,
+          "latency_ms_p50": 8768.407850060612,
+          "questions_labelled": 50.0
+        },
+        {
+          "recall_at_5": 0.7866666666666667,
+          "mrr": 0.863,
+          "ndcg_at_5": 0.7540622557973536,
+          "context_keyword_recall": 0.72752,
+          "latency_ms_p50": 9332.364700036123,
+          "questions_labelled": 50.0
+        }
+      ]
+    },
+    {
+      "name": "hybrid + rerank + graph",
+      "overrides": {
+        "fusion": "rrf",
+        "bm25_tokenizer": "normalized",
+        "rerank": true
+      },
+      "status": "pending: needs Neo4j (NEO4J_* not set)",
+      "aggregate": {},
+      "runs": []
+    },
+    {
+      "name": "full (+ images)",
+      "overrides": {
+        "fusion": "rrf",
+        "bm25_tokenizer": "normalized",
+        "rerank": true,
+        "image_top_k": 2
+      },
+      "status": "pending: needs Neo4j (NEO4J_* not set); needs image captions (run `graphrag index` without --skip-images)",
+      "aggregate": {},
+      "runs": []
+    }
+  ]
+}

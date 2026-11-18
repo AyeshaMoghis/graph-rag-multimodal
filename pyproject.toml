@@ -42,6 +42,11 @@ dev = [
     "ruff==0.17.5",
 ]
 
+demo = [
+    "pyvis==0.3.2",
+    "streamlit==1.67.0",
+]
+
 [project.scripts]
 graphrag = "graphrag.cli:app"
 

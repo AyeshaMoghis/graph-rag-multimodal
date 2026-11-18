@@ -45,6 +45,8 @@ class Embedder:
         return np.asarray(vectors, dtype=np.float32)
 
     def encode_query(self, query: str) -> NDArray[np.float32]:
+        if self._cache_size <= 0:
+            return np.asarray(self.encode([query])[0], dtype=np.float32)
         if query in self._cache:
             self._cache.move_to_end(query)
             return self._cache[query]

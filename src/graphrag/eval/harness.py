@@ -22,8 +22,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Literal
 
+from graphrag.eval.judge import judge_answer
 from graphrag.eval.metrics import context_keyword_recall, keyword_recall
 from graphrag.log import get_logger
+from graphrag.reasoning.llm import LLM
 from graphrag.reasoning.verify import evidence_confidence
 from graphrag.retrieval.pipeline import Pipeline
 
@@ -55,7 +57,9 @@ def load_golden(path: Path) -> list[GoldenItem]:
     ]
 
 
-def evaluate_item(pipeline: Pipeline, item: GoldenItem, mode: EvalMode) -> dict[str, Any]:
+def evaluate_item(
+    pipeline: Pipeline, item: GoldenItem, mode: EvalMode, judge: LLM | None = None
+) -> dict[str, Any]:
     s = pipeline.settings
     row: dict[str, Any] = {
         "id": item.id,
@@ -109,6 +113,14 @@ def evaluate_item(pipeline: Pipeline, item: GoldenItem, mode: EvalMode) -> dict[
             images_used=meta.get("images_used", 0),
             timings_ms=result.timings_ms,
         )
+        if judge is not None:
+            context = "\n".join([*result.graph.paths, *(h.text for h in result.text_chunks)])
+            verdict = judge_answer(item.question, context, row["answer"], judge)
+            row.update(
+                judge_faithfulness=verdict.faithfulness,
+                judge_answer_relevance=verdict.answer_relevance,
+                judge_error=verdict.error,
+            )
     row["latency_ms"] = (time.perf_counter() - t0) * 1000
     return row
 
@@ -120,13 +132,14 @@ def run_evaluation(
     checkpoint_path: Path | None = None,
     start_from: int = 0,
     sleep_seconds: float = 0.0,
+    judge: LLM | None = None,
 ) -> list[dict[str, Any]]:
     results: list[dict[str, Any]] = []
     if start_from and checkpoint_path and checkpoint_path.exists():
         results = json.loads(checkpoint_path.read_text(encoding="utf-8"))[:start_from]
     for i, item in enumerate(golden[start_from:], start=start_from):
         try:
-            row = evaluate_item(pipeline, item, mode)
+            row = evaluate_item(pipeline, item, mode, judge)
         except Exception as exc:
             log.error("eval_item_failed", id=item.id, error=str(exc))
             row = {
@@ -194,6 +207,13 @@ def summarize(results: Sequence[dict[str, Any]], mode: EvalMode) -> dict[str, An
         summary["answers_with_fabrication_rate"] = mean(
             [{"v": float(r["citations_fabricated"] > 0)} for r in good], "v"
         )
+        judged = [
+            r for r in good if r.get("judge_faithfulness") is not None and not r.get("judge_error")
+        ]
+        if judged:
+            summary["judge_faithfulness"] = mean(judged, "judge_faithfulness")
+            summary["judge_answer_relevance"] = mean(judged, "judge_answer_relevance")
+            summary["judge_errors"] = sum(1 for r in good if r.get("judge_error"))
         rated = [r for r in good if r.get("supported_sentence_rate") is not None]
         summary["supported_sentence_rate"] = (
             mean(rated, "supported_sentence_rate") if rated else None

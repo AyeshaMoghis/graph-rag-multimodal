@@ -96,3 +96,66 @@ How to read this honestly:
 * **Triple extraction** is async with bounded concurrency, exponential backoff
   with jitter, and a completed-index checkpoint. Unit-tested with a fake LLM;
   wall-clock speed-up against Groq not yet measured.
+
+## Task 3: ablation, reranker, router
+
+### Ablation (`graphrag ablation`, raw results in `results/ablation.json`)
+
+Retrieval-only rows; 50 golden questions; top 5 text chunks; 3 runs per row;
+all caches off; CPU only. Retrieval metrics are identical across runs, so only
+latency has spread.
+
+| Config | Recall@5 | MRR | nDCG@5 | Context keyword recall | p50 latency |
+|---|---|---|---|---|---|
+| dense only | 0.773 | 0.934 | 0.775 | 0.723 | 242 ms ± 4 |
+| BM25 only | 0.653 | 0.789 | 0.623 | 0.691 | 1 ms |
+| hybrid, broken fusion (original) | 0.650 | 0.581 | 0.525 | 0.647 | 256 ms ± 3 |
+| hybrid, RRF (fixed) | 0.787 | 0.930 | 0.779 | 0.732 | 259 ms ± 17 |
+| hybrid + rerank | 0.787 | 0.863 | 0.754 | 0.728 | 9263 ms ± 379 |
+
+Rows with the graph and images are pending (Neo4j, image captions); answer-level
+columns (keyword recall on the answer, faithfulness) are pending (Groq key).
+
+**Ground truth is provisional.** Recall@5, MRR and nDCG@5 use the automatic
+relevance suggestions in `data/golden_qa/relevance_candidates.json`, not yet
+reviewed by a person. Candidates were ranked by similarity between each
+question's ideal answer and each chunk using `all-MiniLM-L6-v2`, a model no
+retriever uses; identical slides form one group. Because that ranking is
+semantic, it may favour dense retrieval over BM25.
+
+What the table says:
+
+* **The original hybrid was worse than dense retrieval alone** on every
+  metric: MRR 0.581 against 0.934. The broken fusion did not just fail to help;
+  concatenating two independently scored lists pushed the best dense hit down.
+* **The fix:** Recall@5 0.650 to 0.787, MRR 0.581 to 0.930, nDCG@5 0.525 to
+  0.779, context keyword recall 0.647 to 0.732.
+* **Fixed hybrid is close to dense alone** on this corpus (Recall@5 +0.014,
+  nDCG@5 +0.004, MRR -0.004). BM25 adds little here; slides are short and the
+  dense model already matches their vocabulary.
+* **The reranker does not pay for itself here.** `BAAI/bge-reranker-base` over
+  30 candidates leaves Recall@5 unchanged, lowers MRR by 0.067 and costs about
+  36x the latency on CPU. It stays off by default and remains in the ablation.
+
+A first ablation run reported 13 to 16 ms medians for runs 2 and 3. That was a
+measurement bug: the embedder's in-memory query cache was still on, so those
+runs skipped query embedding. The cache is now disabled in the ablation and the
+table above comes from the corrected run.
+
+### Router (`graphrag route-eval`, `results/router.json`)
+
+Zero-shot nearest-template routing agrees with the golden question type on
+0.58 of questions (lookup 16/31, relational 11/15, multi-hop 2/4). The
+templates were written after seeing the golden questions, so this is
+indicative, not held-out. A misrouted lookup only costs graph latency; a
+misrouted multi-hop question loses decomposition. Not tuned further on these
+labels to avoid overfitting; an LLM router is worth comparing once a key is
+available.
+
+### Not yet measured
+
+Answer-level keyword recall and the before/after against the notebook's 0.588,
+fabricated-citation rate, calibration plot, supported-sentence rate, LLM-judge
+faithfulness and its agreement with human labels, multi-hop recall with the
+router and decomposition, HyDE, the graph and image ablation rows, and
+`docker compose up`.

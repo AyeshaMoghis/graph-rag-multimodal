@@ -49,10 +49,12 @@ class Settings(BaseSettings):
     # ── Models ───────────────────────────────────────────────────────────
     embed_model: str = "BAAI/bge-large-en-v1.5"
     embed_batch_size: int = 64
+    embed_query_cache_size: int = 1024  # in-memory LRU; the ablation sets 0
     caption_model: str = "Salesforce/blip-image-captioning-base"
     llm_model: str = "llama-3.1-8b-instant"
     llm_temperature: float = 0.1
     llm_max_tokens: int = 1024
+    judge_model: str | None = None  # must differ from llm_model; enables LLM-as-judge
     prompt_version: Literal["v1", "v2", "v3"] = "v3"
     entailment_threshold: float = 0.5
     conflict_mode: Literal["nli", "naive"] = "nli"

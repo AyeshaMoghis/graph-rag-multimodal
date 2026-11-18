@@ -268,6 +268,14 @@ def eval_cmd(
 
     golden = load_golden(s.golden_qa_path)[:limit]
     pipeline = Pipeline.from_settings(s, use_graph=mode == "answer", use_llm=mode == "answer")
+    judge = None
+    if mode == "answer" and s.judge_model and s.groq_api_key is not None:
+        from graphrag.eval.judge import check_judge_model
+        from graphrag.reasoning.llm import GroqLLM
+
+        judge = GroqLLM(
+            s.groq_api_key.get_secret_value(), check_judge_model(s.judge_model, s.llm_model), 0.0
+        )
     results = run_evaluation(
         pipeline,
         golden,
@@ -275,6 +283,7 @@ def eval_cmd(
         checkpoint_path=out.with_suffix(".partial.json"),
         start_from=start_from,
         sleep_seconds=s.eval_sleep_seconds,
+        judge=judge,
     )
     summary = summarize(results, mode)  # type: ignore[arg-type]
     config = {
@@ -492,6 +501,46 @@ def route_eval(
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps({"summary": summary, "results": rows}, indent=2), encoding="utf-8")
     typer.echo(json.dumps(summary, indent=2))
+
+
+@app.command("judge-template")
+def judge_template(
+    results: Path = typer.Argument(..., help="An answer-mode results JSON."),
+    out: Path = typer.Option(Path("data/golden_qa/judge_human_labels.json")),
+    n: int = typer.Option(12, help="How many answers to label."),
+) -> None:
+    """Write a blank human-label file for measuring judge agreement."""
+    from graphrag.eval.judge import write_label_template
+
+    if out.exists():
+        raise typer.BadParameter(f"{out} exists; refusing to overwrite labels")
+    rows = json.loads(results.read_text(encoding="utf-8"))["results"]
+    write_label_template(out, rows, n)
+    typer.echo(f"wrote {out}: fill in human_faithfulness for each item")
+
+
+@app.command("judge-agreement")
+def judge_agreement(
+    results: Path = typer.Argument(..., help="Answer-mode results JSON with judge scores."),
+    labels: Path = typer.Option(Path("data/golden_qa/judge_human_labels.json")),
+) -> None:
+    """Agreement between the LLM judge and human faithfulness labels."""
+    from graphrag.eval.judge import agreement
+
+    judged = {
+        r["id"]: r["judge_faithfulness"]
+        for r in json.loads(results.read_text(encoding="utf-8"))["results"]
+        if r.get("judge_faithfulness") is not None and not r.get("judge_error")
+    }
+    items = json.loads(labels.read_text(encoding="utf-8"))["items"]
+    pairs = [
+        (i["human_faithfulness"], judged[i["id"]])
+        for i in items
+        if i["human_faithfulness"] is not None and i["id"] in judged
+    ]
+    if not pairs:
+        raise typer.BadParameter("no labelled items with judge scores yet")
+    typer.echo(json.dumps(agreement([h for h, _ in pairs], [j for _, j in pairs]), indent=2))
 
 
 if __name__ == "__main__":

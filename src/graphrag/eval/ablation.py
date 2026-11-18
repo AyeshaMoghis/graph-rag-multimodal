@@ -16,9 +16,9 @@ Methodology
 * Each row runs ``runs`` times (default 3); the table reports mean and standard
   deviation. Retrieval is deterministic (exact score ties break by chunk id),
   so metric spread is expected to be zero; latency spread is not.
-* Latency is wall-clock retrieval time per question on the machine that ran
-  the study, model loading excluded only insofar as the median ignores the
-  first, slower call.
+* Latency is wall-clock retrieval time per question, median over questions,
+  with every cache disabled (on-disk and the embedder's in-memory LRU), so each
+  run re-embeds every query. Run on an otherwise idle machine; CPU only.
 * Answer-level columns (keyword recall on the generated answer, faithfulness)
   need an LLM and are reported as pending until run with a Groq key.
 """
@@ -141,7 +141,9 @@ def run_ablation(
         if only and config.name not in only:
             continue
         # Caching is off so repeated runs measure real latency, not cache hits.
-        settings = base_settings.model_copy(update={**config.overrides, "cache_enabled": False})
+        settings = base_settings.model_copy(
+            update={**config.overrides, "cache_enabled": False, "embed_query_cache_size": 0}
+        )
         missing = missing_requirements(config, settings)
         if missing:
             rows.append(RowResult(config.name, config.overrides, "pending: " + "; ".join(missing)))

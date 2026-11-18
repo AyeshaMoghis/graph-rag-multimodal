@@ -109,7 +109,9 @@ class Pipeline:
     def from_settings(
         cls, settings: Settings, use_graph: bool = True, use_llm: bool = True
     ) -> Pipeline:
-        embedder: Any = Embedder(settings.embed_model, settings.embed_batch_size)
+        embedder: Any = Embedder(
+            settings.embed_model, settings.embed_batch_size, settings.embed_query_cache_size
+        )
         cache = DiskCache(settings.cache_path) if settings.cache_enabled else None
         if cache is not None:
             embedder = CachedEmbedder(embedder, cache, config_hash({"m": settings.embed_model}))
