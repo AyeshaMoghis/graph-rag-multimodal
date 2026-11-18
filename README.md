@@ -200,8 +200,10 @@ graph of the paths that were in context.
 * **LLM-as-judge limitations.** Judges can be lenient, prefer fluent answers and
   disagree with people; the judge must be a different model from the generator,
   and its agreement with human labels is reported rather than assumed.
-* **Graph rows not measured.** The graph and image ablation rows need a running
-  Neo4j; `docker compose up` itself has not yet been tested end to end.
+* **Graph rows not measured.** The graph code passes integration tests against
+  a real Neo4j 5 in CI (schema, full-text linking, ranked expansion, injection
+  safety), but the graph and image ablation rows were not run, and
+  `docker compose up` has not been tested end to end.
 * **Image captions.** BLIP misnames logos and OCR text from diagrams is noisy;
   captions help retrieval only for text-heavy slides.
 * **Router.** Zero-shot routing matches the golden question types 58% of the

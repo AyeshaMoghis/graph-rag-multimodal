@@ -84,7 +84,7 @@ How to read this honestly:
 * **Entity linking** goes lexical (Neo4j full-text index) to semantic (cached
   node-name embeddings) to fuzzy only for misses, and node names are fetched
   once per process instead of on every query. Unit-tested against a fake
-  driver; not yet run against a live graph.
+  driver, and the integration tests pass against Neo4j 5 in CI.
 * **Query entities** come from GLiNER plus the quoted-span and acronym regexes.
   Qualitative spot check, not saved: for "What is the difference between local trust and global trust
   on Twitter?" GLiNER returns *local trust*, *global trust* and *Twitter*; for
