@@ -34,6 +34,7 @@ from typing import Any
 
 from graphrag.config import FusionMode
 from graphrag.index.types import ScoredHit, Searcher
+from graphrag.retrieval.rerank import Reranker
 
 LEGACY_KEY_CHARS = 30
 
@@ -51,6 +52,7 @@ class FusedHit:
     dense_score: float | None = None
     sparse_score: float | None = None
     fusion_key: str = ""
+    rerank_score: float | None = None
 
     @property
     def retrieved_by(self) -> tuple[str, ...]:
@@ -199,6 +201,8 @@ class HybridRetriever:
         rrf_k: int = 60,
         alpha: float = 0.5,
         candidate_multiplier: int = 3,
+        reranker: Reranker | None = None,
+        rerank_candidates: int = 30,
     ) -> None:
         self.dense = dense
         self.sparse = sparse
@@ -206,14 +210,29 @@ class HybridRetriever:
         self.rrf_k = rrf_k
         self.alpha = alpha
         self.candidate_multiplier = candidate_multiplier
+        self.reranker = reranker
+        self.rerank_candidates = rerank_candidates
 
     def retrieve(self, query: str, top_k: int = 5) -> list[FusedHit]:
-        n = top_k * self.candidate_multiplier
-        hits = fuse(
-            self.dense.search(query, n),
-            self.sparse.search(query, n),
-            mode=self.mode,
-            rrf_k=self.rrf_k,
-            alpha=self.alpha,
-        )
+        """Fuse, then optionally rerank the top ``rerank_candidates`` with a cross-encoder.
+
+        ``dense`` and ``sparse`` modes query only that retriever (for the
+        ablation); a single list fused with RRF keeps that retriever's order.
+        """
+        pool = max(top_k, self.rerank_candidates) if self.reranker else top_k
+        n = max(top_k * self.candidate_multiplier, pool)
+        if self.mode == "dense":
+            hits = fuse(self.dense.search(query, n), [], mode="rrf", rrf_k=self.rrf_k)
+        elif self.mode == "sparse":
+            hits = fuse([], self.sparse.search(query, n), mode="rrf", rrf_k=self.rrf_k)
+        else:
+            hits = fuse(
+                self.dense.search(query, n),
+                self.sparse.search(query, n),
+                mode=self.mode,
+                rrf_k=self.rrf_k,
+                alpha=self.alpha,
+            )
+        if self.reranker is not None:
+            return self.reranker.rerank(query, hits[:pool], top_k)
         return hits[:top_k]

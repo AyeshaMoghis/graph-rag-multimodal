@@ -36,6 +36,7 @@ from graphrag.reasoning.verify import (
 )
 from graphrag.retrieval.fusion import BudgetConfig, PackedContext, pack_context
 from graphrag.retrieval.hybrid import FusedHit, HybridRetriever
+from graphrag.retrieval.rerank import CrossEncoderReranker, CrossEncoderScorer
 
 log = get_logger(__name__)
 
@@ -105,6 +106,12 @@ class Pipeline:
             rrf_k=settings.rrf_k,
             alpha=settings.hybrid_alpha,
             candidate_multiplier=settings.candidate_multiplier,
+            reranker=(
+                CrossEncoderReranker(CrossEncoderScorer(settings.rerank_model))
+                if settings.rerank
+                else None
+            ),
+            rerank_candidates=settings.rerank_candidates,
         )
         image_searcher = DenseSearcher(store, IMAGE_COLLECTION, embedder)
 

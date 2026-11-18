@@ -14,7 +14,7 @@ from typing import Literal
 from pydantic import AliasChoices, Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-FusionMode = Literal["rrf", "weighted", "legacy"]
+FusionMode = Literal["rrf", "weighted", "legacy", "dense", "sparse"]
 TokenizerMode = Literal["normalized", "legacy"]
 GraphModeSetting = Literal["ranked", "legacy"]
 EntityExtractorMode = Literal["ner", "legacy"]
@@ -76,6 +76,9 @@ class Settings(BaseSettings):
     rrf_k: int = 60
     hybrid_alpha: float = 0.5
     candidate_multiplier: int = 3
+    rerank: bool = False
+    rerank_model: str = "BAAI/bge-reranker-base"
+    rerank_candidates: int = 30
     text_top_k: int = 5
     image_top_k: int = 3
     graph_hops: int = 2

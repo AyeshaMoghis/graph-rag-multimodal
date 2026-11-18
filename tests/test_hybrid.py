@@ -124,3 +124,38 @@ def test_retriever_over_retrieves_and_truncates() -> None:
     out = HybridRetriever(dense, sparse, candidate_multiplier=3).retrieve("q", top_k=5)
     assert len(out) == 5
     assert dense.requested == [15] and sparse.requested == [15]
+
+
+class ReverseScorer:
+    """Scores later candidates higher, so reranking visibly reorders."""
+
+    def __init__(self) -> None:
+        self.pairs: list[tuple[str, str]] = []
+
+    def score(self, pairs: list[tuple[str, str]]) -> list[float]:
+        self.pairs = list(pairs)
+        return [float(i) for i in range(len(pairs))]
+
+
+def test_reranker_over_retrieves_and_reorders() -> None:
+    from graphrag.retrieval.rerank import CrossEncoderReranker
+
+    dense = FakeSearcher([hit(f"d{i}", 1 - i / 100) for i in range(40)])
+    sparse = FakeSearcher([hit(f"s{i}", 40 - i) for i in range(40)])
+    scorer = ReverseScorer()
+    retriever = HybridRetriever(
+        dense, sparse, reranker=CrossEncoderReranker(scorer), rerank_candidates=30
+    )
+    out = retriever.retrieve("q", top_k=5)
+    assert len(scorer.pairs) == 30  # the cross-encoder saw the 30-candidate pool
+    assert dense.requested == [30] and sparse.requested == [30]
+    assert [h.rerank_score for h in out] == [29.0, 28.0, 27.0, 26.0, 25.0]
+
+
+def test_single_retriever_modes_query_only_that_retriever() -> None:
+    dense = FakeSearcher([hit(f"d{i}", 1 - i / 100) for i in range(20)])
+    sparse = FakeSearcher([hit(f"s{i}", 20 - i) for i in range(20)])
+    out = HybridRetriever(dense, sparse, mode="dense").retrieve("q", top_k=3)
+    assert [h.chunk_id for h in out] == ["d0", "d1", "d2"] and sparse.requested == []
+    out = HybridRetriever(dense, sparse, mode="sparse").retrieve("q", top_k=3)
+    assert [h.chunk_id for h in out] == ["s0", "s1", "s2"]

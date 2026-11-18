@@ -34,6 +34,17 @@ def main(verbose: bool = typer.Option(False, "--verbose", "-v")) -> None:
     configure_logging("DEBUG" if verbose else "INFO")
 
 
+def parse_overrides(items: list[str]) -> dict[str, str]:
+    """Parse ``key=value`` pairs; pydantic converts the strings to the field types."""
+    out: dict[str, str] = {}
+    for item in items:
+        key, sep, value = item.partition("=")
+        if not sep or not key.strip():
+            raise typer.BadParameter(f"expected key=value, got {item!r}")
+        out[key.strip()] = value.strip()
+    return out
+
+
 def _settings(**overrides: object) -> Settings:
     clean = {k: v for k, v in overrides.items() if v is not None}
     return Settings(**clean)  # type: ignore[arg-type]
@@ -231,6 +242,9 @@ def eval_cmd(
     out: Path = typer.Option(Path("results/eval.json"), help="Where to save raw results."),
     limit: int | None = typer.Option(None, help="Only the first N questions."),
     start_from: int = typer.Option(0, help="Resume from question index."),
+    overrides: list[str] = typer.Option(
+        [], "--set", help="Override any setting, e.g. --set rerank=true (repeatable)."
+    ),
 ) -> None:
     """Run the golden QA set and save raw results, a summary and a markdown report."""
     from graphrag.eval.harness import (
@@ -244,12 +258,13 @@ def eval_cmd(
 
     if mode not in ("answer", "retrieval"):
         raise typer.BadParameter("mode must be answer or retrieval")
-    overrides: dict[str, object] = dict(PRESETS[preset]) if preset else {}
+    config_overrides: dict[str, object] = dict(PRESETS[preset]) if preset else {}
     if fusion:
-        overrides["fusion"] = fusion
+        config_overrides["fusion"] = fusion
     if tokenizer:
-        overrides["bm25_tokenizer"] = tokenizer
-    s = _settings(**overrides)
+        config_overrides["bm25_tokenizer"] = tokenizer
+    config_overrides.update(parse_overrides(overrides))
+    s = _settings(**config_overrides)
 
     golden = load_golden(s.golden_qa_path)[:limit]
     pipeline = Pipeline.from_settings(s, use_graph=mode == "answer", use_llm=mode == "answer")
@@ -270,9 +285,13 @@ def eval_cmd(
         "alpha": s.hybrid_alpha,
         "text_top_k": s.text_top_k,
         "embed_model": s.embed_model,
+        "rerank": s.rerank,
+        "rerank_model": s.rerank_model if s.rerank else None,
+        "rerank_candidates": s.rerank_candidates if s.rerank else None,
         "llm_model": s.llm_model if mode == "answer" else None,
         "golden_qa": str(s.golden_qa_path),
         "n_questions": len(golden),
+        "overrides": config_overrides,
     }
     save_run(out, config, summary, results)
     out.with_suffix(".md").write_text(render_markdown(summary, config), encoding="utf-8")
@@ -380,6 +399,61 @@ def conflicts(
         encoding="utf-8",
     )
     typer.echo(json.dumps(summary, indent=2))
+
+
+@app.command("label-candidates")
+def label_candidates(
+    out: Path = typer.Option(
+        Path("data/golden_qa/relevance_candidates.json"), help="Where to write the candidates."
+    ),
+    force: bool = typer.Option(False, help="Overwrite even if some questions are reviewed."),
+) -> None:
+    """Generate chunk-level relevance candidates for manual review (Task 3.3)."""
+    from graphrag.eval.relevance import LABEL_MODEL, generate_candidates
+    from graphrag.index.embeddings import Embedder
+    from graphrag.ingest.chunking import load_chunks
+
+    if out.exists() and not force:
+        existing = json.loads(out.read_text(encoding="utf-8"))
+        if any(q.get("reviewed") for q in existing.get("questions", [])):
+            raise typer.BadParameter(f"{out} has reviewed questions; use --force to overwrite")
+    s = _settings()
+    questions = json.loads(s.golden_qa_path.read_text(encoding="utf-8"))
+    data = generate_candidates(questions, load_chunks(s.documents_dir), Embedder(LABEL_MODEL))
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    suggested = [sum(c["suggested"] for c in q["candidates"]) for q in data["questions"]]
+    typer.echo(
+        f"questions {len(suggested)} | with >=1 suggestion {sum(1 for n in suggested if n)} | "
+        f"suggested groups total {sum(suggested)} | status: UNREVIEWED"
+    )
+
+
+@app.command()
+def ablation(
+    runs: int = typer.Option(3, help="Runs per row."),
+    only: list[str] = typer.Option([], help="Run only these rows (repeatable)."),
+    out: Path = typer.Option(Path("results/ablation.json"), help="Where to save raw results."),
+    labels: Path = typer.Option(
+        Path("data/golden_qa/relevance_candidates.json"), help="Relevance labels file."
+    ),
+) -> None:
+    """Run the ablation table (Task 3.2) and save raw results plus a markdown table."""
+    from graphrag.eval.ablation import render_table, run_ablation, save_ablation
+    from graphrag.eval.harness import load_golden
+    from graphrag.eval.relevance import load_relevance
+
+    s = _settings()
+    golden = load_golden(s.golden_qa_path)
+    relevance, reviewed = load_relevance(labels)
+    rows = run_ablation(golden, relevance, s, runs=runs, only=only or None)
+    provisional = not all(reviewed.get(q.id) for q in golden)
+    save_ablation(
+        out, rows, provisional, {"questions": len(golden), "runs": runs, "labels": str(labels)}
+    )
+    table = render_table(out)
+    out.with_suffix(".md").write_text(table + "\n", encoding="utf-8")
+    typer.echo(table)
 
 
 if __name__ == "__main__":
