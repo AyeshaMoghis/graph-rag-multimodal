@@ -7,6 +7,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
 
+from graphrag.cache import CachedEmbedder, CachedLLM, DiskCache, config_hash
 from graphrag.config import Settings
 from graphrag.graph.retrieve import (
     EntityExtractor,
@@ -102,12 +103,16 @@ class Pipeline:
         self.linker = linker
         self.nli: NLIModel | None = nli
         self.router: QueryRouter | None = router
+        self.cache: DiskCache | None = None
 
     @classmethod
     def from_settings(
         cls, settings: Settings, use_graph: bool = True, use_llm: bool = True
     ) -> Pipeline:
-        embedder = Embedder(settings.embed_model, settings.embed_batch_size)
+        embedder: Any = Embedder(settings.embed_model, settings.embed_batch_size)
+        cache = DiskCache(settings.cache_path) if settings.cache_enabled else None
+        if cache is not None:
+            embedder = CachedEmbedder(embedder, cache, config_hash({"m": settings.embed_model}))
         store = VectorStore(settings.chroma_path)
         bm25 = BM25Index.load(settings.bm25_path, tokenizer=settings.bm25_tokenizer)
         hybrid = HybridRetriever(
@@ -154,8 +159,24 @@ class Pipeline:
                 settings.llm_temperature,
                 settings.llm_max_tokens,
             )
+            if cache is not None:
+                llm = CachedLLM(
+                    llm,
+                    cache,
+                    config_hash(
+                        {
+                            "model": settings.llm_model,
+                            "temperature": settings.llm_temperature,
+                            "max_tokens": settings.llm_max_tokens,
+                        }
+                    ),
+                )
         router = QueryRouter(embedder) if settings.router else None
-        return cls(settings, hybrid, image_searcher, graph_store, llm, linker=linker, router=router)
+        pipeline = cls(
+            settings, hybrid, image_searcher, graph_store, llm, linker=linker, router=router
+        )
+        pipeline.cache = cache
+        return pipeline
 
     def retrieve(
         self,
@@ -280,10 +301,18 @@ class Pipeline:
         if self.llm is None:
             raise RuntimeError("GROQ_API_KEY is not set; answering needs an LLM")
         result = self.retrieve(query, **retrieve_kwargs)
+        return self.answer_from_retrieval(query, result), result
+
+    def answer_from_retrieval(self, query: str, result: RetrievalResult) -> dict[str, Any]:
+        """Pack, generate, verify. Split from :meth:`answer` so the API can stream stages."""
+        if self.llm is None:
+            raise RuntimeError("GROQ_API_KEY is not set; answering needs an LLM")
         t0 = time.perf_counter()
         context = self.pack(result)
+        result.timings_ms["pack"] = (time.perf_counter() - t0) * 1000
         if self.nli is None and self.settings.prompt_version == "v3":
             self.nli = CrossEncoderNLI(self.settings.nli_model)
+        t0 = time.perf_counter()
         answer = generate_answer(
             query,
             context,
@@ -297,6 +326,8 @@ class Pipeline:
             result.text_chunks,
             len(context.kept_graph_paths) if self.graph_store is not None else None,
         )
+        answer["_usage"] = dict(getattr(self.llm, "last_usage", {}) or {})
+        answer["_conflicts"] = list(context.conflicts)
         answer["confidence"] = evidence.level
         answer["_evidence"] = {"score": evidence.score, **evidence.components}
-        return answer, result
+        return answer

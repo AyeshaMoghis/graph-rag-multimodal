@@ -110,6 +110,10 @@ class Settings(BaseSettings):
 
     # ── Eval ─────────────────────────────────────────────────────────────
     eval_sleep_seconds: float = 1.5
+
+    # ── Serving ──────────────────────────────────────────────────────────
+    cache_enabled: bool = True
+    usd_per_million_tokens: float | None = None  # set to report cost saved by the cache
     seed: int = 42
 
     # ── Derived paths ────────────────────────────────────────────────────
@@ -136,6 +140,10 @@ class Settings(BaseSettings):
     @property
     def graph_checkpoint_path(self) -> Path:
         return self.output_dir / "graph_meta.json"
+
+    @property
+    def cache_path(self) -> Path:
+        return self.output_dir / "cache.sqlite"
 
     @property
     def graph_enabled(self) -> bool:

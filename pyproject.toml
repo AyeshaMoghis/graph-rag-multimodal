@@ -10,6 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "chromadb==1.5.9",
+    "fastapi==0.163.2",
     "gliner==0.2.30",
     "groq==1.7.0",
     "imagehash==4.3.2",
@@ -29,11 +30,13 @@ dependencies = [
     "tqdm==4.70.1",
     "transformers==5.22.2",
     "typer==0.29.1",
+    "uvicorn==0.54.0",
 ]
 
 [project.optional-dependencies]
 dev = [
     "black==26.10.1",
+    "httpx==0.28.1",
     "mypy==2.4.1",
     "pytest==9.2.0",
     "ruff==0.17.5",

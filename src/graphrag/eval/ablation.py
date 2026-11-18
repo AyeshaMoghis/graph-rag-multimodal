@@ -140,7 +140,8 @@ def run_ablation(
     for config in CONFIGS:
         if only and config.name not in only:
             continue
-        settings = base_settings.model_copy(update=config.overrides)
+        # Caching is off so repeated runs measure real latency, not cache hits.
+        settings = base_settings.model_copy(update={**config.overrides, "cache_enabled": False})
         missing = missing_requirements(config, settings)
         if missing:
             rows.append(RowResult(config.name, config.overrides, "pending: " + "; ".join(missing)))
